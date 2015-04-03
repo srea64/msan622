@@ -5,7 +5,7 @@ MSAN 622 Information Visualization
 |  **Name:** | Steven Rea             |
 |-----------:|:-----------------------|
 | **Email:** | <s.rea64@gmail.com>    |
-|   **Web:** | <http://msan622.github.io/spring-2015-msan622> |
+|   **Web:** | <http://srea64.github.io/msan622/> |
 
 ## About Me ##
 
