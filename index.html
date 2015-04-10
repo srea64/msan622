@@ -1,381 +1,178 @@
 <!DOCTYPE html>
+<html lang="en">
 
+<head>
 <meta charset="utf-8">
-<style>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-.bar {
-  fill: steelblue;
-}
+<title>MSAN 622 Information Visualization</title>
 
-.bar:hover {
-  fill: brown;
-}
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 
-.axis {
-  font: 15px sans-serif;
-}
-
-.axis path,
-.axis line {
-  /*fill: none;*/
-  fill: lightblue;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
-}
-
-/* testing */
-.grid .tick {
-    /*stroke: lightgrey;*/
-    stroke: lightblue;
-    opacity: 0.9;
-}
-.grid path {
-      stroke-width: 0;
-}
-
-
-/******************************************************/
-/*tooltip*/
-
-
-.bar:hover {
-  fill: orangered ;
-}
-
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
-/* tooltip */
-/******************************************************/
-
-</style>
-<label><input type="checkbox"> Sort by Value (otherwise Alphabetically) </label>
-<body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-
-<title> Homework 1 </title>
-
-<h1><center> Homework 1 </center></h1>
-
-<script>
-
-
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-// var yAxis = d3.svg.axis()
-//     .scale(y)
-//     .orient("left")
-//     .ticks(6);
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-/* returns the size/length of an object */
-Object.size = function(obj) {
-    var size = 0;
-    for(key in obj) {
-        if(obj.hasOwnProperty(key)) size++;
+<style type="text/css">
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
     }
-    return size;
-}
+</style>
 
-// start Grid
-function make_x_axis() {        
-    return d3.svg.axis()
-        .scale(x)
-         .orient("bottom")
-         .ticks(5)
-}
-function make_y_axis() {        
-    return d3.svg.axis()
-        .scale(y)
-        .orient("left")
-        .ticks(5)
-}
-// end Grid
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
 
-// create data
-var myLetters = []
+<body>
 
-//initial vars
-var letters = new Object;
-var str2 = document.URL;
-var str3 = decodeURI(str2)
-console.log(str3)
-var low = str3.toLowerCase();
+<!-- Fixed Navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">MSN 622</a>
+        </div>
 
-// find where querystring begins
-var n = low.search(/\/\?/);
-var str = low.substring(n+2);
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#homework">Homework</a></li>
+                <li><a href="#project">Project</a></li>
+                <li><a href="#participation">Participation</a></li>
+            </ul>
 
-// strip special characters
-// str = str.replace(/[^\w\s]/gi, '')
-str = str.replace(/[^\w]/gi, '')
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
 
-// print to console
-console.log(str)
+<div class="jumbotron">
+    <div class="container">
+        <h1>Information Visualization</h1>
 
-// count each letter in string, saving to object
-for(x_var = 0, length = str.length; x_var < length; x_var++) {
-    var l = str.charAt(x_var)
-    letters[l] = (isNaN(letters[l]) ? 1 : letters[l] + 1);
-}
+        <p>Welcome to my submission website for <a href="#">MSAN 622 Information Visualization</a> at the <a href="http://www.usfca.edu/">University of San Francisco</a>.</p>
 
-var data = []
+        <p><a class="btn btn-primary btn-lg" href="#about" role="button">About Me &raquo;</a></p>
+    </div>
+</div>
 
-// output 
-for(key in letters) {
-    data.push({letter:key, frequency:letters[key]});
-    // console.log({letter:key, frequency:letters[key]});
-};
-// console.log(data);
-// console.log(letters);
+<div class="container">
 
+<p style="text-align: center;">
+    <svg id="demo" height="20" width="300"></svg>
+</p>
 
+<div class="row">
+    <div class="col-md-4">
+        <h2 class="page-header"><a name="homework"></a>Homework</h2>
 
-////////////
-// sort
+        <ul>
+            <li>Homework 1</li>
+            <li>Homework 2</li>
+            <li>Homework 3</li>
+            <li>Homework 4</li>
+            <li>Homework 5</li>
+        </ul>
+    </div>
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickSize(10)
-    .tickPadding(10)
-    .ticks(d3.max(data, function(d) { return d.frequency; }));
+    <div class="col-md-4">
+        <h2 class="page-header"><a name="project"></a>Project</h2>
 
+        <ul>
+            <li>Project Dataset</li>
+            <li>Project Sketch</li>
+            <li>Project Prototype</li>
+            <li>Project Video</li>
+            <li>Project Report</li>
+        </ul>
+    </div>
 
-// tooltip
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
-  });
-// tooltip
+    <div class="col-md-4">
+        <h2 class="page-header"><a name="participation"></a>Participation</h2>
 
-// tooltip
-svg.call(tip);
-// tooltip
+        <ul>
+            <li>Pending</li>
+        </ul>
+    </div>
+</div>
 
-// d3.tsv("data.tsv", function(error, data) {
+<div class="row">
+    <div class="col-md-8">
+        <h2 class="page-header"><a name="about"></a>About Me</h2>
 
-  data.forEach(function(d) {
-    d.frequency = +d.frequency;
-  });
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="img/profile.jpg" style="width: 120px; height: 150px;">
+                </a>
+            </div>
 
-  x.domain(data.map(function(d) { return d.letter; }));
-  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+            <div class="media-body">
+                <!-- <p>I am a professor at the <a href="http://www.usfca.edu/">University of San Francisco</a>. I am the graduate director for the <a href="https://www.usfca.edu/artsci/csg/">Masters of Science in Computer Science</a> program, and teach courses for the Department of Computer Science and <a href="http://www.usfca.edu/analytics/">Masters of Science in Analytics</a> program. I have a stubborn yet adorable corgi named Casablanca (after the movie).</p> -->
+                <p>  
+                    I grew up in San Diego, which is also where I got my Bachelor's in Statistics.  
+                    I spent the last few years working in the online advertising space as an analyst in Orange County, but am hoping to shift my career to Data Science or Data Engineering with a company in 日本.
+                    I have heard a lot of good things about D3 and look forward to using it to make great visualizations.
+                    <br>I enjoy listening to and playing good music.
+                </p>
+            </div>
+        </div>
+    </div>
 
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+    <div class="col-md-4">
+        <h2 class="page-header"><a name="contact"></a>Contact</h2>
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end");
-      // .text("Frequency");
+        <table class="table table-bordered" style="width: auto;">
+            <thead>
+                <tr>
+                    <th colspan="2">Steven Rea</th>
+                </tr>
+            </thead>
 
-  svg.selectAll(".bar")
-      .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.letter); })
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.frequency); })
-      .attr("height", function(d) { return height - y(d.frequency); })
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
+            <tbody>
+                <tr>
+                    <th>Github:</th>
+                    <!-- <td><a href="http://msan622.github.io/spring-2015-msan622">msan622.github.io/spring-2015-msan622</a></td> -->
+                    <td><a href="https://github.com/srea64/msan622">https://github.com/srea64/msan622</a></td>
+                </tr>
 
-  d3.select("input").on("change", change);
+                <tr>
+                    <th>Email:</th>
+                    <td><a href="mailto:s.rea64@gmail.com">s.rea64@gmail.com</a></td>
+                </tr>
 
-  var sortTimeout = setTimeout(function() {
-    d3.select("input").property("checked", true).each(change);
-  }, 2000);
+                <tr>
+                    <th>LinkedIn:</th>
+                    <td><a href="https://www.linkedin.com/profile/view?id=33672911">Steven Rea</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-  function change() {
-    clearTimeout(sortTimeout);
+<hr/>
 
-    // Copy-on-write since tweens are evaluated after a delay.
-    var x0 = x.domain(data.sort(this.checked
-        ? function(a, b) { return b.frequency - a.frequency; }
-        : function(a, b) { return d3.ascending(a.letter, b.letter); })
-        .map(function(d) { return d.letter; }))
-        .copy();
+<footer>
+    <p style="text-align: center;">Steven Rea &bullet; MSAN 622 Information Visualization &bullet; Spring 2015</p>
+</footer>
 
-    svg.selectAll(".bar")
-        .sort(function(a, b) { return x0(a.letter) - x0(b.letter); });
+</div><!--/.container -->
 
-    var transition = svg.transition().duration(750),
-        delay = function(d, i) { return i * 50; };
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/d3.min.js"></script>
 
-    transition.selectAll(".bar")
-        .delay(delay)
-        .attr("x", function(d) { return x0(d.letter); });
-
-    transition.select(".x.axis")
-        .call(xAxis)
-      .selectAll("g")
-        .delay(delay);
-  };
-// });
-///////////
-
-
-// x.domain(data.map(function(d) { return d.letter; }));
-// y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
-
-
-// moved yAxis var down here to change frequency to max value
-// var yAxis = d3.svg.axis()
-//     .scale(y)
-//     .orient("left")
-//     .tickSize(10)
-//     .tickPadding(10)
-//     .ticks(d3.max(data, function(d) { return d.frequency; }));
-
-// svg.append("g")
-//     .attr("class", "x axis")
-//     .attr("transform", "translate(0," + height + ")")
-//     .call(xAxis);
-
-// svg.append("g")
-//     .attr("class", "y axis")
-//     .call(yAxis)
-//   .append("text")
-//     .attr("transform", "rotate(-90)")
-//     .attr("y", 6)
-//     .attr("dy", ".71em")
-//     .style("text-anchor", "end");
-//     // .text("Frequency");
-
-// svg.selectAll(".bar")
-//     .data(data)
-//   .enter().append("rect")
-//     .attr("class", "bar")
-//     .attr("x", function(d) { return x(d.letter); })
-//     .attr("width", x.rangeBand())
-//     .attr("y", function(d) { return y(d.frequency); })
-//     .attr("height", function(d) { return height - y(d.frequency); });
-
-// function type(d) {
-//   d.frequency = +d.frequency;
-//   return d;
-// };
-
-
-// add gridlines
-svg.append("g")         
-        .attr("class", "grid")
-        .attr("transform", "translate(0," + height + ")")
-        .call(make_x_axis()
-            .tickSize(-height, 0, 0)
-            .tickFormat("")
-        );
-svg.append("g")         
-    .attr("class", "grid")
-    .call(make_y_axis()
-        .tickSize(-width, 0, 0)
-        .tickFormat("")
-    );
-
-
-</script>
-
-<h3><center> Steven Rea </center></h3>
-
+<!-- STUDENTS: Remove this after verifying D3 is working. //-->
+<script src="js/testD3.js"></script>
+<script>testD3("demo");</script>
 </body>
-
-
-<!-- 
-What I did
-  C Level
-    1. 
-      changed number of decimal points visible to 0
-      made frequency dynamic
-      changed outer tick size (to 10)
-      changed outer tick padding (to 10)
-    2. 
-      added grid lines
-      changed color of grid lines to light blue
-      changed axis font size (to 15)
-      removed word 'frequency' from y axis
-      changed color of axis line to light blue
-  B Level
-    2. Add a button that allows you to change between sorting alphabetically and sorting by value.
-    3. Add a tooltip that shows the exact value of a bar when hovering over it.
-
-ToDo
-  C Level
-    3. Modify the bar colors (e.g. color vowels differently from consonants).
-    4. Modify the sort order (e.g. sort alphabetically vs sort by value). <== overridden by B Level 2. Functionality
-      included checkbox to alter sort order
-        allows alphabetic or sort by value
-  B Level
-    1. Show a grid line at the mouse y-position (behind the bars) when mouse is hovered over plot area, and show exact value for that line.
-    4. Figure out how to add a search box on the page, and show the word count for the text in that box instead of from the URL query string.
-
-    You need to make at least 4 distinct changes from at least 2 different categories from above to satisfy these requirements. From there, the number and type of changes will influence whether you earn a C-, C, or C+ grade.
-    Note: One of the tutorials provides code to change the color of the bar when the mouse hovers over it. This does NOT count towards this category, since it was provided to you.
-  A Level
-    Customize the transitions used in your visualization. For example, you could choose one or more of the following:
-
-    1. At the start of your visualization, show one bar at a time and smoothly grow each bar from the bottom up to its value.
-    2. Allow the user to continue adding new text via a search box and button combo, and use transitions to smoothly update the values. (You will likely need to update your y-axis scale as well if you have a new max value.)
-    3. Smoothly fade in the axis line, tick labels, and grid lines for the y-axis only when your plot area is hovered over by the mouse, and smoothly fade out that information when the plot area is no longer hovered over by the mouse.
-
-    Note: One of the tutorials provides code to change the color of the bar when the mouse hovers over it. This does NOT count towards this category, since it was provided to you.
-
-    You must complete this functionality to earn a A-level grade (A-, A, or A+) on this assignment.
-        
--->
+</html>
