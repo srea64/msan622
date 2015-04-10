@@ -150,7 +150,7 @@ console.log(str3)
 var low = str3.toLowerCase();
 
 // find where querystring begins
-var n = low.search(/\/\?/);
+var n = low.search(/\?/);
 var str = low.substring(n+2);
 
 // strip special characters
@@ -175,8 +175,6 @@ for(key in letters) {
 };
 // console.log(data);
 // console.log(letters);
-
-
 
 ////////////
 // sort
@@ -332,50 +330,63 @@ svg.append("g")
 
 </script>
 
-<h3><center> Steven Rea </center></h3>
+<h2><center> Steven Rea </center></h2>
+
+<a href="https://github.com/srea64/msan622/blob/gh-pages/hw/homework1.html">See code on github.</a>
+
+<h3> What I Did </h3>
+
+ 
+<h4> C Level </h4>
+<h5>
+<br>    1. 
+<br>      changed number of decimal points visible to 0
+<br>      made frequency dynamic
+<br>      changed outer tick size (to 10)
+<br>      changed outer tick padding (to 10)
+<br>    2. 
+<br>      added grid lines
+<br>      changed color of grid lines to light blue
+<br>      changed axis font size (to 15)
+<br>      removed word 'frequency' from y axis
+<br>      changed color of axis line to light blue
+</h5>
+
+<h4> B Level </h4>
+<h5>
+<br>    2. Add a button that allows you to change between sorting alphabetically and sorting by value.
+<br>    3. Add a tooltip that shows the exact value of a bar when hovering over it.
+</h5>
+
+<h3>ToDo</h3>
+<h4> C Level </h4>
+<h5>
+<br>    3. Modify the bar colors (e.g. color vowels differently from consonants).
+<br>    4. Modify the sort order (e.g. sort alphabetically vs sort by value). <== overridden by B Level 2. Functionality
+      <br>included checkbox to alter sort order
+        <br>allows alphabetic or sort by value
+</h5>
+
+<h4> B Level </h4>
+<h5>
+<br>    1. Show a grid line at the mouse y-position (behind the bars) when mouse is hovered over plot area, and show exact value for that line.
+<br>    4. Figure out how to add a search box on the page, and show the word count for the text in that box instead of from the URL query string.
+<br>
+<br>    You need to make at least 4 distinct changes from at least 2 different categories from above to satisfy these requirements. From there, the number and type of changes will influence whether you earn a C-, C, or C+ grade.
+<br>    Note: One of the tutorials provides code to change the color of the bar when the mouse hovers over it. This does NOT count towards this category, since it was provided to you.
+</h5>
+
+<h4> A Level </h4>
+<h5>
+<br>    Customize the transitions used in your visualization. For example, you could choose one or more of the following:
+<br>
+<br>    1. At the start of your visualization, show one bar at a time and smoothly grow each bar from the bottom up to its value.
+<br>    2. Allow the user to continue adding new text via a search box and button combo, and use transitions to smoothly update the values. (You will likely need to update your y-axis scale as well if you have a new max value.)
+<br>    3. Smoothly fade in the axis line, tick labels, and grid lines for the y-axis only when your plot area is hovered over by the mouse, and smoothly fade out that information when the plot area is no longer hovered over by the mouse.
+<br>
+<br>    Note: One of the tutorials provides code to change the color of the bar when the mouse hovers over it. This does NOT count towards this category, since it was provided to you.
+<br>
+<br>    You must complete this functionality to earn a A-level grade (A-, A, or A+) on this assignment.
+</h5>
 
 </body>
-
-
-<!-- 
-What I did
-  C Level
-    1. 
-      changed number of decimal points visible to 0
-      made frequency dynamic
-      changed outer tick size (to 10)
-      changed outer tick padding (to 10)
-    2. 
-      added grid lines
-      changed color of grid lines to light blue
-      changed axis font size (to 15)
-      removed word 'frequency' from y axis
-      changed color of axis line to light blue
-  B Level
-    2. Add a button that allows you to change between sorting alphabetically and sorting by value.
-    3. Add a tooltip that shows the exact value of a bar when hovering over it.
-
-ToDo
-  C Level
-    3. Modify the bar colors (e.g. color vowels differently from consonants).
-    4. Modify the sort order (e.g. sort alphabetically vs sort by value). <== overridden by B Level 2. Functionality
-      included checkbox to alter sort order
-        allows alphabetic or sort by value
-  B Level
-    1. Show a grid line at the mouse y-position (behind the bars) when mouse is hovered over plot area, and show exact value for that line.
-    4. Figure out how to add a search box on the page, and show the word count for the text in that box instead of from the URL query string.
-
-    You need to make at least 4 distinct changes from at least 2 different categories from above to satisfy these requirements. From there, the number and type of changes will influence whether you earn a C-, C, or C+ grade.
-    Note: One of the tutorials provides code to change the color of the bar when the mouse hovers over it. This does NOT count towards this category, since it was provided to you.
-  A Level
-    Customize the transitions used in your visualization. For example, you could choose one or more of the following:
-
-    1. At the start of your visualization, show one bar at a time and smoothly grow each bar from the bottom up to its value.
-    2. Allow the user to continue adding new text via a search box and button combo, and use transitions to smoothly update the values. (You will likely need to update your y-axis scale as well if you have a new max value.)
-    3. Smoothly fade in the axis line, tick labels, and grid lines for the y-axis only when your plot area is hovered over by the mouse, and smoothly fade out that information when the plot area is no longer hovered over by the mouse.
-
-    Note: One of the tutorials provides code to change the color of the bar when the mouse hovers over it. This does NOT count towards this category, since it was provided to you.
-
-    You must complete this functionality to earn a A-level grade (A-, A, or A+) on this assignment.
-        
--->
