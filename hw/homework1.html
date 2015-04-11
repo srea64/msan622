@@ -151,7 +151,7 @@ var low = str3.toLowerCase();
 
 // find where querystring begins
 var n = low.search(/\?/);
-var str = low.substring(n+2);
+var str = low.substring(n+1);
 
 // strip special characters
 // str = str.replace(/[^\w\s]/gi, '')
@@ -371,9 +371,6 @@ svg.append("g")
 <h5>
 <br>    1. Show a grid line at the mouse y-position (behind the bars) when mouse is hovered over plot area, and show exact value for that line.
 <br>    4. Figure out how to add a search box on the page, and show the word count for the text in that box instead of from the URL query string.
-<br>
-<br>    You need to make at least 4 distinct changes from at least 2 different categories from above to satisfy these requirements. From there, the number and type of changes will influence whether you earn a C-, C, or C+ grade.
-<br>    Note: One of the tutorials provides code to change the color of the bar when the mouse hovers over it. This does NOT count towards this category, since it was provided to you.
 </h5>
 
 <h4> A Level </h4>
@@ -383,10 +380,18 @@ svg.append("g")
 <br>    1. At the start of your visualization, show one bar at a time and smoothly grow each bar from the bottom up to its value.
 <br>    2. Allow the user to continue adding new text via a search box and button combo, and use transitions to smoothly update the values. (You will likely need to update your y-axis scale as well if you have a new max value.)
 <br>    3. Smoothly fade in the axis line, tick labels, and grid lines for the y-axis only when your plot area is hovered over by the mouse, and smoothly fade out that information when the plot area is no longer hovered over by the mouse.
-<br>
-<br>    Note: One of the tutorials provides code to change the color of the bar when the mouse hovers over it. This does NOT count towards this category, since it was provided to you.
-<br>
-<br>    You must complete this functionality to earn a A-level grade (A-, A, or A+) on this assignment.
+
+</h5>
+
+
+<h4>
+Reflections
+</h4>
+<h5>
+A short (1 to 3 paragraphs, 3 to 5 sentences per paragraph) discussion about the functionality you implemented. Focus on providing motivation behind some of your design decisions (e.g. why you choose to remove/add an element, how you decided on colors, etc.). This discussion could influence how your visualization is evaluated in peer reviews. You do not need to re-list everything you implemented!
+
+
+
 </h5>
 
 </body>
