@@ -3,6 +3,17 @@
 <meta charset="utf-8">
 <style>
 
+/*color*/
+.bar.positive{
+    fill: lightsteelblue;
+    fill-opacity: 0.9;
+  }
+.bar.negative{
+    fill: darkred;
+    fill-opacity: 0.9;
+  }
+/*color*/
+
 .bar {
   fill: steelblue;
 }
@@ -146,7 +157,7 @@ var myLetters = []
 var letters = new Object;
 var str2 = document.URL;
 var str3 = decodeURI(str2)
-console.log(str3)
+// console.log(str3)
 var low = str3.toLowerCase();
 
 // find where querystring begins
@@ -167,9 +178,7 @@ for(x_var = 0, length = str.length; x_var < length; x_var++) {
     letters[l] = (isNaN(letters[l]) ? 1 : letters[l] + 1);
 }
 
-console.log(letters)
-
-
+// console.log(letters)
 
 var data = []
 
@@ -182,7 +191,7 @@ for(key in letters) {
 // console.log(letters);
 
 
-console.log(data);
+// console.log(data);
 
 // sorting
 Array.prototype.sortOn = function(key){
@@ -221,7 +230,6 @@ var tip = d3.tip()
 svg.call(tip);
 // tooltip
 
-
   data.forEach(function(d) {
     d.frequency = +d.frequency;
   });
@@ -246,13 +254,15 @@ svg.call(tip);
   svg.selectAll(".bar")
       .data(data)
     .enter().append("rect")
+      // .attr("class", function(d){return d.search(/[aeiou]/)<0 ? "negative" : "bar";})
       .attr("class", "bar")
+      // .attr("class", function(d){return d.dr_change < 0 ? "negative" : "positive";})
       .attr("x", function(d) { return x(d.letter); })
       .attr("width", x.rangeBand())
-      // remove here
+      // remove here //
       // .attr("y", function(d) { return y(d.frequency); })
       // .attr("height", function(d) { return height - y(d.frequency); })
-      // to here
+      // to here //
       .attr("height", 0)
       .attr("y", height)
       .on('mouseover', tip.show)
@@ -322,13 +332,12 @@ svg.append("g")
 
 <a href="https://github.com/srea64/msan622/blob/gh-pages/hw/homework1.html">See code on github.</a>
 
-<h3> What I Did </h3>
-
+<h3> Completed </h3>
  
 <h4> C Level </h4>
 <h5>
-<br>    1. 
-<br>      changed number of decimal points visible to 0
+    1. 
+<br>      I changed number of decimal points visible to 0
 <br>      made frequency dynamic
 <br>      changed outer tick size (to 10)
 <br>      changed outer tick padding (to 10)
@@ -338,53 +347,49 @@ svg.append("g")
 <br>      changed axis font size (to 15)
 <br>      removed word 'frequency' from y axis
 <br>      changed color of axis line to light blue
+<br>    4. 
+<br>Modify the sort order (e.g. sort alphabetically vs sort by value). <== overridden by B Level 2. Functionality
 </h5>
 
 <h4> B Level </h4>
 <h5>
-<br>    2. Add a button that allows you to change between sorting alphabetically and sorting by value.
+    2. Add a button that allows you to change between sorting alphabetically and sorting by value.
 <br>    3. Add a tooltip that shows the exact value of a bar when hovering over it.
 </h5>
 
 <h4> A Level </h4>
 <h5>
-<br>    1. At the start of your visualization, show one bar at a time and smoothly grow each bar from the bottom up to its value.
+1. At the start of your visualization, show one bar at a time and smoothly grow each bar from the bottom up to its value.
 </h5>
 
-<h3>ToDo</h3>
+<h3>Undone</h3>
 <h4> C Level </h4>
 <h5>
-<br>    3. Modify the bar colors (e.g. color vowels differently from consonants).
-<br>    4. Modify the sort order (e.g. sort alphabetically vs sort by value). <== overridden by B Level 2. Functionality
-      <br>included checkbox to alter sort order
-        <br>allows alphabetic or sort by value
+3. Modify the bar colors (e.g. color vowels differently from consonants).
 </h5>
 
 <h4> B Level </h4>
 <h5>
-<br>    1. Show a grid line at the mouse y-position (behind the bars) when mouse is hovered over plot area, and show exact value for that line.
+    1. Show a grid line at the mouse y-position (behind the bars) when mouse is hovered over plot area, and show exact value for that line.
 <br>    4. Figure out how to add a search box on the page, and show the word count for the text in that box instead of from the URL query string.
 </h5>
 
 <h4> A Level </h4>
 <h5>
-<br>    Customize the transitions used in your visualization. For example, you could choose one or more of the following:
-<br>
-<br>    1. At the start of your visualization, show one bar at a time and smoothly grow each bar from the bottom up to its value.
+   Customize the transitions used in your visualization. For example, you could choose one or more of the following:
 <br>    2. Allow the user to continue adding new text via a search box and button combo, and use transitions to smoothly update the values. (You will likely need to update your y-axis scale as well if you have a new max value.)
 <br>    3. Smoothly fade in the axis line, tick labels, and grid lines for the y-axis only when your plot area is hovered over by the mouse, and smoothly fade out that information when the plot area is no longer hovered over by the mouse.
-
 </h5>
 
 
 <h4>
 Reflections
 </h4>
-<h5>
-A short (1 to 3 paragraphs, 3 to 5 sentences per paragraph) discussion about the functionality you implemented. Focus on providing motivation behind some of your design decisions (e.g. why you choose to remove/add an element, how you decided on colors, etc.). This discussion could influence how your visualization is evaluated in peer reviews. You do not need to re-list everything you implemented!
+<p>
+<!-- A short (1 to 3 paragraphs, 3 to 5 sentences per paragraph) discussion about the functionality you implemented. Focus on providing motivation behind some of your design decisions (e.g. why you chose to remove or add an element, how you decided on colors, etc.). This discussion could influence how your visualization is evaluated in peer reviews. You do not need to re-list everything you implemented! -->
 
-
-
-</h5>
+<br> Most of my design decisions were made to make sure that what I had accomplished was easy to notice for grading.  For instance, in general I prefer everything to happen as quickly as possible so that getting information is only limited by your own ability to process it but in this assignment I kept transitions slow so that it would be easy to notice the functionality provided.  Also, I think that overall the plot looks better without grid lines -- one of my favorite parts of the Storytelling with Data talk we went to was when the speaker stripped the charts down to their bare necessities (and thereby increased the data:ink ratio).
+<br> In general I kept colors as simple as possible since I liked how simple the chart appeared by doing so. However, I liked the transition to orange in the tooltip since it quickly draws your eye to that point in the chart.  If a chart like this were to be used in a meeting it would make it much easier to see what was being referenced.
+</p>
 
 </body>
