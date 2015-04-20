@@ -1,0 +1,69 @@
+<body>
+<title> Project Dataset </title>
+<center><h1> Project Dataset </h1></center>
+
+
+<h3> Original location of the dataset (ideally a URL to the original data): </h3>
+The following will show the a subset of the same data in a better format:
+  <a href="http://pokemondb.net/pokedex/all"> http://pokemondb.net/pokedex/all </a>.
+<br>
+The following lists pokemon by generation: <a href ="http://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number"> http://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number </a>.
+
+
+<h3> License information (e.g. whether this dataset can be shared publicly): </h3>
+This data is listed publicly on many websites.  On <a href="http://www.pokemon.com/us/terms-of-use/"> pokemon.com </a> they state that they allow for this data to be used for personal purposes.
+
+
+<h3> Type of data in the dataset (e.g. numerical, categorical, unstructured, and so on): </h3>
+  <ul>
+    <li> Character: Name </li>
+    <li> Categorical: Type (note that some records will have two and some will have one) </li>
+    <li> Numeric: Generation, id, Total, HP, Attack, Defense, Special Attack, Special Defense, Speed.
+    <br>Note that Total is a sum of attribute columns (which are all to the right of Total).</li>
+  </ul>
+
+
+<h3> Why you chose this dataset (3 to 5 sentences) </h3>
+&nbsp; &nbsp; &nbsp;
+I chose this dataset because I thought it would be perfect for creating a visualization that lets you partition your dataset in many different ways.  There are many different metrics and categories that the different creatures fall into.  Furthermore, I have already spent many hours getting familiar with a portion of this dataset.
+<br> &nbsp; &nbsp; &nbsp;
+One of the main questions I have is overall philosophy of the creatures as the games progressed. When creating games you need to make sure that there's a general level of fairness.  If one race or creature is too powerful the game loses replay value so developers make sure to make them as balanced as possible.  It will be very interesting to see how that idea holds up against the different creatures through different generations.
+
+
+<h3>
+Link to the dataset in your own repository
+</h3>
+
+Cleaned Dataset: <a href="pokemon.csv">pokemon.csv</a>.
+
+<br>
+<br>$ head pokemon.csv
+<br>"id","Name","Type","Total","Health Points","Attack","Defense","Special Attack","Special Defense","Speed","Generation"
+<br>001,"Bulbasaur","Grass Poison",318,45,49,49,65,65,45,1
+<br>002,"Ivysaur","Grass Poison",405,60,62,63,80,80,60,1
+<br>003,"Venusaur","Grass Poison",525,80,82,83,100,100,80,1
+<br>003,"Mega Venusaur","Grass Poison",625,80,100,123,122,120,80,1
+<br>004,"Charmander","Fire",309,39,52,43,60,50,65,1
+<br>005,"Charmeleon","Fire",405,58,64,58,80,65,80,1
+<br>006,"Charizard","Fire Flying",534,78,84,78,109,85,100,1
+<br>006,"Mega Charizard X","Fire Dragon",634,78,130,111,130,85,100,1
+<br>006,"Mega Charizard Y","Fire Flying",634,78,104,78,159,115,100,1
+
+
+<br>
+<br> (In case you're curious, they're up to 721 now.)
+<br>$ tail pokemon.csv
+<br>712,"Bergmite","Ice",304,55,69,85,32,35,28,6
+<br>713,"Avalugg","Ice",514,95,117,184,44,46,28,6
+<br>714,"Noibat","Flying Dragon",245,40,30,35,45,40,55,6
+<br>715,"Noivern","Flying Dragon",535,85,70,80,97,80,123,6
+<br>716,"Xerneas","Fairy",680,126,131,95,131,98,99,6
+<br>717,"Yveltal","Dark Flying",680,126,131,95,131,98,99,6
+<br>718,"Zygarde","Dragon Ground",600,108,100,121,81,95,95,6
+<br>719,"Diancie","Rock Fairy",600,50,100,150,100,150,50,6
+<br>720,"Hoopa","Psychic Ghost",600,80,110,60,150,130,70,6
+<br>721,"Volcanion","Fire Water",600,80,110,120,130,90,70,6
+
+<br> <br> <br> 
+<center>Steven Rea - MSAN 622</center>
+
