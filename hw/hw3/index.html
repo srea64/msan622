@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+
+<center><h1>Homework 3: Time Series Visualization</h1></center>
+
+<iframe src="test1.html" width="700" height="360" frameBorder="0"></iframe>
+<iframe src="test2.html" width="1000" height="600" frameBorder="0"></iframe>
+
+
+<!-- <h2>Functionality</h2>
+<h3>C Level</h3>
+<ul>
+  <li>Chart: Heat Map</li>
+  <li>Dimensions: 
+    <ul>
+      <li>X: Murder Rate</li>
+      <li>Y: Illiteracy</li>
+      <li>Z: Life Expectancy</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>B Level</h3>
+<ul>
+  <li>Chart: Scatterplot Matrix</li>
+  <li>Dimensions: 
+    <ul>
+      <li>Population</li>
+      <li>Income</li>
+      <li>Illiteracy</li>
+      <li>Life Expectancy</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>A Level</h3>
+<ul>
+  <li>Chart: Parallel Coordinates</li>
+  <li>Dimensions: 
+    <ul>
+      <li>Population</li>
+      <li>Income</li>
+      <li>Illiteracy</li>
+      <li>Life Expectancy</li>
+      <li>Murder Rate</li>
+      <li>High School Graduation Rate</li>
+      <li>Frost</li>
+      <li>State Area</li>
+    </ul>
+  </li>
+</ul> -->
+
+<br>
+<h2>Summary</h2>
+
+For the heat map, I thought it would be interesting to see how Life Expectancy looks like as a function of Murder Rate and Illiteracy, two factors that most would want minimized where they live.  I like the fact that "missing" data actually encodes information -- it shows that there is a generally positive correlation between the existence of these two factors.
+
+<br> <br>
+For the scatterplot matrix I looked at more general population statistics: 'Population', 'Income', 'Illiteracy', and 'Life Expectancy'.
+
+<br> <br>
+For parallel coordinates I simply put all the numeric vectors together.  I was surprised at how useful this chart is for getting a sense of what's in the data.  
+
+<br><br><br>
+
+<h3>C Level - Basic Functionality</h3>
+
+<!-- You must implement TWO (2) distinct time-series visualization techniques showing different aspects of the dataset. (Each technique must encode time in some way.) You may choose any two techniques from the following: -->
+
+<ul>
+    <!-- <li>Line or Multi-Series Line Plot</li> -->
+    <li>Line Plot (Plot 1)</li>
+    <!-- <li>Area or Stacked Area Plot</li> -->
+    <li>Area Plot (Plot 2</li>
+    <!-- <li>Heatmap/Calendar View</li> -->
+    <!-- <li>Animated Bar or Bubble Plot</li> -->
+</ul>
+You may choose to implement any of the above radially using polar coordinates, or normally using cartesian coordinates. You may choose other techniques by obtaining instructor approval via a public post on Piazza.
+
+<br>
+Please note that linked views (e.g. separate but linked overview + detail views) do not count as two distinct visualizations!
+
+<br>
+You must complete basic functionality to earn a C-, C, or C+ letter grade on this assignment. You must complete basic functionality before moving on to moderate or advanced functionality.
+
+<h3>B Level - Moderate Functionality</h3>
+
+<!-- For this level of functionality, you must implement a minimum of two of the following types of interaction: -->
+
+See Plot 1 for:
+
+<ul>
+    <li>Zooming (e.g. zoom in when scroll mouse wheel)</li>
+    <!-- <li>Rotating (e.g. click and drag for circular visualizations)</li> -->
+    <li>Panning (e.g. click and drag for rectangular visualizations)</li>
+    <!-- <li>Details-on-Demand (e.g. on hover or click show tooltip details)</li> -->
+</ul>
+You can choose whether to implement this interactivity in one or both of your visualization techniques. For example, you can implement zooming in one visualization and panning in another, or implement both zooming and panning in a single visualization. It does not count as two types of interactivity if you implement zooming in both visualizations.
+
+<br>
+You must complete moderate functionality to earn a B-, B, or B+ letter grade on this assignment. You must complete basic and moderate functionality before moving on to advanced functionality. 
+
+
+<h3>A Level - Advanced Functionality</h3>
+
+<!-- For this level of functionality, you must implement a minimum of one of the following types of interaction: -->
+
+See Plot 2 for:
+
+<ul>
+    <li>Brushing</li>
+    <!-- <li>Linked Views</li> -->
+    <!-- <li>Filtering</li> -->
+</ul>
+You can choose whether to implement this in one or both of your visualization techniques.
+
+<!-- <br> -->
+<!-- You must complete advanced functionality to earn a A-, A, or A+ letter grade on this assignment. Keep in mind that advanced functionality is meant to be challenging and rewarding but not easy! -->
+
+
+<h2>Summary</h2>
+
+I used the same dataset for both to be able to focus on implementing the techniques.
+
+<h4>Preprocessing</h4>
+
+# create vector of months to add to dataframe
+<br>month <- seq(as.Date("1969-01-01"), by = "month", length.out = nrow(Seatbelts))
+<br>
+<br># add to dataframe
+<br>df['month'] <- month
+<br>
+<br># create dataset
+<br>df2 <- df[,c('month','DriversKilled')]
+
+
+
+<br><br>
+<center> <p> Steven Rea - MSAN 622 </p> </center>
+
+</body>
+

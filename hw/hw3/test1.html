@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+<!-- Materials -->
+<!-- http://jsfiddle.net/zad6r/ -->
+<!-- http://grokbase.com/t/gg/d3-js/13a40k8ma3/steps-to-zoom-and-pan-time-series-line-graph -->
+
+<style>
+body { font: 12px Arial;}
+
+path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 2;
+    shape-rendering: crispEdges;
+}
+
+rect {
+  fill: #ddd;
+}
+
+button {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
+</style>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+
+<body>
+
+<script>
+var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    width = 600 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%Y-%m-%d").parse; // "YYYY-MM-DD"
+
+d3.csv("line-seatbelts.csv", function(error, data) {
+    data.forEach(function(d) {
+        d.month = parseDate(d.month);
+        d.DriversKilled = +d.DriversKilled;
+    });
+
+    // Scale the range of the data
+
+var x = d3.time.scale()
+            .domain(d3.extent(data, function(d) { return d.month; }))
+            .range([0, width]);
+var y = d3.scale.linear()
+            .domain([0, d3.max(data, function(d) { return d.DriversKilled; })])
+            .range([height, 0]);
+
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(5);
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(5);
+
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.month); })
+    .y(function(d) { return y(d.DriversKilled); });
+    
+var zoom = d3.behavior.zoom()
+    .x(x)
+    .y(y)
+    .scaleExtent([1, 4])
+    .on("zoom", zoomed);
+
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .call(zoom);
+
+svg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("class", "plot");
+
+var clip = svg.append("clipPath")
+    .attr("id", "clip")
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", width)
+    .attr("height", height);
+
+var chartBody = svg.append("g")
+    .attr("clip-path", "url(#clip)");
+
+    chartBody.append("path")    // Add the valueline path
+        .datum(data)
+        .attr("class", "line")
+        .attr("d", valueline);
+
+    svg.append("g")     // Add the X Axis
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+  svg.append("text")             // text label for the x axis
+        .attr("x", 265 )
+        .attr("y",  240 )
+        .style("text-anchor", "middle")
+        .text("Month");
+
+    svg.append("g")     // Add the Y Axis
+        .attr("class", "y axis")
+        .call(yAxis);
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",(0 - (height / 2)))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Drivers Killed");
+
+    svg.append("text")
+        .attr("x", (width / 2))       
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text("Drivers Killed by Month");
+
+function zoomed() {
+  svg.select(".x.axis").call(xAxis);
+  svg.select(".y.axis").call(yAxis);
+  svg.select("path.line")
+      .attr("d", valueline);
+}
+
+});
+</script>
+</body>
