@@ -1,0 +1,227 @@
+<!doctype html>
+ 
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body bgcolor="#E6E6FA">
+<script>
+
+easy = Array(
+    " <b>P-Value</b> <br> <i>Statistics</i> <br><br> The probability of finding a more extreme example given that the null hypothesis is correct."
+        );
+
+
+hard = Array(
+    // " <b>Communality</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of the variance of the ith variable contributed by the m common factors is called the ith communality. <br> Var(X_i) = Communality + Specific Variance ",
+    // " <b>Uniqueness, Specific Variance</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of Var(X_i)=sigma_ii due to the specific factor. <br> Var(X_i) = Communality + Specific Variance ",
+    // " <b>Beautiful Soup Example</b> <br> <i>python</i> <br><br> import requests <br>from bs4 import BeautifulSoup <br>userID = thisID <br>baseURL = 'https://www.youtube.com/user/'<br>userURL = baseURL + str(userID) <br>r = requests.get(userURL) <br>soup = BeautifulSoup(r.text) ",
+    " <b>Proper Python Function</b> <br> <i>python</i> <br><br> def myFunction(myParameter1,myParameter2=0): <br>'''<br>This is an explanation of the function. <br> <br>:param myParameter1: explanation <br>:type myParameter1: type <br>:param myParameter2: explanation <br>:type myParameter2: type <br>:return: explanation <br>:rtype: return type <br>'''",
+    "<H4>Here's What's For Dinner</H4> <DL> <DT>Salad <DD>Green stuff and dressing <DD>Mystery meat and mashed yams <DD>A mint </DL>"
+
+        );
+
+
+// change preferences
+if (Math.random()<.9) {
+  document.write(hard[Math.floor(Math.random()*hard.length)])
+} else { 
+  document.write(easy[Math.floor(Math.random()*easy.length)])
+}
+
+</script>
+
+<!-- Notes
+
+
+making tabs (up to 2)
+    <H4>Here's What's For Dinner</H4>
+    <DL>
+    <DT>Salad
+    <DD>Green stuff and dressing
+    <DT>The Meal
+    <DD>Mystery meat and mashed yams
+    <DT>Dessert
+    <DD>A mint
+    </DL>
+
+
+
+
+<!-- start
+
+
+
+Definitions
+    Logistic Regression
+        f(x)
+            the probability of the dependent variable equaling a "success" or "case" rather than a failure or non-case
+        Odds
+            the probability that a particular outcome is a case divided by the probability that it is a noncase
+        Odds Ratio for a variable
+            how the odds change with a one unit increase in that variable holding all other variables constant
+    Proper Python Function
+        def myProperFunction(myParameter1,myParameter2=0):
+            """
+            This is an explanation of the function.
+
+            :param myParameter1: explanation
+            :type myParameter1: type
+            :param myParameter2: explanation
+            :type myParameter2: type
+            :return: explanation
+            :rtype: return type
+            """
+    Probabilistic Graphical Model
+        A graphical model or probabilistic graphical model (PGM) is a probabilistic model for which a graph expresses the conditional dependence structure between random variables.
+    Cosine Similarity
+        Cosine similarity is a measure of similarity between two vectors of an inner product space that measures the cosine of the angle between them.
+    R
+        Correlation between numeric columns in dataframe x
+            cor(x[sapply(x, is.numeric)])
+        SQL Group by in R
+            aggregate()
+            ex: 
+                aggregate(df_['count'], by= c(df_['day'],df_['month'],df_['year']),FUN=sum)
+        Linear Regression
+            # Multiple Linear Regression Example 
+            fit <- lm(y ~ x1 + x2 + x3, data=mydata)
+            summary(fit) # show results
+            # Other useful functions 
+            coefficients(fit) # model coefficients
+            confint(fit, level=0.95) # CIs for model parameters 
+            fitted(fit) # predicted values
+            residuals(fit) # residuals
+            anova(fit) # anova table 
+            vcov(fit) # covariance matrix for model parameters 
+            influence(fit) # regression diagnostics
+    Three Axioms of Probability
+    Learning Curve     
+              |                         
+        error |                         
+              |                               
+              |___________________
+                training set size
+        small difference between ==> high bias
+    [For each Algorithm]
+        [scalability]
+        [fast training / evaluation]
+        [flexibility, bias-variance tradeoff]
+        [interpretability]
+        [accuracy]
+    lasso
+        l1
+        l2
+        how do you tune the coefficient
+            cross validation
+    python conditional
+        ==
+    Lift definition:
+        Ratio between the success rate and the base rate
+        Equivalent to TPR divided by percent targeted
+    power analysis for two independent proportions
+    paired sample testing
+    Bounce Rate (Google)
+        click on website from Google search, then bounce back to search page
+        go to your site and leave (bounce rate)
+    HashTable
+        Definition: data structure
+            implements a structure that can map keys to values.
+            supports efficient ``find queries''
+        Uses a hash function to computes an array index from a key.
+            collision resolution when two keys give the same index
+        Efficient processing (O(1)) of find queries.
+        Python: Dict and set are hash tables
+    QuickSort
+        divide and conquer
+        1. partition array into subarrays and sort the sub arrays
+        2. take first element and find the correct position
+        3. recursively sort remaining arrays
+    Model Considerations
+        Bias v. Variance (Overfitting)
+            Training MSE v. Test MSE
+        Accuracy v. Interpretability
+        Supervised v. Unsupervised
+        Regression v. Classification
+    
+    Hypothesis Test
+    Significance
+    A/B Test
+        Definition
+            An A/B test involves testing two versions of a web page, an A version (the control) and a B version (the variation), with live traffic and measuring the effect each version has on your metric of interest (for example: conversion rate, click rate).
+        In an A/B test, how can you check if assignment to the various buckets was truly random?
+            One way to check is to look at metrics that should not be changed by the experiments and test that the distributions are similar in the two buckets (example: demographic data, number of visitors, browser version, time of assignment). The best way to test is to run A/A experiments. An A/A test is simply a test where both pages/ad copy/creatives/etc. are exactly the same. You split your traffic randomly and showing both groups the same page. A/A will help you check your split testing tool and help you understand the expected variation in your metrics.
+        Process
+            Define Success
+                quantifiable core metrics
+            identify bottleknecks
+            construct a hypothesis
+                if I change X, we may see an improvement in...
+            prioritize
+            test
+
+
+
+Examples
+    In
+        Question
+            def find(L,x)
+                for e in L:
+                    if e==x:
+                        return True
+                return False
+            What is the complexity of 'in' in Python?
+        Answer
+            list - Average: O(n)
+            set/dict - Average: O(1), Worst: O(n)
+    You have 100 .csv files in a folder, and they all have the same header. The files are named data1, …, data100. We want all these .csv files stored in one data frame. How would you do that in R?
+        1. store file names is a character vector
+        2. use an apply statement to read the files into a data.frame (result: list of data frames)
+        3. concatenate all these data frame into a single big one
+        # something like this
+        files.names = paste('data', 1:100, '.csv', sep='')
+        tables = lapply(files.names, function(file){read.csv(file, header=T)}
+        do.call(rbind, tables) ## rbindlist should have a better performance
+    Suppose you are working at a casino, and the casino manager asks you if a single die is fair to use. How would you go about confirming that?
+        Step 1: Throw the die a few of times, say N and record the results. (what N should be?)
+            Say you get X = (X_1, … X_6) where X_i is the number of times you see i.
+        Step 2: Do a formal hypothesis testing to check whether or not you should reject the null hypothesis of the die being fair. In this case we can do a Chi^2 test for multinomial data.
+            Null Hypothesis: Die is fair.
+            Under the null hypothesis X = (X_1, … X_6) is a multinomial (N, p=(⅙, …,⅙ )) distribution.
+                Compute
+                    T = \sum_k (X_i N/6)^2 / N/6
+            Under H0 T is distributed Chi^2 with k1 degrees of freedom.
+                p-value can be computed as P(Chi^2_k1 > T)
+            If the p-value is below a threshold that I fixed in advance (say 0.01), I would reject that the coin is fair.
+    Suppose you are working on a model and you get a high error:
+        get more training examples ==> fixes high variance
+        try smaller set of features ==> fixes high variance
+        try getting additional features ==> fixes high bias
+        try getting polynomial features ==> fixes high bias
+        try increasing lambda (penalty term) ==> fixes high bias
+        try decreasing lambda (penalty term) ==> fixes high variance
+    Suppose you are working on a model and you get a high error:
+        if you have high variance
+            get more training examples
+            try smaller set of features
+            try decreasing lambda (penalty term)
+        if you have high bias
+            try getting additional features
+            try getting polynomial features
+            try increasing lambda (penalty term)
+    What do you do with missing data?
+        Leave it in (N/A)
+            there might be information in keeping it
+        remove rows
+        replace with most common value / average
+    What do you do when you have two classes and one is underrepresented?
+    What would you do with a multi-class/label problem?
+        one v. all
+        one v. one
+
+
+
+
+
+
+
