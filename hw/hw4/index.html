@@ -721,7 +721,6 @@ I did not add a line to the Tableau dashboard but did to my homework since I fou
 Filtering takes place when you click on a movie genre of the donut chart on the left.  Both of the charts on the right will update based on the genre you selected.
 
 <h3>Discussion</h3>
-<br>
 I was not as concerned about what I would be creating since the focus of this assignment was to learn about how to make charts interact with one another.
 Therefore I focused more on finding code examples and understanding how others had created dashboards using D3. I was happy to find an example that had the ability to filter based on a section of a donut chart and had fun dissecting the code.  It still amazes me that such complexity is already available to us even though we have only been studying D3 for a little over a month.
 <br>
@@ -733,12 +732,13 @@ To format the data to make it as easy to use as possible led me to what may look
 <p>
   I spent time in R to make things as simple as possible for importing into html/js.
   I was able to distill the data down into small pieces and embedded the datasets directly into the html.
+  See below for exact transformations of raw data to easily used data.
 </p>
 
 <p>
 
 # dataset 1
-paste('{category:','"Action"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Action==1,])/51480,2),'},')
+<br>paste('{category:','"Action"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Action==1,])/51480,2),'},')
 paste('{category:','"Animation"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Animation==1,])/51480,2),'},')
 paste('{category:','"Comedy"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Comedy==1,])/51480,2),'},')
 paste('{category:','"Drama"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Drama==1,])/51480,2),'},')
