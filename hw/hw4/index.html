@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+  <head>    
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>622-Dashboard</title>
+    <script src="http://d3js.org/d3.v2.js"></script>
+    <style type="text/css">
+
+#pieChart {    
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:400px;
+    height: 400px; 
+}
+
+#lineChart {    
+    position:absolute;
+    top:10px;
+    left:410px;
+    height: 150px;
+}
+
+#barChart {
+    position:absolute;
+    top:160px;
+    left:410px;
+    height: 250px;
+}
+
+.slice {
+   font-size: 12pt;
+   font-family: Verdana;
+   fill: white; //svg specific - instead of color
+   font-weight: bold;   
+        } 
+
+.axis path, .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges; //The shape-rendering property is an SVG attribute, used here to make sure our axis and its tick mark lines are pixel-perfect. 
+}
+
+.line {
+  fill: none;
+  stroke-width: 3px;
+}
+
+.dot {
+  stroke-width: 1.5px;
+  }
+                
+
+.axis text {
+    font-family: Verdana;
+    font-size: 11px;
+}
+
+.title {
+     font-family: Verdana;
+    font-size: 15px;    
+        
+}
+
+.xAxis {
+    font-family: verdana;
+    font-size: 11px;
+    fill: black;
+}  
+
+.yAxis {
+    font-family: verdana;
+    font-size: 11px;
+    fill: white;
+}
+
+  
+table {
+    border-collapse:collapse;
+    border: 0px;    
+    font-family: Verdana;   
+    color: #5C5558;
+    font-size: 12px;
+    text-align: right;          
+}
+
+td {
+    padding-left: 10px;     
+}
+
+#lineChartTitle1 {
+    font-family: Verdana;
+    font-size  : 14px;
+    fill       : lightgrey;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+#lineChartTitle2 {
+    font-family: Verdana;
+    font-size  : 72px;
+    fill       : grey;
+    text-anchor: middle;
+    font-weight: bold;
+}
+                 
+    </style>
+  </head>
+  <body>
+  
+    <div id="pieChart"></div>
+    <div id="barChart"></div>  
+    <div id="lineChart"></div>
+    <script type="text/javascript">
+    
+var     formatAsPercentage = d3.format("%"),
+        formatAsPercentage1Dec = d3.format(".1%"),
+        formatAsInteger = d3.format(","),
+        fsec = d3.time.format("%S s"),
+        fmin = d3.time.format("%M m"),
+        fhou = d3.time.format("%H h"),
+        fwee = d3.time.format("%a"),
+        fdat = d3.time.format("%d d"),
+        fmon = d3.time.format("%b")
+        ;
+
+function dsPieChart(){
+
+    var dataset = [
+          {category: "Action" , measure: 0.07 },
+          {category: "Animation" , measure: 0.06 },
+          {category: "Comedy" , measure: 0.28 },
+          {category: "Drama" , measure: 0.34 },
+          {category: "Documentary" , measure: 0.04 },
+          {category: "Romance" , measure: 0.07 },
+          {category: "Short" , measure: 0.13 }
+        ];
+
+    var     width = 400,
+           height = 400,
+           outerRadius = Math.min(width, height) / 2,
+           innerRadius = outerRadius * .999,   
+           innerRadiusFinal = outerRadius * .5,
+           innerRadiusFinal3 = outerRadius* .45,
+           color = d3.scale.category20()    
+           ;
+        
+    var vis = d3.select("#pieChart")
+         .append("svg:svg")              
+         .data([dataset])                
+             .attr("width", width)       
+             .attr("height", height)
+                .append("svg:g")         
+             .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")")
+                ;
+                
+   var arc = d3.svg.arc() 
+            .outerRadius(outerRadius).innerRadius(innerRadius);
+   
+   var arcFinal = d3.svg.arc().innerRadius(innerRadiusFinal).outerRadius(outerRadius);
+    var arcFinal3 = d3.svg.arc().innerRadius(innerRadiusFinal3).outerRadius(outerRadius);
+
+   var pie = d3.layout.pie() 
+        .value(function(d) { return d.measure; }); 
+
+   var arcs = vis.selectAll("g.slice")  
+        .data(pie)                      
+        .enter()                        
+            .append("svg:g")            
+               .attr("class", "slice")  
+               .on("mouseover", mouseover)
+                    .on("mouseout", mouseout)
+                    .on("click", up)
+                    ;
+                    
+        arcs.append("svg:path")
+               .attr("fill", function(d, i) { return color(i); } ) 
+               .attr("d", arc)     
+                    .append("svg:title") 
+                   .text(function(d) { return d.data.category + ": " + formatAsPercentage(d.data.measure); });
+
+        d3.selectAll("g.slice").selectAll("path").transition()
+                .duration(750)
+                .delay(10)
+                .attr("d", arcFinal )
+                ;
+    
+      // Add a label to the larger arcs, translated to the arc centroid and rotated.
+      // source: http://bl.ocks.org/1305337#index.html
+      arcs.filter(function(d) { return d.endAngle - d.startAngle > .2; })
+            .append("svg:text")
+          .attr("dy", ".35em")
+          .attr("text-anchor", "middle")
+          .attr("transform", function(d) { return "translate(" + arcFinal.centroid(d) + ")rotate(" + angle(d) + ")"; })
+          //.text(function(d) { return formatAsPercentage(d.value); })
+          .text(function(d) { return d.data.category; })
+          ;
+       
+       // Computes the label angle of an arc, converting from radians to degrees.
+        function angle(d) {
+            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            return a > 90 ? a - 180 : a;
+        }
+            
+        
+        // Pie chart title          
+        vis.append("svg:text")
+            .attr("dy", ".35em")
+          .attr("text-anchor", "middle")
+          .text("Proportion by Genre")
+          .attr("class","title")
+          ;         
+
+
+        
+    function mouseover() {
+      d3.select(this).select("path").transition()
+          .duration(750)
+                    .attr("d", arcFinal3)
+                    ;
+    }
+    
+    function mouseout() {
+      d3.select(this).select("path").transition()
+          .duration(750)
+                    .attr("d", arcFinal)
+                    ;
+    }
+    
+    function up(d, i) {
+    
+                updateBarChart(d.data.category, color(i));
+                updateLineChart(d.data.category, color(i));
+             
+    }
+}
+
+dsPieChart();
+
+var datasetBarChart = [
+{group: "All" , category: "1-2" , measure: 1335 },
+{group: "All" , category: "3-4" , measure: 7683 },
+{group: "All" , category: "5-6" , measure: 22393 },
+{group: "All" , category: "7-8" , measure: 15317 },
+{group: "All" , category: "9-10" , measure: 1222 },
+{group: "Action" , category: "1-2" , measure: 154 },
+{group: "Action" , category: "3-4" , measure: 1130 },
+{group: "Action" , category: "5-6" , measure: 1748 },
+{group: "Action" , category: "7-8" , measure: 754 },
+{group: "Action" , category: "9-10" , measure: 33 },
+{group: "Animation" , category: "1-2" , measure: 10 },
+{group: "Animation" , category: "3-4" , measure: 150 },
+{group: "Animation" , category: "5-6" , measure: 1302 },
+{group: "Animation" , category: "7-8" , measure: 1715 },
+{group: "Animation" , category: "9-10" , measure: 101 },
+{group: "Comedy" , category: "1-2" , measure: 312 },
+{group: "Comedy" , category: "3-4" , measure: 2015 },
+{group: "Comedy" , category: "5-6" , measure: 6820 },
+{group: "Comedy" , category: "7-8" , measure: 4788 },
+{group: "Comedy" , category: "9-10" , measure: 234 },
+{group: "Drama" , category: "1-2" , measure: 243 },
+{group: "Drama" , category: "3-4" , measure: 1919 },
+{group: "Drama" , category: "5-6" , measure: 8418 },
+{group: "Drama" , category: "7-8" , measure: 6433 },
+{group: "Drama" , category: "9-10" , measure: 394 },
+{group: "Documentary" , category: "1-2" , measure: 68 },
+{group: "Documentary" , category: "3-4" , measure: 210 },
+{group: "Documentary" , category: "5-6" , measure: 808 },
+{group: "Documentary" , category: "7-8" , measure: 1014 },
+{group: "Documentary" , category: "9-10" , measure: 173 },
+{group: "Romance" , category: "1-2" , measure: 36 },
+{group: "Romance" , category: "3-4" , measure: 347 },
+{group: "Romance" , category: "5-6" , measure: 1783 },
+{group: "Romance" , category: "7-8" , measure: 1422 },
+{group: "Romance" , category: "9-10" , measure: 72 },
+{group: "Short" , category: "1-2" , measure: 143 },
+{group: "Short" , category: "3-4" , measure: 590 },
+{group: "Short" , category: "5-6" , measure: 2800 },
+{group: "Short" , category: "7-8" , measure: 3046 },
+{group: "Short" , category: "9-10" , measure: 295 }
+];
+
+var group = "All";
+
+function datasetBarChosen(group) {
+    var ds = [];
+    for (x in datasetBarChart) {
+         if(datasetBarChart[x].group==group){
+            ds.push(datasetBarChart[x]);
+         } 
+        }
+    return ds;
+}
+
+
+function dsBarChartBasics() {
+
+        var margin = {top: 30, right: 5, bottom: 20, left: 50},
+        width = 500 - margin.left - margin.right,
+       height = 250 - margin.top - margin.bottom,
+        colorBar = d3.scale.category20(),
+        barPadding = 1
+        ;
+        
+        return {
+            margin : margin, 
+            width : width, 
+            height : height, 
+            colorBar : colorBar, 
+            barPadding : barPadding
+        }           
+        ;
+}
+
+function dsBarChart() {
+
+    var firstDatasetBarChart = datasetBarChosen(group);             
+    
+    var basics = dsBarChartBasics();
+    
+    var margin = basics.margin,
+        width = basics.width,
+       height = basics.height,
+        colorBar = basics.colorBar,
+        barPadding = basics.barPadding
+        ;
+                    
+    var     xScale = d3.scale.linear()
+                        .domain([0, firstDatasetBarChart.length])
+                        .range([0, width])
+                        ;
+                        
+    var yScale = d3.scale.linear()
+           .domain([0, d3.max(firstDatasetBarChart, function(d) { return d.measure; })])
+           .range([height, 0])
+           ;
+    
+    var svg = d3.select("#barChart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .attr("id","barChartPlot")
+            ;
+    
+    var plot = svg
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            ;
+                
+    plot.selectAll("rect")
+           .data(firstDatasetBarChart)
+           .enter()
+           .append("rect")
+            .attr("x", function(d, i) {
+                return xScale(i);
+            })
+           .attr("width", width / firstDatasetBarChart.length - barPadding)   
+            .attr("y", function(d) {
+                return yScale(d.measure);
+            })  
+            .attr("height", function(d) {
+                return height-yScale(d.measure);
+            })
+            .attr("fill", "lightgrey")
+            ;
+    
+        
+    plot.selectAll("text")
+    .data(firstDatasetBarChart)
+    .enter()
+    .append("text")
+    .text(function(d) {
+            return formatAsInteger(d3.round(d.measure));
+    })
+    .attr("text-anchor", "middle")
+    .attr("x", function(d, i) {
+            return (i * (width / firstDatasetBarChart.length)) + ((width / firstDatasetBarChart.length - barPadding) / 2);
+    })
+    .attr("y", function(d) {
+            return yScale(d.measure) + 14;
+    })
+    .attr("class", "yAxis")
+    ;
+    
+    var xLabels = svg
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + (margin.top + height)  + ")")
+            ;
+    
+    xLabels.selectAll("text.xAxis")
+          .data(firstDatasetBarChart)
+          .enter()
+          .append("text")
+          .text(function(d) { return d.category;})
+          .attr("text-anchor", "middle")
+                           .attr("x", function(d, i) {
+                                return (i * (width / firstDatasetBarChart.length)) + ((width / firstDatasetBarChart.length - barPadding) / 2);
+                           })
+          .attr("y", 15)
+          .attr("class", "xAxis")
+          ;         
+     
+    svg.append("text")
+        .attr("x", (width + margin.left + margin.right)/2)
+        .attr("y", 15)
+        .attr("class","title")              
+        .attr("text-anchor", "middle")
+        .text("Distribution of Ratings")
+        ;
+}
+
+dsBarChart();
+
+function updateBarChart(group, colorChosen) {
+    
+        var currentDatasetBarChart = datasetBarChosen(group);
+        
+        var basics = dsBarChartBasics();
+    
+        var margin = basics.margin,
+            width = basics.width,
+           height = basics.height,
+            colorBar = basics.colorBar,
+            barPadding = basics.barPadding
+            ;
+        
+        var     xScale = d3.scale.linear()
+            .domain([0, currentDatasetBarChart.length])
+            .range([0, width])
+            ;
+        
+            
+        var yScale = d3.scale.linear()
+          .domain([0, d3.max(currentDatasetBarChart, function(d) { return d.measure; })])
+          .range([height,0])
+          ;
+          
+       var svg = d3.select("#barChart svg");
+          
+       var plot = d3.select("#barChartPlot")
+        .datum(currentDatasetBarChart)
+           ;
+    
+        plot.selectAll("rect")
+          .data(currentDatasetBarChart)
+          .transition()
+            .duration(750)
+            .attr("x", function(d, i) {
+                return xScale(i);
+            })
+           .attr("width", width / currentDatasetBarChart.length - barPadding)   
+            .attr("y", function(d) {
+                return yScale(d.measure);
+            })  
+            .attr("height", function(d) {
+                return height-yScale(d.measure);
+            })
+            .attr("fill", colorChosen)
+            ;
+        
+        plot.selectAll("text.yAxis") 
+            .data(currentDatasetBarChart)
+            .transition()
+            .duration(750)
+           .attr("text-anchor", "middle")
+           .attr("x", function(d, i) {
+                return (i * (width / currentDatasetBarChart.length)) + ((width / currentDatasetBarChart.length - barPadding) / 2);
+           })
+           .attr("y", function(d) {
+                return yScale(d.measure) + 14;
+           })
+           .text(function(d) {
+                return formatAsInteger(d3.round(d.measure));
+           })
+           .attr("class", "yAxis")                   
+        ;
+        
+
+        svg.selectAll("text.title") 
+            .attr("x", (width + margin.left + margin.right)/2)
+            .attr("y", 15)
+            .attr("class","title")              
+            .attr("text-anchor", "middle")
+            .text(group + " Ratings Breakdown")
+        ;
+}
+
+var datasetLineChart = [
+{group: "All" , category: 1900 , measure: 633 },
+{group: "All" , category: 1920 , measure: 5123 },
+{group: "All" , category: 1940 , measure: 9773 },
+{group: "All" , category: 1960 , measure: 11726 },
+{group: "All" , category: 1980 , measure: 20695 },
+{group: "Action" , category: 1900 , measure: 17 },
+{group: "Action" , category: 1920 , measure: 111 },
+{group: "Action" , category: 1940 , measure: 334 },
+{group: "Action" , category: 1960 , measure: 984 },
+{group: "Action" , category: 1980 , measure: 2373 },
+{group: "Animation" , category: 1900 , measure: 25 },
+{group: "Animation" , category: 1920 , measure: 658 },
+{group: "Animation" , category: 1940 , measure: 1331 },
+{group: "Animation" , category: 1960 , measure: 532 },
+{group: "Animation" , category: 1980 , measure: 732 },
+{group: "Comedy" , category: 1900 , measure: 238 },
+{group: "Comedy" , category: 1920 , measure: 2093 },
+{group: "Comedy" , category: 1940 , measure: 3338 },
+{group: "Comedy" , category: 1960 , measure: 3118 },
+{group: "Comedy" , category: 1980 , measure: 5382 },
+{group: "Drama" , category: 1900 , measure: 195 },
+{group: "Drama" , category: 1920 , measure: 1779 },
+{group: "Drama" , category: 1940 , measure: 3431 },
+{group: "Drama" , category: 1960 , measure: 4508 },
+{group: "Drama" , category: 1980 , measure: 7494 },
+{group: "Documentary" , category: 1900 , measure: 44 },
+{group: "Documentary" , category: 1920 , measure: 104 },
+{group: "Documentary" , category: 1940 , measure: 282 },
+{group: "Documentary" , category: 1960 , measure: 540 },
+{group: "Documentary" , category: 1980 , measure: 1303 },
+{group: "Romance" , category: 1900 , measure: 23 },
+{group: "Romance" , category: 1920 , measure: 623 },
+{group: "Romance" , category: 1940 , measure: 782 },
+{group: "Romance" , category: 1960 , measure: 581 },
+{group: "Romance" , category: 1980 , measure: 1651 },
+{group: "Short" , category: 1900 , measure: 486 },
+{group: "Short" , category: 1920 , measure: 1389 },
+{group: "Short" , category: 1940 , measure: 1950 },
+{group: "Short" , category: 1960 , measure: 926 },
+{group: "Short" , category: 1980 , measure: 2123 }
+];
+
+var group = "All";
+
+function datasetLineChartChosen(group) {
+    var ds = [];
+    for (x in datasetLineChart) {
+         if(datasetLineChart[x].group==group){
+            ds.push(datasetLineChart[x]);
+         } 
+        }
+    return ds;
+}
+
+function dsLineChartBasics() {
+
+    var margin = {top: 20, right: 10, bottom: 0, left: 50},
+        width = 500 - margin.left - margin.right,
+        height = 150 - margin.top - margin.bottom
+        ;
+        
+        return {
+            margin : margin, 
+            width : width, 
+            height : height
+        }           
+        ;
+}
+
+
+function dsLineChart() {
+
+    var firstDatasetLineChart = datasetLineChartChosen(group);    
+    
+    var basics = dsLineChartBasics();
+    
+    var margin = basics.margin,
+        width = basics.width,
+       height = basics.height
+        ;
+
+    var xScale = d3.scale.linear()
+        .domain([0, firstDatasetLineChart.length-1])
+        .range([0, width])
+        ;
+
+    var yScale = d3.scale.linear()
+        .domain([0, d3.max(firstDatasetLineChart, function(d) { return d.measure; })])
+        .range([height, 0])
+        ;
+    
+    var line = d3.svg.line()
+        .x(function(d, i) { return xScale(i); })
+        .y(function(d) { return yScale(d.measure); })
+        ;
+    
+    var svg = d3.select("#lineChart").append("svg")
+        .datum(firstDatasetLineChart)
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        
+    var plot = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("id", "lineChartPlot")
+        ;
+
+    var dsLength=firstDatasetLineChart.length;
+
+    plot.append("text")
+        .text(firstDatasetLineChart[dsLength-1].measure)
+        .attr("id","lineChartTitle2")
+        .attr("x",width/2)
+        .attr("y",height/2) 
+        ;
+        
+    plot.append("path")
+        .attr("class", "line")
+        .attr("d", line)    
+        .attr("stroke", "lightgrey")
+        ;
+      
+    plot.selectAll(".dot")
+        .data(firstDatasetLineChart)
+         .enter().append("circle")
+        .attr("class", "dot")
+        .attr("fill", function (d) { return d.measure==d3.min(firstDatasetLineChart, function(d) { return d.measure; }) ? "red" : (d.measure==d3.max(firstDatasetLineChart, function(d) { return d.measure; }) ? "green" : "white") } )
+        .attr("cx", line.x())
+        .attr("cy", line.y())
+        .attr("r", 3.5)
+        .attr("stroke", "lightgrey")
+        .append("title")
+        .text(function(d) { return d.category + ": " + formatAsInteger(d.measure); })
+        ;
+
+    svg.append("text")
+        .text("Count in 20th Century (Grouped by 20 Years)")
+        .attr("id","lineChartTitle1")   
+        .attr("x",margin.left + ((width + margin.right)/2))
+        .attr("y", 10)
+        ;
+
+}
+
+dsLineChart();
+
+
+function updateLineChart(group, colorChosen) {
+
+    var currentDatasetLineChart = datasetLineChartChosen(group);   
+
+    var basics = dsLineChartBasics();
+    
+    var margin = basics.margin,
+        width = basics.width,
+       height = basics.height
+        ;
+
+    var xScale = d3.scale.linear()
+        .domain([0, currentDatasetLineChart.length-1])
+        .range([0, width])
+        ;
+
+    var yScale = d3.scale.linear()
+        .domain([0, d3.max(currentDatasetLineChart, function(d) { return d.measure; })])
+        .range([height, 0])
+        ;
+    
+    var line = d3.svg.line()
+    .x(function(d, i) { return xScale(i); })
+    .y(function(d) { return yScale(d.measure); })
+    ;
+
+   var plot = d3.select("#lineChartPlot")
+    .datum(currentDatasetLineChart)
+       ;
+       
+    var dsLength=currentDatasetLineChart.length;
+    
+    plot.select("text")
+        .text(currentDatasetLineChart[dsLength-1].measure)
+        ;
+       
+    plot
+    .select("path")
+        .transition()
+        .duration(750)              
+       .attr("class", "line")
+       .attr("d", line) 
+        .attr("stroke", colorChosen)
+       ;
+       
+    var path = plot
+        .selectAll(".dot")
+       .data(currentDatasetLineChart)
+       .transition()
+        .duration(750)
+       .attr("class", "dot")
+       .attr("fill", function (d) { return d.measure==d3.min(currentDatasetLineChart, function(d) { return d.measure; }) ? "red" : (d.measure==d3.max(currentDatasetLineChart, function(d) { return d.measure; }) ? "green" : "white") } )
+       .attr("cx", line.x())
+       .attr("cy", line.y())
+       .attr("r", 3.5)
+        .attr("stroke", colorChosen)
+       ;
+       
+       path
+       .selectAll("title")
+       .text(function(d) { return d.category + ": " + formatAsInteger(d.measure); })     
+       ;  
+
+}
+
+
+
+    </script>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<center> <h2>Steven Rea - Code TODO: Add Link </h2></center>
+
+<h3> Basic Functionality </h3>
+
+    For the basic functionality I created a prototype dashboard, which you can see here.  TODO: Add Link
+
+
+<h3> Moderate Functionality </h3>
+
+I did not add a line to the Tableau dashboard but did to my homework since I found some code for it, and it looked much nicer.
+
+<h3> Advanced Functionality </h3>
+
+Filtering takes place when you click on a movie genre of the donut chart on the left.  Both of the charts on the right will update based on the genre you selected.
+
+<h3>Discussion</h3>
+<br>
+I was not as concerned about what I would be creating since the focus of this assignment was to learn about how to make charts interact with one another.
+Therefore I focused more on finding code examples and understanding how others had created dashboards using D3. I was happy to find an example that had the ability to filter based on a section of a donut chart and had fun dissecting the code.  It still amazes me that such complexity is already available to us even though we have only been studying D3 for a little over a month.
+<br>
+To format the data to make it as easy to use as possible led me to what may look like some bloated R code below which was incredibly simple to generate in Sublime, and would have been even faster in Excel, had I thought of using that instead.
+
+
+<h3>Data Processing in R</h3>
+
+<p>
+  I spent time in R to make things as simple as possible for importing into html/js.
+  I was able to distill the data down into small pieces and embedded the datasets directly into the html.
+</p>
+
+<p>
+
+# dataset 1
+paste('{category:','"Action"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Action==1,])/51480,2),'},')
+paste('{category:','"Animation"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Animation==1,])/51480,2),'},')
+paste('{category:','"Comedy"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Comedy==1,])/51480,2),'},')
+paste('{category:','"Drama"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Drama==1,])/51480,2),'},')
+paste('{category:','"Documentary"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Documentary==1,])/51480,2),'},')
+paste('{category:','"Romance"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Romance==1,])/51480,2),'},')
+paste('{category:','"Short"',',','measure:',round(nrow(movies[movies$year>=1900 & movies$year<2000 & movies$Short==1,])/51480,2),'},')
+</p> <p>
+# dataset 2
+<br>paste('{group:','"All"',', category:','"1-2"',', measure:',nrow(movies[round(movies$rating,0)>=0 & round(movies$rating,0)<=2 & movies$year>=1900 & movies$year<2000,]),'},')
+<br>paste('{group:','"All"',', category:','"3-4"',', measure:',nrow(movies[round(movies$rating,0)>=3 & round(movies$rating,0)<=4 & movies$year>=1900 & movies$year<2000,]),'},')
+<br>paste('{group:','"All"',', category:','"5-6"',', measure:',nrow(movies[round(movies$rating,0)>=5 & round(movies$rating,0)<=6 & movies$year>=1900 & movies$year<2000,]),'},')
+<br>paste('{group:','"All"',', category:','"7-8"',', measure:',nrow(movies[round(movies$rating,0)>=7 & round(movies$rating,0)<=8 & movies$year>=1900 & movies$year<2000,]),'},')
+<br>paste('{group:','"All"',', category:','"9-10"',', measure:',nrow(movies[round(movies$rating,0)>=9 & round(movies$rating,0)<=10 & movies$year>=1900 & movies$year<2000,]),'},')
+<br>paste('{group:','"Action"',', category:','"1-2"',', measure:',nrow(movies[round(movies$rating,0)>=0 & round(movies$rating,0)<=2 & movies$year>=1900 & movies$year<2000 & movies$Action==1,]),'},')
+<br>paste('{group:','"Action"',', category:','"3-4"',', measure:',nrow(movies[round(movies$rating,0)>=3 & round(movies$rating,0)<=4 & movies$year>=1900 & movies$year<2000 & movies$Action==1,]),'},')
+<br>paste('{group:','"Action"',', category:','"5-6"',', measure:',nrow(movies[round(movies$rating,0)>=5 & round(movies$rating,0)<=6 & movies$year>=1900 & movies$year<2000 & movies$Action==1,]),'},')
+<br>paste('{group:','"Action"',', category:','"7-8"',', measure:',nrow(movies[round(movies$rating,0)>=7 & round(movies$rating,0)<=8 & movies$year>=1900 & movies$year<2000 & movies$Action==1,]),'},')
+<br>paste('{group:','"Action"',', category:','"9-10"',', measure:',nrow(movies[round(movies$rating,0)>=9 & round(movies$rating,0)<=10 & movies$year>=1900 & movies$year<2000 & movies$Action==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','"1-2"',', measure:',nrow(movies[round(movies$rating,0)>=0 & round(movies$rating,0)<=2 & movies$year>=1900 & movies$year<2000 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','"3-4"',', measure:',nrow(movies[round(movies$rating,0)>=3 & round(movies$rating,0)<=4 & movies$year>=1900 & movies$year<2000 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','"5-6"',', measure:',nrow(movies[round(movies$rating,0)>=5 & round(movies$rating,0)<=6 & movies$year>=1900 & movies$year<2000 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','"7-8"',', measure:',nrow(movies[round(movies$rating,0)>=7 & round(movies$rating,0)<=8 & movies$year>=1900 & movies$year<2000 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','"9-10"',', measure:',nrow(movies[round(movies$rating,0)>=9 & round(movies$rating,0)<=10 & movies$year>=1900 & movies$year<2000 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','"1-2"',', measure:',nrow(movies[round(movies$rating,0)>=0 & round(movies$rating,0)<=2 & movies$year>=1900 & movies$year<2000 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','"3-4"',', measure:',nrow(movies[round(movies$rating,0)>=3 & round(movies$rating,0)<=4 & movies$year>=1900 & movies$year<2000 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','"5-6"',', measure:',nrow(movies[round(movies$rating,0)>=5 & round(movies$rating,0)<=6 & movies$year>=1900 & movies$year<2000 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','"7-8"',', measure:',nrow(movies[round(movies$rating,0)>=7 & round(movies$rating,0)<=8 & movies$year>=1900 & movies$year<2000 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','"9-10"',', measure:',nrow(movies[round(movies$rating,0)>=9 & round(movies$rating,0)<=10 & movies$year>=1900 & movies$year<2000 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','"1-2"',', measure:',nrow(movies[round(movies$rating,0)>=0 & round(movies$rating,0)<=2 & movies$year>=1900 & movies$year<2000 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','"3-4"',', measure:',nrow(movies[round(movies$rating,0)>=3 & round(movies$rating,0)<=4 & movies$year>=1900 & movies$year<2000 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','"5-6"',', measure:',nrow(movies[round(movies$rating,0)>=5 & round(movies$rating,0)<=6 & movies$year>=1900 & movies$year<2000 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','"7-8"',', measure:',nrow(movies[round(movies$rating,0)>=7 & round(movies$rating,0)<=8 & movies$year>=1900 & movies$year<2000 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','"9-10"',', measure:',nrow(movies[round(movies$rating,0)>=9 & round(movies$rating,0)<=10 & movies$year>=1900 & movies$year<2000 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','"1-2"',', measure:',nrow(movies[round(movies$rating,0)>=0 & round(movies$rating,0)<=2 & movies$year>=1900 & movies$year<2000 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','"3-4"',', measure:',nrow(movies[round(movies$rating,0)>=3 & round(movies$rating,0)<=4 & movies$year>=1900 & movies$year<2000 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','"5-6"',', measure:',nrow(movies[round(movies$rating,0)>=5 & round(movies$rating,0)<=6 & movies$year>=1900 & movies$year<2000 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','"7-8"',', measure:',nrow(movies[round(movies$rating,0)>=7 & round(movies$rating,0)<=8 & movies$year>=1900 & movies$year<2000 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','"9-10"',', measure:',nrow(movies[round(movies$rating,0)>=9 & round(movies$rating,0)<=10 & movies$year>=1900 & movies$year<2000 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','"1-2"',', measure:',nrow(movies[round(movies$rating,0)>=0 & round(movies$rating,0)<=2 & movies$year>=1900 & movies$year<2000 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','"3-4"',', measure:',nrow(movies[round(movies$rating,0)>=3 & round(movies$rating,0)<=4 & movies$year>=1900 & movies$year<2000 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','"5-6"',', measure:',nrow(movies[round(movies$rating,0)>=5 & round(movies$rating,0)<=6 & movies$year>=1900 & movies$year<2000 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','"7-8"',', measure:',nrow(movies[round(movies$rating,0)>=7 & round(movies$rating,0)<=8 & movies$year>=1900 & movies$year<2000 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','"9-10"',', measure:',nrow(movies[round(movies$rating,0)>=9 & round(movies$rating,0)<=10 & movies$year>=1900 & movies$year<2000 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Short"',', category:','"1-2"',', measure:',nrow(movies[round(movies$rating,0)>=0 & round(movies$rating,0)<=2 & movies$year>=1900 & movies$year<2000 & movies$Short==1,]),'},')
+<br>paste('{group:','"Short"',', category:','"3-4"',', measure:',nrow(movies[round(movies$rating,0)>=3 & round(movies$rating,0)<=4 & movies$year>=1900 & movies$year<2000 & movies$Short==1,]),'},')
+<br>paste('{group:','"Short"',', category:','"5-6"',', measure:',nrow(movies[round(movies$rating,0)>=5 & round(movies$rating,0)<=6 & movies$year>=1900 & movies$year<2000 & movies$Short==1,]),'},')
+<br>paste('{group:','"Short"',', category:','"7-8"',', measure:',nrow(movies[round(movies$rating,0)>=7 & round(movies$rating,0)<=8 & movies$year>=1900 & movies$year<2000 & movies$Short==1,]),'},')
+<br>paste('{group:','"Short"',', category:','"9-10"',', measure:',nrow(movies[round(movies$rating,0)>=9 & round(movies$rating,0)<=10 & movies$year>=1900 & movies$year<2000 & movies$Short==1,]),'},')
+</p> <p>
+# dataset 3
+<br>paste('{group:','"All"',', category:','1900',', measure:',nrow(movies[movies$year<1920 & movies$year>=1900,]),'},')
+<br>paste('{group:','"All"',', category:','1920',', measure:',nrow(movies[movies$year<1940 & movies$year>=1920,]),'},')
+<br>paste('{group:','"All"',', category:','1940',', measure:',nrow(movies[movies$year<1960 & movies$year>=1940,]),'},')
+<br>paste('{group:','"All"',', category:','1960',', measure:',nrow(movies[movies$year<1980 & movies$year>=1960,]),'},')
+<br>paste('{group:','"All"',', category:','1980',', measure:',nrow(movies[movies$year<2000 & movies$year>=1980,]),'},')
+<br>paste('{group:','"Action"',', category:','1900',', measure:',nrow(movies[movies$year<1920 & movies$year>=1900 & movies$Action==1,]),'},')
+<br>paste('{group:','"Action"',', category:','1920',', measure:',nrow(movies[movies$year<1940 & movies$year>=1920 & movies$Action==1,]),'},')
+<br>paste('{group:','"Action"',', category:','1940',', measure:',nrow(movies[movies$year<1960 & movies$year>=1940 & movies$Action==1,]),'},')
+<br>paste('{group:','"Action"',', category:','1960',', measure:',nrow(movies[movies$year<1980 & movies$year>=1960 & movies$Action==1,]),'},')
+<br>paste('{group:','"Action"',', category:','1980',', measure:',nrow(movies[movies$year<2000 & movies$year>=1980 & movies$Action==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','1900',', measure:',nrow(movies[movies$year<1920 & movies$year>=1900 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','1920',', measure:',nrow(movies[movies$year<1940 & movies$year>=1920 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','1940',', measure:',nrow(movies[movies$year<1960 & movies$year>=1940 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','1960',', measure:',nrow(movies[movies$year<1980 & movies$year>=1960 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Animation"',', category:','1980',', measure:',nrow(movies[movies$year<2000 & movies$year>=1980 & movies$Animation==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','1900',', measure:',nrow(movies[movies$year<1920 & movies$year>=1900 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','1920',', measure:',nrow(movies[movies$year<1940 & movies$year>=1920 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','1940',', measure:',nrow(movies[movies$year<1960 & movies$year>=1940 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','1960',', measure:',nrow(movies[movies$year<1980 & movies$year>=1960 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Comedy"',', category:','1980',', measure:',nrow(movies[movies$year<2000 & movies$year>=1980 & movies$Comedy==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','1900',', measure:',nrow(movies[movies$year<1920 & movies$year>=1900 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','1920',', measure:',nrow(movies[movies$year<1940 & movies$year>=1920 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','1940',', measure:',nrow(movies[movies$year<1960 & movies$year>=1940 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','1960',', measure:',nrow(movies[movies$year<1980 & movies$year>=1960 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Drama"',', category:','1980',', measure:',nrow(movies[movies$year<2000 & movies$year>=1980 & movies$Drama==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','1900',', measure:',nrow(movies[movies$year<1920 & movies$year>=1900 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','1920',', measure:',nrow(movies[movies$year<1940 & movies$year>=1920 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','1940',', measure:',nrow(movies[movies$year<1960 & movies$year>=1940 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','1960',', measure:',nrow(movies[movies$year<1980 & movies$year>=1960 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Documentary"',', category:','1980',', measure:',nrow(movies[movies$year<2000 & movies$year>=1980 & movies$Documentary==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','1900',', measure:',nrow(movies[movies$year<1920 & movies$year>=1900 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','1920',', measure:',nrow(movies[movies$year<1940 & movies$year>=1920 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','1940',', measure:',nrow(movies[movies$year<1960 & movies$year>=1940 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','1960',', measure:',nrow(movies[movies$year<1980 & movies$year>=1960 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Romance"',', category:','1980',', measure:',nrow(movies[movies$year<2000 & movies$year>=1980 & movies$Romance==1,]),'},')
+<br>paste('{group:','"Short"',', category:','1900',', measure:',nrow(movies[movies$year<1920 & movies$year>=1900 & movies$Short==1,]),'},')
+<br>paste('{group:','"Short"',', category:','1920',', measure:',nrow(movies[movies$year<1940 & movies$year>=1920 & movies$Short==1,]),'},')
+<br>paste('{group:','"Short"',', category:','1940',', measure:',nrow(movies[movies$year<1960 & movies$year>=1940 & movies$Short==1,]),'},')
+<br>paste('{group:','"Short"',', category:','1960',', measure:',nrow(movies[movies$year<1980 & movies$year>=1960 & movies$Short==1,]),'},')
+<br>paste('{group:','"Short"',', category:','1980',', measure:',nrow(movies[movies$year<2000 & movies$year>=1980 & movies$Short==1,]),'},')
+
+</p>
+
+<br><br>
+<center> <p> <a href="http://srea64.github.io/msan622/">Steven Rea - MSAN 622</a></p> </center>
+
+  </body>
+</html>
