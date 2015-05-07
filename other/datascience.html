@@ -2,22 +2,27 @@
  
 <head>
     <meta charset="utf-8">
+    <style>
+        p.code {"Lucida Console", Monaco, monospace}
+        /* usage: <p class="code"></p> */
+    </style>
 </head>
 
 <body bgcolor="#E6E6FA">
 <script>
 
 easy = Array(
-    " <b>P-Value</b> <br> <i>Statistics</i> <br><br> The probability of finding a more extreme example given that the null hypothesis is correct."
+    " <b>P-Value</b> <br> <i>Statistics</i> <br><br> The probability of finding a more extreme example given that the null hypothesis is correct.",
+    "pi (up to 50) <br> math <br> 3. 141 59 26 535 8979 323 846264 3383 279 502 884 1971 69399 37 510",
+    "<b>Euler's Number<b> (up to 9) <br> <i>Math</i> <br><br> 2. 7 1828 1828"
         );
 
 
 hard = Array(
-    // " <b>Communality</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of the variance of the ith variable contributed by the m common factors is called the ith communality. <br> Var(X_i) = Communality + Specific Variance ",
-    // " <b>Uniqueness, Specific Variance</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of Var(X_i)=sigma_ii due to the specific factor. <br> Var(X_i) = Communality + Specific Variance ",
-    // " <b>Beautiful Soup Example</b> <br> <i>python</i> <br><br> import requests <br>from bs4 import BeautifulSoup <br>userID = thisID <br>baseURL = 'https://www.youtube.com/user/'<br>userURL = baseURL + str(userID) <br>r = requests.get(userURL) <br>soup = BeautifulSoup(r.text) ",
-    " <b>Proper Python Function</b> <br> <i>python</i> <br><br> def myFunction(myParameter1,myParameter2=0): <br>'''<br>This is an explanation of the function. <br> <br>:param myParameter1: explanation <br>:type myParameter1: type <br>:param myParameter2: explanation <br>:type myParameter2: type <br>:return: explanation <br>:rtype: return type <br>'''",
-    "<H4>Here's What's For Dinner</H4> <DL> <DT>Salad <DD>Green stuff and dressing <DD>Mystery meat and mashed yams <DD>A mint </DL>"
+    " <b>Communality</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of the variance of the ith variable contributed by the m common factors is called the ith communality. <br> Var(X_i) = Communality + Specific Variance ",
+    " <b>Uniqueness, Specific Variance</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of Var(X_i) = sigma_ii due to the specific factor. <br> Var(X_i) = Communality + Specific Variance ",
+    " <b>Beautiful Soup Example</b> <br> <i>python</i> <br><br> import requests <br>from bs4 import BeautifulSoup <br><br>userID = thisID <br>baseURL = 'https://www.youtube.com/user/'<br>userURL = baseURL + str(userID) <br>r = requests.get(userURL) <br>soup = BeautifulSoup(r.text) ",
+    " <b>Proper Python Function</b> <br> <i>python</i> <br><br> <DL> <DT> def myFunction(myParameter1,myParameter2=0): <DD>'''<br>This is an explanation of the function. <br> <br>:param myParameter1: explanation <br>:type myParameter1: type <br>:param myParameter2: explanation <br>:type myParameter2: type <br>:return: explanation <br>:rtype: return type <br>'''</DL>" 
 
         );
 
@@ -220,8 +225,248 @@ Examples
         one v. one
 
 
+"""
+import requests
+
+def fetchData(startDate,endDate):
+    '''
+    Given the necessary parameters, fetch data by day
+
+    :param startDate: first day
+    :type startDate: string
+    :param endDate: last day
+    :type endDate: string
+    :return: json object with info from api
+    :rtype: json
+    '''
+
+    # base url for api call
+    baseURL = 'http://api.com/'
+
+    # dictionary of parameters for call
+    params = {
+        'group': 'day',
+        'metric': 'views',
+        'start': startDate,
+        'end': endDate
+    }
+
+    # send request to API
+    r = requests.get(baseURL,param=params)
+
+    # return data in json
+    return r.json()
+"""
+
+Latency numbers every programmer should know
+    L1 cache reference ......................... 0.5 ns
+    Branch mispredict ............................ 5 ns
+    L2 cache reference ........................... 7 ns
+    Mutex lock/unlock ........................... 25 ns
+    Main memory reference ...................... 100 ns             
+    Compress 1K bytes with Zippy ............. 3,000 ns  =   3 µs
+    Send 2K bytes over 1 Gbps network ....... 20,000 ns  =  20 µs
+    SSD random read ........................ 150,000 ns  = 150 µs
+    Read 1 MB sequentially from memory ..... 250,000 ns  = 250 µs
+    Round trip within same datacenter ...... 500,000 ns  = 0.5 ms
+    Read 1 MB sequentially from SSD* ..... 1,000,000 ns  =   1 ms
+    Disk seek ........................... 10,000,000 ns  =  10 ms
+    Read 1 MB sequentially from disk .... 20,000,000 ns  =  20 ms
+    Send packet CA->Netherlands->CA .... 150,000,000 ns  = 150 ms
+
+
+
+def test(actual, expected):
+    if (actual != expected):
+        print "[FAILED] actual: {}, expected: {}".format(actual, expected)
+ 
+if __name__ == "__main__":
+    test(solution([]), -1)
+    test(solution([2, -2, 3, 0, 4, -7]), 4)
+ 
+    print "if you are seeing this, done"
+
+
+
+Given two strings, write a method to decide if one is a permutation of the other
+    Order the letters and compare (n*log(n))
+    notes
+        lower limit is n
+How to check or detect duplicate elements in a list/array?
+    go through array and make hash table counting
+How to find the median of an array
+    sort and find n/2
+Find second lowest number
+    go through once, saving lowest and second lowest
+1s and 0s ordered
+    binary search
+        start in middle.  move left or right to middle as needed.
+        log(n)
+When is computation at least linear?
+    When you need to look at every element
+When do you get log(n)?
+    When data is already sorted
+In which cases you need at least n*log(n)
+    When you need to sort
+You have a stream of data coming in of size n, but you don't know what n is ahead of time. Write an algorithm that will take a random sample of k elements.  Can you write one that takes O(k) space?
+    Start with k=1.  Solve.
+    Start with k=2.  Solve.
+    ...
+    Generalize.
+
+
+
+
+    # add dummy variables
+    X_df = pd.get_dummies(X_df)
+
+
+    # read in data
+    df = pd.read_csv(myFile, header=None)
+
+
+    # drop unusable column
+    df = df.drop('InstanceWeight', axis=1)
+
+    # rename columns
+    df.columns = names
 
 
 
 
 
+
+
+
+
+
+opening line of file
+python
+#!/usr/bin/env python
+
+
+
+
+
+
+
+Random Forest in sklearn
+Machine Learning
+
+from sklearn.ensemble import RandomForestClassifier
+
+# create random forest object
+rf = RandomForestClassifier(
+            n_estimators=32,
+            max_depth=None,
+            min_samples_split=2,
+            min_samples_leaf=1,
+            max_features=32,
+            max_leaf_nodes=None,
+            bootstrap=True,
+            oob_score=True,
+            n_jobs=1,
+            random_state=None
+      )
+
+# train random forest
+rf.fit(X_sample,y_sample)
+
+# out of bag score
+print 'out of bag score'
+print rf.oob_score_
+
+# Compute ROC curve and area the curve
+fpr, tpr, thresholds = roc_curve(y_test, probas_[:, 1])
+roc_auc = auc(fpr, tpr)
+print "Area under the ROC curve : %f" % roc_auc
+
+# save the classifier
+with open('rf_clf2.pkl', 'wb') as fid:
+    cPickle.dump(rf, fid)
+
+
+
+
+
+
+
+
+
+
+
+
+Naive Bayes in sklearn
+Machine Learning
+
+from sklearn.naive_bayes import MultinomialNB
+
+# create multinomial naive bayes object
+nb = MultinomialNB(
+            alpha=1,
+            fit_prior=True,
+            class_prior=None
+        )
+
+# top features, as given from testing with Random Forests
+topFeatures = ['Education_ Bachelors degree(BA AB BS)', 'Education_ Children', 
+                ...'NumUnder18_ Not in universe']
+
+# get data
+print 'get data'
+X_train, y_train, X_test, y_test = cleaning.get_census()
+
+# sample from training data using top Features
+print 'sample from training data'
+X_sample, y_sample = cleaning.create_sample_dataframe2(
+                        X_train[topFeatures],
+                        y_train,
+                        nRows=120000,
+                        proportionPositive=0.6
+                     )
+
+# measure naive bayes
+cleaning.measure_cross_val(X=X_sample,y=y_sample,clf=nb,cv=3)
+
+# Print Accuracy, Classification Report, and Confusion Matrix
+print 'Accuracy, Classification Report, and Confusion Matrix'
+cleaning.measure_performance(X_test[topFeatures], y_test, nb)
+
+
+
+
+
+
+
+
+
+
+
+
+Measuring Performance in Supervised Learning in sklearn
+Machine Learning
+
+from sklearn import metrics
+
+def measure_performance(X, y, clf, 
+                        show_accuracy=True,
+                        show_classification_report=True, 
+                        show_confusion_matrix=True
+    ):
+
+    # predict targets based on X (to determine classifier's accuracy)
+    y_pred = clf.predict(X)
+
+    # print accuracy score
+    if show_accuracy:
+         print "Accuracy:{0:.3f}".format(metrics.accuracy_score(y, y_pred)),"\n"
+
+    # print classification report
+    if show_classification_report:
+        print "Classification report"
+        print metrics.classification_report(y, y_pred),"\n"
+
+    # print confusion matrix
+    if show_confusion_matrix:
+        print "Confusion matrix"
+        print metrics.confusion_matrix(y, y_pred),"\n"
