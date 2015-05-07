@@ -1,0 +1,79 @@
+<body>
+<title> Prototype </title>
+<center><h1> Prototype </h1></center>
+
+<h3>Dataset Summary</h3>
+
+    <!-- <i>
+        &nbsp;&nbsp;&nbsp;&nbsp; 
+        Include a 1-paragraph summary of your dataset. This section will be used to introduce your dataset to people evaluating your prototype. Also include a link to your Project Dataset writeup on your submission website.
+
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Note: If you changed datasets, please re-complete the Project Dataset writeup on your submission website for your new dataset. Do NOT resubmit the link in Canvas. You will need this writeup eventually for the final project report, so you might as well do it now.
+    </i> -->
+
+<!-- <br><br> -->
+
+    My dataset comes from the pokemon universe.
+    <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp; -->
+    It has attributes concerning all the pokemon from all six generations.  There are currently 721 of the creatures who fit into many different categories.  The follow following information is contained for each:
+<ul>
+    <li> Generation: Generation in which a pokemon first appears. (e.g., Red and Blue are first generation, Gold and Silver are second generation.)
+    <li> id: ID Number.
+    <li> Name: Creature name.
+    <li> Primary Type: Type of pokemon, e.g. Psychic, Water, Normal.
+    <li> Secondary Type: Secondary type of the same variety as the first.  Not always present.
+    <li> Health Points: Amount of points that can be lost before fainting.
+    <li> Attack: Determines amount of damage given from attacks.
+    <li> Defense: Determines amount of damage taken from attacks.
+    <li> Special Attack: Determines amount of damage given from attacks related to primary and secondary types.
+    <li> Special Defense: Determines amount of damage taken from attacks related to primary and secondary types.
+    <li> Speed: Determines which pokemon attacks first.  (The game is turn-based.)
+    <li> Total Attribute Points: Sum of all attribute points.
+</ul>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    If you are not familiar with the games: The idea is that there are a diverse set of creatures with different attributes that you catch and train.  Then using a team of these pokemon you explore the world, see new pokemon, spar with your rival, defeat other prominent trainers, and save the world from an evil empire.
+
+<br><br>
+You may view the Dataset Writeup by clicking <a href="dataset.html"> here</a>.
+
+<h3>Sketch Summary</h3>
+
+    <!-- <i>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        Include a 1 paragraph summary of your sketch. This will be used to provide context on how this prototype fits into your larger plan. Also include a link to your Project Sketch writeup on your submission website.
+    </i> -->
+
+    <!-- <br> -->
+    &nbsp;&nbsp;&nbsp;&nbsp; <!-- newline and tab -->
+    I chose to use parallel coordinates for the sketch because of how simple it is to use and how much exploration can be done with it.  Initially I was hoping to color by Primary Type but the high number led to a confusing amount of colors in the plot.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; <!-- newline and tab -->
+    I plan to have this plot shown first so that people can explore    
+
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; <!-- newline and tab -->
+    For my second chart (which is not shown) I plan to run a Principal Component Analysis and plot the first two dimensions so that users can see a plotted explanation of the variance to get a better understanding of the dataset they just explored.
+
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; <!-- newline and tab -->
+    I have also started another one of my charts: the radar plot.  The radar plot has already been used throughout the pokemon universe so I know that people with a knowledge of the game will probably have seen this technique before, making it easier for them to understand what is happening.  I'm hoping to have the ability to filter based on pokemon to allow the user to choose two teams of six pokemon and compare average statistics across the team.
+
+<br><br>
+You may view the Dataset Sketch by clicking <a href="sketch.html"> here</a>.
+
+
+<h3>Visualization Prototype</h3>
+
+    <!-- <i>
+        Implement one of your techniques from the Project Sketch assignment in D3. You can deviate from your submitted sketch with permission only. Please choose something that you intend to implement in pure D3 or with D3 plug-ins.
+
+        The bare minimum that must be completed is a single non-interactive D3 visualization of a small subset of your actual dataset. You are encouraged, however, to go beyond the bare minimum.
+
+        The more you complete, the more useful this assignment and associated exercise will be. Keep in mind you also need something working by the time you need to create and submit the Project Video assignment, and my expectations for your final project are high since I know you should have already started working on it (giving you 3 to 4 weeks of time on the project from the prototype to the report). Working hard now WILL pay off later.
+    </i> -->
+
+    <iframe src="para.html" width="980" height="600" frameBorder="0"></iframe>
+    <iframe src="radar/index.html" width="900" height="660" frameBorder="0"></iframe>
+
+<br>
+<center>Steven Rea - MSAN 622</center>
+
