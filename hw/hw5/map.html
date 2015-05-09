@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<!-- time, latitude, longitude, depth, mag, magType, nst, gap, dmin, rms, net, id, updated, place, type -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Symbol Map Demo</title>
+
+    <!-- load D3 and TopoJSON //-->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+
+    <!-- load custom CSS and JavaScript //-->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+
+ </head>
+
+<body>
+
+<div id="block">
+<svg id="map" width="940" height="480"></svg>
+<p id="log">Loading map... please wait.</p>
+</div>
+
+<script>
+/*
+ * For sample TopoJSON files, go to:
+ * https://gist.github.com/mbostock/4090846
+ */
+
+var color = d3.scale.linear()
+    .domain([7, 604])
+    .range(["red", "steelblue"])
+    .interpolate(d3.interpolateLab);
+
+// var color = d3.scale.threshold()
+    // .domain([3, 4, 5, 6, 7, 8])
+    // .range(["#ffffcc","#c2e699","#78c679","#31a354","#006837"]);
+    // .range(["#edf8fb", "#ccece6", "#99d8c9", "#66c2a4", "#2ca25f", "#006d2c"]);
+    // .range(["#ffffcc", "#c7e9b4", "#7fcdbb", "#41b6c4", "#2c7fb8", "#253494"]);
+
+
+var base = "https://gist.githubusercontent.com/mbostock/4090846/raw/";
+var url = {
+    world: base + "world-50m.json",
+    earthquakes: "4.5_month.csv"
+    // country: base + "us.json",
+    // states:  base + "us-state-names.tsv",
+    // precip:  "usprecip.json" // relative URL
+};
+
+// Uses reusable chart model
+// See http://bost.ocks.org/mike/chart/
+var chart = symbolMap();
+
+// Update how we access data (need the precip property)
+// chart = chart.value(function(d) { return d.precip; });
+chart = chart.value(function(d) { return d.mag; });
+
+// Nested calls to trigger drawing in proper order
+// d3.json(url.country, function(mapError, mapJSON) {
+d3.json(url.world, function(mapError, mapJSON) {
+    if (processError(mapError)) return;
+
+    // update map data
+    chart = chart.map(mapJSON);
+
+    // Wait until the map is drawn before loading
+    // and drawing the data values
+    // d3.json(url.precip, function(dataError, dataJSON) {
+    d3.csv(url.earthquakes, function(dataError, dataJSON) {
+        if (processError(dataError)) return;
+
+        chart = chart.values(dataJSON);
+        chart("map");
+    });
+});
+
+// // Load state lookup information
+// // Possible some lookups will fail until this loads
+// d3.tsv(url.states, parseStateName, function(error, data) {
+//         if (processError(error)) return;
+//         chart = chart.lookup(data);
+//     }
+// );
+
+</script>
+
+</body>
+</html>
