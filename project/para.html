@@ -5,18 +5,8 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="pygment_trac.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <meta name="description" content="MSAN 622 Submission Page - Homework 2">
 </head>
 <style>
-    #writeup {
-        width: 100%;
-    }
-    #functionality {
-        width: 50%;
-        float: left;
-        padding: 5px;
-        margin-right: 15px;
-    }
     #plot {
         margin-left: auto;
         margin-right: auto;
@@ -34,12 +24,8 @@
         fill: none;
         stroke: darkgray;
         shape-rendering: crispEdges; 
-        /*display: none;*/
     }
     .x.axis2 path {
-/*        fill: none;
-        stroke: darkgray;
-        shape-rendering: crispEdges; */
         display: none;
     }
     .axis2 text {
@@ -65,7 +51,6 @@
       color: #fff;
       border-radius: 5px;
     }
-    /* Creates a small triangle extender for the tooltip */
     .d3-tip:after {
       box-sizing: border-box;
       display: inline;
@@ -154,28 +139,21 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <body>
-<div id="parallelCoords"></div>
+<div id="para"></div>
 <script>
 var margin = {top: 50, right: 20, bottom: 40, left: 70},
     width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 var formatting = d3.format(",.0f");
-// set color scale for regions
+
+// co-lar
 var color = d3.scale.category10();
 
-// load json file and call draw function
-// d3.csv("pokemon.csv", function(error, data) {
 d3.csv("pokemon3.csv", function(error, data) {
-  parallels(data);
+  drawPara(data);
 });
-// function to draw all bubble chart contents into "bubbleChart" div tag
 
-
-function parallels(data) {
-    // http://bl.ocks.org/mbostock/7586334
-    // http://bl.ocks.org/chrisbrich/4173826
-    // https://dexvis.wordpress.com/2013/01/28/d3js-parallel-lines-and-football/
-    // update dimensions
+function drawPara(data) {
     var margin = {top: 30, right: 30, bottom: 10, left: 60},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -186,7 +164,7 @@ function parallels(data) {
         axis = d3.svg.axis().orient("left"),
         background,
         foreground;
-    var svg = d3.select("#parallelCoords").append("svg")
+    var svg = d3.select("#para").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr("id", "plot")
@@ -194,17 +172,11 @@ function parallels(data) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     categoricals = [];
-    // Extract the list of dimensions and create a scale for each.
-    // console.log("data:", d3.values(data[0]))
     x.domain(dimensions = d3.keys(data[0]).filter(function(d) {
-        // if (d === "state_abb") return false;
         if (d === "id") return false;
         if (d === "Name") return false;
         if (d === "Type") return false;
-        // if (["state_name", "state_region", "state_division"].indexOf(d) > -1) {
-        // if (["Type1","Type2","Generation"].indexOf(d) > -1) {
         if (["Type1","Type2"].indexOf(d) > -1) {
-          // console.log("I found a categorical");
             categoricals.push(d);
             y[d] = d3.scale.ordinal()
             .domain(data.map(function(p) { return p[d]; }))
@@ -216,24 +188,21 @@ function parallels(data) {
         }
         return true;
     }));
-    // Add grey background lines for context
     background = svg.append("g")
         .attr("class", "background")
         .selectAll("path")
         .data(data)
         .enter().append("path")
         .attr("d", path);
-    // Add colored foreground lines for focus
     foreground = svg.append("g")
         .attr("class", "foreground")
         .selectAll("path")
         .data(data)
         .enter().append("path")
-        // .style("stroke", function (d) { return color(d.state_division); })
         .style("stroke", function (d) { return color(d.Generation); })
-        .style("stroke-width", 1.25)
+        .style("stroke-width", 0.90)
+        .style("stroke-opacity", 0.90)
         .attr("d", path);
-    // Add a group element for each dimension
     var g = svg.selectAll(".dimension")
         .data(dimensions)
       .enter().append("g")
@@ -264,7 +233,6 @@ function parallels(data) {
                 .duration(0)
                 .attr("visibility", null);
           }));
-    // Add an axis and title.
     g.append("g")
         .attr("class", "axis3")
         .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
@@ -290,7 +258,6 @@ function parallels(data) {
             }
             return d;
         });
-    // Add and store a brush for each axis
     g.append("g")
         .attr("class", "brush")
         .each(function(d) { d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush)); })
@@ -304,28 +271,21 @@ function parallels(data) {
     function transition(g) {
       return g.transition().duration(500);
     }
-    // Returns the path for a given data point.
     function path(d) {
       return line(dimensions.map(function(p) { return [position(p), y[p](d[p])]; }));
     }
-    // When brushing, don’t trigger axis dragging.
     function brushstart() {
       d3.event.sourceEvent.stopPropagation();
     }
-    // Handles a brush event, toggling the display of foreground lines.
     function brush() {
       var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
           extents = actives.map(function(p) { return y[p].brush.extent(); });
       foreground.style("display", function(d) {
           return actives.every(function(p, i)
           {
-              // Categorical
-              // if (["state_name", "state_region", "state_division"].indexOf(p) > -1) {
               if (["Name","Type1","Type2"].indexOf(p) > -1) {
-                  // return extents[i][0] <= y[p](d[p]) && y[p](d[p]) <= extents[i][1];
                   return extents[i][0] <= y[p](d[p]) && y[p](d[p]) <= extents[i][1];
               } else {
-                  // Numeric
                   return extents[i][0] <= d[p] && d[p] <= extents[i][1];
               }
           }) ? null : "none";
