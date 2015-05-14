@@ -2,55 +2,26 @@
 
 <meta charset="utf-8">
 <head>    
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="pygment_trac.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 <style>
-    #plot {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .axis text {
-        font: 10px sans-serif;
-    }
-    .axis path,
-    .axis line {
-        fill: none;
-        stroke: darkgray;
-        shape-rendering: crispEdges;
-    }
-    .x.axis path {
-        fill: none;
-        stroke: darkgray;
-        shape-rendering: crispEdges; 
-    }
-    .x.axis2 path {
-        display: none;
-    }
-    .axis2 text {
-        font-family: "Lucida Console", Monaco, monospace;
-        font-size: 12px;
-    }
-    .axis3 line,
-    .axis3 path {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-    }
-    
-    .axis3 text {
-        font: 10px sans-serif;
-        text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-    }
-    .d3-tip {
-      line-height: 1;
-      font-weight: bold;
-      padding: 12px;
-      background: rgba(44,123,182, 0.9);
-      color: #fff;
-      border-radius: 5px;
-    }
+
+  /* center plot */
+  #plot {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .axis path {
+    fill: none; 
+    stroke: #000; 
+    shape-rendering: crispEdges; 
+  }
+  
+  .axis text {
+    font: 10px sans-serif;
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  }
+  .d3-tip {line-height: 1; font-weight: bold; padding: 12px; background: rgba(44,123,182, 0.9); color: #fff; border-radius: 5px; }
     .d3-tip:after {
       box-sizing: border-box;
       display: inline;
@@ -141,29 +112,38 @@
 <body>
 <div id="para"></div>
 <script>
+
 var margin = {top: 50, right: 20, bottom: 40, left: 70},
     width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 var formatting = d3.format(",.0f");
 
-// co-lar
+// colors
 var color = d3.scale.category10();
 
+// read in data, run through function
+// using functions might allow me to do several charts at once
+// TODO: test speed
 d3.csv("pokemon3.csv", function(error, data) {
   drawPara(data);
 });
 
+// function which draws the chart
 function drawPara(data) {
+
     var margin = {top: 30, right: 30, bottom: 10, left: 60},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
+
     var x = d3.scale.ordinal().rangePoints([0, width], 1),
         y = {},
         dragging = {};
+
     var line = d3.svg.line(),
         axis = d3.svg.axis().orient("left"),
         background,
         foreground;
+
     var svg = d3.select("#para").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -171,11 +151,16 @@ function drawPara(data) {
         .attr("display", "block")
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    // array to store categoricals
     categoricals = [];
     x.domain(dimensions = d3.keys(data[0]).filter(function(d) {
+
+        // don't include these columns
         if (d === "id") return false;
         if (d === "Name") return false;
         if (d === "Type") return false;
+
         if (["Type1","Type2"].indexOf(d) > -1) {
             categoricals.push(d);
             y[d] = d3.scale.ordinal()
@@ -234,7 +219,7 @@ function drawPara(data) {
                 .attr("visibility", null);
           }));
     g.append("g")
-        .attr("class", "axis3")
+        .attr("class", "axis")
         .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
       .append("text")
         .attr("text-anchor", "middle")
