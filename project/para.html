@@ -6,12 +6,13 @@
   Notes
     http://bl.ocks.org/jasondavies/1341281 
     https://syntagmatic.github.io/parallel-coordinates/
+    http://graphicdesign.stackexchange.com/questions/29256/text-not-very-readable-on-different-image-backgrounds
 -->
 
 <style>
 
-  /* center plot */
-  #plot {
+  /* automatically center plot */
+  #centerPlot {
     margin-left: auto;
     margin-right: auto;
   }
@@ -19,14 +20,13 @@
   /* normal bars */
   .axis path {
     fill: none; 
-    stroke: #000; 
-    shape-rendering: 
-    crispEdges; 
+    stroke: #ddd;
+    shape-rendering: crispEdges;
   }
   
   .axis text {
-    font: 10px sans-serif;
-    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+    font: 10px sans-serif; 
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff; 
   }
     
   /* make background not black */
@@ -80,7 +80,7 @@ d3.csv("pokemon3.csv", function(error, data) {
   var svg = d3.select("#para").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-      .attr("id", "plot")
+      .attr("id", "centerPlot")
       .attr("display", "block")
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -109,27 +109,40 @@ d3.csv("pokemon3.csv", function(error, data) {
   }));
 
   background = svg.append("g")
-      .attr("class", "background")
-      .selectAll("path")
-      .data(data)
-      .enter().append("path")
-      .attr("d", path);
+    .attr("class", "background")
+    .selectAll("path")
+    .data(data)
+
+    // data that hasn't been added yet (everything being read in)
+    .enter().append("path")
+    .attr("d", path);
 
   foreground = svg.append("g")
-      .attr("class", "foreground")
-      .selectAll("path")
-      .data(data)
-      .enter().append("path")
-      .style("stroke", function (d) { return color(d.Generation); })
-      .style("stroke-width", 0.90)
-      .style("stroke-opacity", 0.90)
-      .attr("d", path);
+    .attr("class", "foreground")
+    .selectAll("path")
+    .data(data)
+    .enter().append("path")
+
+    // color based on Generation
+    .style("stroke", function (d) { 
+      return color(d.Generation); }
+    )
+    // TODO: look into changing this based on user
+
+    // width 
+    .style("stroke-width", 0.90)
+
+    // opacity
+    .style("stroke-opacity", 0.90)
+    .attr("d", path);
 
   var g = svg.selectAll(".dimension")
       .data(dimensions)
     .enter().append("g")
       .attr("class", "dimension")
-      .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
+      .attr("transform", function(d) { 
+        return "translate(" + x(d) + ")"; 
+      })
       .call(d3.behavior.drag()
         .on("dragstart", function(d) {
           dragging[d] = this.__origin__ = x(d);
@@ -138,9 +151,13 @@ d3.csv("pokemon3.csv", function(error, data) {
         .on("drag", function(d) {
           dragging[d] = Math.min(width, Math.max(0, this.__origin__ += d3.event.dx));
           foreground.attr("d", path);
-          dimensions.sort(function(a, b) { return position(a) - position(b); });
+          dimensions.sort(function(a, b) { 
+            return position(a) - position(b); 
+          });
           x.domain(dimensions);
-          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
+          g.attr("transform", function(d) { 
+            return "translate(" + position(d) + ")"; 
+          })
         })
         .on("dragend", function(d) {
           delete this.__origin__;
@@ -165,55 +182,70 @@ d3.csv("pokemon3.csv", function(error, data) {
       .text(
         function(d) {
           switch (d) {
-              case "id": return "id";
-              case "Name": return "Name";
-              case "Type": return "Type";
-              case "Type1": return "Type1";
-              case "Type2": return "Type2";
-              case "Total": return "Total";
-              case "Health Points": return "Health Points";
-              case "Attack": return "Attack";
-              case "Defense": return "Defense";
-              case "Special Attack": return "Special Attack";
-              case "Special Defense": return "Special Defense";
-              case "Speed": return "Speed";
-              case "Generation": return "Generation";
+            case "id": return "id";
+            case "Name": return "Name";
+            case "Type": return "Type";
+            case "Type1": return "Type1";
+            case "Type2": return "Type2";
+            case "Total": return "Total";
+            case "Health Points": return "Health Points";
+            case "Attack": return "Attack";
+            case "Defense": return "Defense";
+            case "Special Attack": return "Special Attack";
+            case "Special Defense": return "Special Defense";
+            case "Speed": return "Speed";
+            case "Generation": return "Generation";
           }
           return d;
       });
+
   g.append("g")
       .attr("class", "brush")
-      .each(function(d) { d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush)); })
+      .each(function(d) { 
+        d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush)); 
+      })
     .selectAll("rect")
       .attr("x", -8)
       .attr("width", 16);
+
   function position(d) {
     var v = dragging[d];
     return v == null ? x(d) : v;
   }
+
   function transition(g) {
     return g.transition().duration(500);
   }
+
   function path(d) {
     return line(dimensions.map(function(p) { return [position(p), y[p](d[p])]; }));
   }
+
   function brushstart() {
     d3.event.sourceEvent.stopPropagation();
   }
+
   function brush() {
-    var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
-        extents = actives.map(function(p) { return y[p].brush.extent(); });
+
+    var actives = dimensions.filter(function(p) { 
+                    return !y[p].brush.empty(); 
+                  }),
+        extents = actives.map(function(p) { 
+                    return y[p].brush.extent(); 
+                  });
+
     foreground.style("display", function(d) {
-        return actives.every(function(p, i)
-        {
+        return actives.every(function(p, i) {
             if (["Name","Type1","Type2"].indexOf(p) > -1) {
                 return extents[i][0] <= y[p](d[p]) && y[p](d[p]) <= extents[i][1];
-            } else {
+            } 
+            else {
                 return extents[i][0] <= d[p] && d[p] <= extents[i][1];
             }
         }) ? null : "none";
     });
   }
+
 });
 </script>
 
