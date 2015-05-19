@@ -78,7 +78,7 @@ circle.hidden {
   Each axis in the graphs below corresponds to a combination of columns that 'get at' something.  For example, take a look at the second principal component: Speed vs Defense.  As you go to one side of the axis the pokemon listed there have much higher speed than they do defense, whereas going in the other direction will yield pokemon with much higher defense than speed.  A pokemon with very high values in both categories will be closer to the middle.  This area will also include pokemon which score very low in both categories.  So whether weak or strong, balanced pokemon should stick around zero whereas those specialized in a certain area will appear closer to the end of one of the axes.
   Keep in mind that these graphs will really be useful in telling the difference between pokemon in general rather than finding an individual pokemon.
   <br> &nbsp;&nbsp;&nbsp;&nbsp;
-  To better understand what you're looking at, each axis of the subplots below corresponds to one of the following (Note that attributes in parentheses are of secondary importance.):
+  To better understand what you're looking at, each axis of the subplots below corresponds to one of the following (Note that attributes in parentheses less significant than those outside of parentheses.):
   <ul>
     <li> Overall (This is an overall measure of the strength of a pokemon, with a slight advantage given to Attack, Special Attack, and Special Defense; the higher the score of a pokemon here, the better.)
     <li> Speed (and Special Attack) vs. Defense (and Special Defense)
@@ -286,11 +286,12 @@ d3.csv("poke-pcs.csv", function(error, data) {
 I hope this was informative!
 </p>
 
+<br><br><br>
 <h2>
   Writeup
 </h2>
 
-Discussion
+<h3>Discussion</h3>
     A critical part of how your visualizations are interpreted and graded will be based on your discussion. Your discussion should include the following sections:
         Techniques (per visualization)
         Interactivity (per visualization -or- overall)
@@ -299,14 +300,14 @@ Discussion
         Conclusion (per visualization -or- overall)
     Each section in your discussion should be well-marked on your webpage and be approximately 2 to 5 paragraphs each. See below for details on what you should include in each section.
 
-Techniques (per visualization) [2-5 Paragraphs]
-    Question
+<h3>Techniques (per visualization) [2-5 Paragraphs]</h3>
+    <b>Question</b><br>
         For each of your D3 visualizations, include the following information:
             Describe how you encoded the data. Include specifics on which columns/rows are mapped to which pre-attentive attributes in your visualization, and describe the design choices you made.
             Provide an evaluation of the lie factor, data density, and data-ink ratio of your visualization.
             Discuss what you think the visualization excels at, such as showing an overview, identifying outliers, patterns, clusters, or trends, or providing context for other visualizations. In other words, describe why you choose to include this particular visualization versus other alternatives.
         Include a brief summary of any additional visualizations you provided as well. If you implemented them using something other than D3, please state as much in your discussion.
-    Answer
+    <br><b>Answer</b><br>
         Parallel Coordinates
             Data Encoding
             Lie Factor
@@ -331,10 +332,10 @@ Techniques (per visualization) [2-5 Paragraphs]
             I used CrossFilter
             Discuss what you think the visualization excels at, such as showing an overview, identifying outliers, patterns, clusters, or trends, or providing context for other visualizations. In other words, describe why you choose to include this particular visualization versus other alternatives.
         
-Interactivity (per visualization -or- overall) [2-5 Paragraphs]
-    Question
+<h3> Interactivity (per visualization -or- overall) [2-5 Paragraphs] </h3>
+    <b>Question</b><br>
         Discuss the interactivity implemented in your project. Indicate the type of interactivity and describe how it enhances your visualization. For example, interactivity can help provide focus + context, help overcome overplotting issues, decrease or increase data density, and so on.
-    Answer
+    <br><b>Answer</b><br>
         Parallel Coordinates
             Tooltip
                 The ultimate goal of my visualization is to allow users the ability to form better teams as they play through the games.  (See the radar plot for more on this.)  After filtering the data in order to see what pokemon meet certain criteria I thought it would be very beneficial to see which of the pokemon meet the filtering criteria.  So when a user hovers over each line in the parallel coordinates plot, the line indicated my the mouse becomes much easier to see in comparison with the rest, and the pokemon's name is displayed over it so that the user can learn which pokemon it is.
@@ -351,19 +352,19 @@ Interactivity (per visualization -or- overall) [2-5 Paragraphs]
                 This was my favorite, and what I think will have the most reusability of all my visualizations ___
 
 
-Feedback (overall) [2-5 Paragraphs]
-    Question
+<h3> Feedback (overall) [2-5 Paragraphs] </h3>
+    <b>Question</b><br>
         Discuss the prototype you demonstrated in-class, the changes you made based on feedback, the feedback you found particularly helpful (and why), and feedback that you did not agree with (and why). If nothing falls under each category (for example, you did not make any changes based on feedback), please state as much so you are not docked points for missing information.
-    Answer
+    <br><b>Answer</b><br>
         The prototype I demonstrated in class was the parallel coordinates plot.  The feedback I got was really helpful in pointing out ways to make it easier to understand the information being shown for the user.  In particular the ideas that I actually implemented from those given to me were to change the opacity of the lines to make it easier to see what was behind them, and to make the lines thinner for a similar effect.  In order to make sure that the pokemon of interest didn't get lost with these effects I added hover actions (in particular displaying the pokemon's name and boldening the line) in order to make sure that the user's curiosity was addressed.
         Since I decided to color by generation it was suggested that I put that at the far left, which I think was a great idea to make it easier to users to interpret.
 
 
-Challenges (overall) [2-5 Paragraphs]
-    Question
+<h3> Challenges (overall) [2-5 Paragraphs] </h3>
+    <b>Question</b><br>
         Discuss the challenges you encountered during this project, how you addressed the challenge, or why you did not address the challenge. Use this discussion to (a) help illustrate for others how difficult small changes can be, and (b) to try and earn some credit for your work that did not make it into the final visualizations.
         If you ran into 0 challenges, I'll assume you are a visualization/JavaScript/D3 expert and raise my expectations of your work accordingly!
-    Answer
+    <br><b>Answer</b><br>
         Separation of Data
             It is probably not best practice, but I tailored one dataset to each of the visualizations so that it would be easiest to work with.  For the radar plot this makes sense, since I have allowed users to refresh the data and don't want to have to redraw all of the plots to update that one, but I think I could have been more clever and used one pass of the data to draw the first two if I had more time.
         Scatterplot Matrix
@@ -383,10 +384,10 @@ Challenges (overall) [2-5 Paragraphs]
                 option -- bad idea
 
 
-Conclusion (per visualization -or- overall) [2-5 Paragraphs]
-    Question
+<h3> Conclusion (per visualization -or- overall) [2-5 Paragraphs] </h3>
+    <b>Question</b><br>
         What did you learn about the dataset from your visualizations? This is a difficult but critical part of your discussion. We care utmost about the accuracy and informativeness in the field of information visualization, and you must convince me that your visualizations were informative. Use your visualizations to make conclusions about the data, explain those conclusions, and explain how your visualization supports those conclusions.
-    Answer
+    <br><b>Answer</b><br>
         Parallel Coordinates
             Just looking at different generations it was easy to see when new types were introduced.
             It was interesting seeing Sp. Attack and Sp. Defense because the distinction came in after the first generation, which is where I logged the most hours
@@ -401,8 +402,9 @@ Conclusion (per visualization -or- overall) [2-5 Paragraphs]
 
 
 
-
+<br><br><br>
 #################################### Notes #####################################
+<br>
 
     final project
         very long description on challenges
@@ -454,8 +456,9 @@ project ideas
 
 
 
-
+<br><br><br>
 ############################# In Class Discussion ##############################
+<br>
 
 Data Vis Project Ideas
     different opacity or thinner lines
@@ -464,8 +467,9 @@ Data Vis Project Ideas
 
     select tab
 
+<br><br><br>
 #################################### Links #####################################
-
+<br>
 
 http://bl.ocks.org/ABSegler/9791707
 
