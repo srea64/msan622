@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <title>Final Project</title>
+  <meta charset='utf-8' http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <script src="http://square.github.com/crossfilter/crossfilter.v1.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+
+<style>
+
+svg {
+  font: 10px sans-serif;
+  padding: 10px;
+}
+
+.axis,
+.frame {
+  shape-rendering: crispEdges;
+}
+
+.axis line {
+  stroke: #ddd;
+}
+
+.axis path {
+  display: none;
+}
+
+.frame {
+  fill: none;
+  stroke: #aaa;
+}
+
+circle {
+  fill-opacity: .7;
+}
+
+circle.hidden {
+  fill: #ccc !important;
+}
+
+.extent {
+  fill: #000;
+  fill-opacity: .125;
+  stroke: #fff;
+}
+
+</style>
+</head>
+
+<body>
+
+<h3>First Look</h3>
+<p>
+  &nbsp;&nbsp;&nbsp;&nbsp; 
+  Getting familiar with your dataset is always a top priority.
+  Use the parallel coordinates plot below to really make sure you have a good understanding of everything.
+  To take advantage of the plot, make sure to play with it!  For example, try the following:
+  <ul>
+    <li> Filter the Data: Click and drag vertically along one of the axes to allow only pokemon who meet that criteria to be seen.
+    <li> Drag the Axes: If you want to see two columns closer to each other, just click on the title of one and drag it closer to the other.
+    <li> Hover over the lines: To see the name of the pokemon, hover over the line and you'll see the pokemon's name.
+  </ul>
+  This dataset will contain all information across all pokemon (up to 721 now). I think you'll find it much more useful than an <a href="http://www.halolz.com/wp-content/uploads/2010/11/halolz-dot-com-pokemon-adviceoak-empty-pokedex.jpg">empty pokedex</a>!
+</p>
+<center>
+  <iframe src="para.html" width="980" height="550" frameBorder="0"></iframe>
+</center>
+
+
+<h3>Another Perspective</h3>
+<p>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  Now that you have a good handle of what you're looking at, let's take another look at the same dataset using a statistical technique called <a href="http://en.wikipedia.org/wiki/Principal_component_analysis">Principal Component Analysis</a>, or PCA.
+  PCA is a dimension reduction technique.  If you look at the parallel coordinates plot above, you'll see that we have 6 dimensions we're looking across (e.g., speed and health points).  PCA answers the question: What if I had to save the same amount of data with fewer columns?  On this dataset, using only four columns can explain almost 90% of the six columns above.
+  <br> &nbsp;&nbsp;&nbsp;&nbsp;
+  Each axis in the graphs below corresponds to a combination of columns that 'get at' something.  For example, take a look at the second principal component: Speed vs Defense.  As you go to one side of the axis the pokemon listed there have much higher speed than they do defense, whereas going in the other direction will yield pokemon with much higher defense than speed.  A pokemon with very high values in both categories will be closer to the middle.  This area will also include pokemon which score very low in both categories.  So whether weak or strong, balanced pokemon should stick around zero whereas those specialized in a certain area will appear closer to the end of one of the axes.
+  Keep in mind that these graphs will really be useful in telling the difference between pokemon in general rather than finding an individual pokemon.
+  <br> &nbsp;&nbsp;&nbsp;&nbsp;
+  To better understand what you're looking at, each axis of the subplots below corresponds to one of the following (Note that attributes in parentheses are of secondary importance.):
+  <ul>
+    <li> Overall (This is an overall measure of the strength of a pokemon, with a slight advantage given to Attack, Special Attack, and Special Defense; the higher the score of a pokemon here, the better.)
+    <li> Speed (and Special Attack) vs. Defense (and Special Defense)
+    <li> Attack (and Health Points) vs. Special Defense (and Special Attack)
+    <li> Health Points vs. Defense, Speed, and Attack
+  </ul>
+  Once again, this plot is interactive: Click and drag across any of the subplots to filter the pokemon that you're looking at.  The pokemon that aren't within that area will be dimmed across all of the other subplots as well.
+</p>
+
+<center><b>Generation</b></center>
+<center>
+1<svg width="9" height="9"> <rect width="300" height="100" style="fill:rgb(31, 119, 180);stroke-width:3;"> </svg> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2<svg width="9" height="9"> <rect width="300" height="100" style="fill:rgb(255, 127, 14);stroke-width:3;"> </svg> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3<svg width="9" height="9"> <rect width="300" height="100" style="fill:rgb(44, 160, 44);stroke-width:3;"> </svg> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4<svg width="9" height="9"> <rect width="300" height="100" style="fill:rgb(214, 39, 40);stroke-width:3;"> </svg> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5<svg width="9" height="9"> <rect width="300" height="100" style="fill:rgb(148, 103, 189);stroke-width:3;"> </svg> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+6<svg width="9" height="9"> <rect width="300" height="100" style="fill:rgb(140, 86, 75);stroke-width:3;"> </svg>
+</center>
+
+<center><div id="scatter"></div></center>
+
+
+<script>
+
+var width = 800,
+    radius=3,
+    size = width*(150.0/960.0),
+    padding = width*(19.5/960.0)+radius;
+
+var x = d3.scale.linear()
+    .range([padding / 2, size - padding / 2]);
+
+var y = d3.scale.linear()
+    .range([size - padding / 2, padding / 2]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .ticks(5);
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .ticks(5);
+
+// categorical colors
+// https://github.com/mbostock/d3/wiki/Ordinal-Scales
+var color = d3.scale.category10();
+
+d3.csv("poke-pcs.csv", function(error, data) {
+
+  var domainByTrait = {},      
+      // treat Generation differently -- we'll color by this
+      traits = d3.keys(data[0]).filter(function(d) { return d !== "Generation"; }),
+      // store number of dimensions
+      n = traits.length; 
+
+  // set min and max values ish
+  domainByTrait["Overall"] = ["329","68"];
+  domainByTrait["Speed vs Defense"] = ["199", "-140"];
+  domainByTrait["Attack vs Sp Defense"] = ["144", "-95"];
+  domainByTrait["HP vs Defense"] = ["198", "-96"];
+
+  // set tick size
+  xAxis.tickSize(size * n);
+  yAxis.tickSize(-size * n);
+
+  var brush = d3.svg.brush()
+      .x(x)
+      .y(y)
+      .on("brushstart", brushstart)
+      .on("brush", brushmove)
+      .on("brushend", brushend);
+
+  // populate scatter div
+  var svg = d3.select("#scatter").append("svg")
+      .attr("width", size * n + padding)
+      .attr("height", size * n + padding)
+    .append("g")
+      .attr("transform", "translate(" + padding + "," + padding / 2 + ")");
+
+  svg.selectAll(".x.axis")
+      .data(traits)
+    .enter().append("g")
+      .attr("class", "x axis")
+      .attr("transform", function(d, i) { 
+        return "translate(" + (n - i - 1) * size + ",0)"; 
+      })
+      .each(function(d) { 
+        x.domain(domainByTrait[d]);
+        d3.select(this).call(xAxis);
+      });
+
+  svg.selectAll(".y.axis")
+      .data(traits)
+    .enter().append("g")
+      .attr("class", "y axis")
+      .attr("transform", function(d, i) { 
+        return "translate(0," + i * size + ")"; 
+      })
+      .each(function(d) { 
+        y.domain(domainByTrait[d]); 
+        d3.select(this).call(yAxis); 
+      });
+
+  var cell = svg.selectAll(".cell")
+      .data(cross(traits, traits))
+    .enter().append("g")
+      .attr("class", "cell")
+      .attr("transform", function(d) {
+        return "translate(" + (n - d.i - 1) * size + "," + d.j * size + ")";
+      })
+      .each(plot);
+
+  // Titles for the diagonal.
+  cell.filter(function(d) { return d.i === d.j; }).append("text")
+      .attr("x", padding)
+      .attr("y", padding)
+      .attr("dy", ".71em")
+      .text(function(d) { return d.x; });
+
+  cell.call(brush);
+
+  function plot(p) {
+    var cell = d3.select(this);
+
+    x.domain(domainByTrait[p.x]);
+    y.domain(domainByTrait[p.y]);
+
+    cell.append("rect")
+        .attr("class", "frame")
+        .attr("x", padding / 2)
+        .attr("y", padding / 2)
+        .attr("width", size - padding)
+        .attr("height", size - padding);
+
+  cell.selectAll("circle")
+        .data(data)
+      .enter().append("circle")
+        .attr("cx", function(d) { return x(d[p.x]); })
+        .attr("cy", function(d) { return y(d[p.y]); })
+        .attr("r", radius) // radius of circles
+        .style("fill", function(d) { return color(d.Generation); })
+
+  }
+
+  var brushCell;
+
+  // Clear the previously-active brush, if any.
+  function brushstart(p) {
+    if (brushCell !== this) {
+      d3.select(brushCell).call(brush.clear());
+      x.domain(domainByTrait[p.x]);
+      y.domain(domainByTrait[p.y]);
+      brushCell = this;
+    }
+  }
+
+  // Highlight the selected circles.
+  function brushmove(p) {
+    var e = brush.extent();
+    svg.selectAll("circle").classed("hidden", function(d) {
+      return e[0][0] > d[p.x] || d[p.x] > e[1][0]
+          || e[0][1] > d[p.y] || d[p.y] > e[1][1];
+    });
+  }
+
+  // If the brush is empty, select all circles.
+  function brushend() {
+    if (brush.empty()) svg.selectAll(".hidden").classed("hidden", false);
+  }
+
+  function cross(a, b) {
+    var c = [], n = a.length, m = b.length, i, j;
+    for (i = -1; ++i < n;) for (j = -1; ++j < m;) c.push({x: a[i], i: i, y: b[j], j: j});
+    return c;
+  }
+
+  d3.select(self.frameElement).style("height", size * n + padding + 20 + "px");
+});
+
+</script>
+
+
+
+<h3> Make your team! </h3>
+<p>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  Now that you've had the opportunity to explore the dataset, try building some teams for comparison.  The final plot will take two teams of six pokemon and compute the average for each stat across all of them.
+  <br>  
+  Please note that:
+  <ul>
+    <li>you must fill out all of the slots to get results
+    <li>misspellings and omissions will result in the plot not updating
+    <li>the names are case-insensitive, so don't worry about punctuation
+    <li>if you don't remember how to spell a name, google it or use the top plot for help
+  </ul>
+  Highlight the dots with your mouse to see the actual averages across the teams.  This will also make that team's color more prominent in the plot.
+</p>
+<center>
+  <iframe src="form.html" width="650" height="550" frameBorder="0"></iframe>
+</center>
+
+<p>
+I hope this was informative!
+</p>
+
+<h2>
+  Writeup
+</h2>
+
+Discussion
+    A critical part of how your visualizations are interpreted and graded will be based on your discussion. Your discussion should include the following sections:
+        Techniques (per visualization)
+        Interactivity (per visualization -or- overall)
+        Feedback (overall)
+        Challenges (overall)
+        Conclusion (per visualization -or- overall)
+    Each section in your discussion should be well-marked on your webpage and be approximately 2 to 5 paragraphs each. See below for details on what you should include in each section.
+
+Techniques (per visualization) [2-5 Paragraphs]
+    Question
+        For each of your D3 visualizations, include the following information:
+            Describe how you encoded the data. Include specifics on which columns/rows are mapped to which pre-attentive attributes in your visualization, and describe the design choices you made.
+            Provide an evaluation of the lie factor, data density, and data-ink ratio of your visualization.
+            Discuss what you think the visualization excels at, such as showing an overview, identifying outliers, patterns, clusters, or trends, or providing context for other visualizations. In other words, describe why you choose to include this particular visualization versus other alternatives.
+        Include a brief summary of any additional visualizations you provided as well. If you implemented them using something other than D3, please state as much in your discussion.
+    Answer
+        Parallel Coordinates
+            Data Encoding
+            Lie Factor
+            Data Density
+            Data:Ink Ratio
+            This visualization excels at ___
+            I chose to include this particular visualization instead of others because ___
+        Scatterplot Matrix
+            Data Encoding
+            Lie Factor
+            Data Density
+            Data:Ink Ratio
+            This visualization excels at ___
+            I chose to include this particular visualization instead of others because ___
+        Radar Plot
+            Data Encoding
+            Lie Factor
+            Data Density
+            Data:Ink Ratio
+            This visualization excels at ___
+            I chose to include this particular visualization instead of others because ___
+            I used CrossFilter
+            Discuss what you think the visualization excels at, such as showing an overview, identifying outliers, patterns, clusters, or trends, or providing context for other visualizations. In other words, describe why you choose to include this particular visualization versus other alternatives.
+        
+Interactivity (per visualization -or- overall) [2-5 Paragraphs]
+    Question
+        Discuss the interactivity implemented in your project. Indicate the type of interactivity and describe how it enhances your visualization. For example, interactivity can help provide focus + context, help overcome overplotting issues, decrease or increase data density, and so on.
+    Answer
+        Parallel Coordinates
+            Tooltip
+                The ultimate goal of my visualization is to allow users the ability to form better teams as they play through the games.  (See the radar plot for more on this.)  After filtering the data in order to see what pokemon meet certain criteria I thought it would be very beneficial to see which of the pokemon meet the filtering criteria.  So when a user hovers over each line in the parallel coordinates plot, the line indicated my the mouse becomes much easier to see in comparison with the rest, and the pokemon's name is displayed over it so that the user can learn which pokemon it is.
+            filtering axes
+                there are over 700 pokemon, so allowing the user to decrease the amount of information being viewed at a time is really helpful to answer questions they may have
+            movable axes
+                it can be difficult to compare two metrics that are not close together, so allowing the user to move metrics into an order that more sense or for easier comparison
+        Scatterplot matrix
+            brushing
+                The point of the scatterplot matrix is to allow users to explore the data in a different way than the first plot (parallel coordinates).  In the first plot they are given access to the raw data itself, and allowed to filter and understand which pokemon excel in which areas.  In this visualization, the data has gone through principal component analysis to allow users to get a general sense of how pokemon's skills move together, and get an idea of what stat-combos they should focus on.  (E.g. if their team has a lot of heavy hitters, what stats might they be lacking and therefore need to be on guard against?)  This allows them to get a good sense of this.
+                Brushing in one area affects all of the other areas in the scatterplot matrix.
+        Radar Plot
+            Filtering
+                This was my favorite, and what I think will have the most reusability of all my visualizations ___
+
+
+Feedback (overall) [2-5 Paragraphs]
+    Question
+        Discuss the prototype you demonstrated in-class, the changes you made based on feedback, the feedback you found particularly helpful (and why), and feedback that you did not agree with (and why). If nothing falls under each category (for example, you did not make any changes based on feedback), please state as much so you are not docked points for missing information.
+    Answer
+        The prototype I demonstrated in class was the parallel coordinates plot.  The feedback I got was really helpful in pointing out ways to make it easier to understand the information being shown for the user.  In particular the ideas that I actually implemented from those given to me were to change the opacity of the lines to make it easier to see what was behind them, and to make the lines thinner for a similar effect.  In order to make sure that the pokemon of interest didn't get lost with these effects I added hover actions (in particular displaying the pokemon's name and boldening the line) in order to make sure that the user's curiosity was addressed.
+        Since I decided to color by generation it was suggested that I put that at the far left, which I think was a great idea to make it easier to users to interpret.
+
+
+Challenges (overall) [2-5 Paragraphs]
+    Question
+        Discuss the challenges you encountered during this project, how you addressed the challenge, or why you did not address the challenge. Use this discussion to (a) help illustrate for others how difficult small changes can be, and (b) to try and earn some credit for your work that did not make it into the final visualizations.
+        If you ran into 0 challenges, I'll assume you are a visualization/JavaScript/D3 expert and raise my expectations of your work accordingly!
+    Answer
+        Separation of Data
+            It is probably not best practice, but I tailored one dataset to each of the visualizations so that it would be easiest to work with.  For the radar plot this makes sense, since I have allowed users to refresh the data and don't want to have to redraw all of the plots to update that one, but I think I could have been more clever and used one pass of the data to draw the first two if I had more time.
+        Scatterplot Matrix
+            Some pokemon have some interesting characters (such as dashes and apostrophes) which made parsing a little funny as I was cleaning my dataset.  While getting my dataset ready for the scatterplot matrix, I didn't realize I had errors which was leading to dots being placed in very random locations.
+            Legend
+                The legend was rather difficult
+        CrossFilter
+            learning how to use it
+            Understanding what is being returned
+            I had to go to many blogs for this since people assumed a knowledge of javascript
+            Turns out it works much better with .json than .csv, so I changed all the 
+        JavaScript
+            when I look at code, things make sense, but I would not have thought to do that
+        Para
+            6.0 5.5 -- numeric to string
+            Coloring
+                option -- bad idea
+
+
+Conclusion (per visualization -or- overall) [2-5 Paragraphs]
+    Question
+        What did you learn about the dataset from your visualizations? This is a difficult but critical part of your discussion. We care utmost about the accuracy and informativeness in the field of information visualization, and you must convince me that your visualizations were informative. Use your visualizations to make conclusions about the data, explain those conclusions, and explain how your visualization supports those conclusions.
+    Answer
+        Parallel Coordinates
+            Just looking at different generations it was easy to see when new types were introduced.
+            It was interesting seeing Sp. Attack and Sp. Defense because the distinction came in after the first generation, which is where I logged the most hours
+        Scatterplot Matrix
+            Seeing the dimensions grouped together really made me realize how (from a stats standpoint) evenly the different creatures were created.  From this point of view it looks like the creators did their best to make sure that pokemon weren't too disparate in their abilities.
+        Radar Plots
+            I created and compared two teams, one that was obviously superior to the other to see what would happen, and ___.
+            I created two more even teams and found ___.
+            I created my usual dream team (which I always made while playing through the games) and compared it to a few others to find ___.
+            After these scenarios I think this visualization is best at showing ___
+            However, I think this will just be a fun thing to play with.
+
+
+
+
+#################################### Notes #####################################
+
+    final project
+        very long description on challenges
+
+    logistics
+        Just need to turn links in on time, doesn't have to be done
+        all messages through Piazza
+
+        SVG
+            within svg: fill stroke
+            outside of svg: background border
+
+        Evaluation
+            How is the data encoded?
+            What design choices were made?
+                pre-attentive attributes
+                colors
+                sizes
+            What is the
+                Data:Ink Ratio
+                    any useless repetition?
+                Data Density
+                Lie Factor
+
+        overplotting
+            smaller points
+            different types of markers
+                particularly transparent markers
+
+        geo-spatial
+            there will always be a lie factor, we're just choosing which
+        choropleth: largest area gets most data ink
+            use when areas aren't different from each other
+        symbol: overlap issues, especially in dense regions
+        cartograms exist because area isn't enough and symbols aren't enough
+            distortion and loss of geographic context
+
+project ideas
+    parallel coordinates
+        average by 
+            type
+            generation
+    xy of PCs or any two choices, maybe three
+        pictures = sprites
+        figures = size of bubble = 3rd PC
+        choose 2 pcs
+            or choose any 2 columns
+    Compare two sets of 6
+
+
+
+
+############################# In Class Discussion ##############################
+
+Data Vis Project Ideas
+    different opacity or thinner lines
+    start generation on left
+    randomize order?
+
+    select tab
+
+#################################### Links #####################################
+
+
+http://bl.ocks.org/ABSegler/9791707
+
+
+</body>
+
+</html>

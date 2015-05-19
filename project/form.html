@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8' http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <script src="http://square.github.com/crossfilter/crossfilter.v1.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="radar.js"></script>
+
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0;
+      font-size: 14px;
+      font-family: "Helvetica Neue", Helvetica;
+    }
+
+    #chart {
+      position: absolute;
+      top: 50px;
+      left: 100px;
+    }   
+  </style>
+  </head>
+
+
+  <body>
+    <div id="body">
+      <div id="chart"></div>
+    </div>
+
+<script>
+
+var w = 400,
+    h = 400;
+
+var colorscale = d3.scale.category10();
+
+//Legend titles
+var LegendOptions = ['Ash','Gary'];
+
+// Initial Data
+var theTeams = [
+
+  // Ash
+  [{axis:"Health Points", value:106},
+  {axis:"Attack", value:110},
+  {axis:"Defense", value:90},
+  {axis:"Special Attack", value:154},
+  {axis:"Special Defense", value:90},
+  {axis:"Speed", value:130}],
+
+  // Gary
+  [{axis:"Health Points", value:100},
+  {axis:"Attack", value:100},
+  {axis:"Defense", value:100},
+  {axis:"Special Attack", value:100},
+  {axis:"Special Defense", value:100},
+  {axis:"Speed", value:100}]
+
+];
+
+// function to draw radar plot with other stuff
+function draw(theTeams) {
+
+// radar chart settings
+var mycfg = {
+  w: w,
+  h: h,
+  // maxValue: 200, // calculated automatically elsewhere
+  levels: 10,
+  ExtraWidthX: 300
+}
+
+// draw the Radar chart
+radar.draw("#chart", theTeams, mycfg);
+
+// legend
+var svg = d3.select('#body')
+  .selectAll('svg')
+  .append('svg')
+  .attr("width", w+300)
+  .attr("height", h)
+
+// legend title
+var text = svg.append("text")
+  .attr("class", "title")
+  .attr('transform', 'translate(90,0)') 
+  .attr("x", w - 70)
+  .attr("y", 10)
+  .attr("font-size", "12px")
+  .attr("fill", "#404040")
+  .text("Team");
+    
+// legend
+var legend = svg.append("g")
+  .attr("class", "legend")
+  .attr("height", 100)
+  .attr("width", 200)
+  .attr('transform', 'translate(90,20)') 
+  ;
+  // legend colors
+  legend.selectAll('rect')
+    .data(LegendOptions)
+    .enter()
+    .append("rect")
+    .attr("x", w - 65)
+    .attr("y", function(d, i){ return i * 20;})
+    .attr("width", 10)
+    .attr("height", 10)
+    .style("fill", function(d, i){ return colorscale(i);})
+    ;
+  // legend text
+  legend.selectAll('text')
+    .data(LegendOptions)
+    .enter()
+    .append("text")
+    .attr("x", w - 52)
+    .attr("y", function(d, i){ return i * 20 + 9;})
+    .attr("font-size", "11px")
+    .attr("fill", "#737373")
+    .text(function(d) { return d; })
+    ; 
+};
+
+// draw plot
+draw(theTeams);
+
+</script>
+
+<!-- create form -->
+<form name ="teams" id="poke_teams" action="#">
+ 
+<br><br><br>
+
+<!-- slots for ash's team -->
+<p>Team Ash</p>
+<input type="text" name="ash1" id="ash1" /><br>
+<input type="text" name="ash2" id="ash2" /><br>
+<input type="text" name="ash3" id="ash3" /><br>
+<input type="text" name="ash4" id="ash4" /><br>
+<input type="text" name="ash5" id="ash5" /><br>
+<input type="text" name="ash6" id="ash6" /><br>
+ 
+<br>
+
+<!-- slots for gary's team -->
+<p>Team Gary</p>
+<input type="text" name="gary1" id="gary1" /><br>
+<input type="text" name="gary2" id="gary2" /><br>
+<input type="text" name="gary3" id="gary3" /><br>
+<input type="text" name="gary4" id="gary4" /><br>
+<input type="text" name="gary5" id="gary5" /><br>
+<input type="text" name="gary6" id="gary6" /><br>
+
+<br> 
+
+<!-- update data -->
+<input type="button" name="submit" value="Compare!" onclick="getPokemon();" />
+ 
+</form>
+
+<script>
+
+    // send pokemon to crossfilter
+    var pokemon = crossfilter([
+        {name: "bulbasaur", healthPoints: 45, attack: 49, defense: 49, specialAttack: 65, specialDefense: 65, speed: 45},
+        {name: "ivysaur", healthPoints: 60, attack: 62, defense: 63, specialAttack: 80, specialDefense: 80, speed: 60},
+        {name: "venusaur", healthPoints: 80, attack: 82, defense: 83, specialAttack: 100, specialDefense: 100, speed: 80},
+        {name: "mega venusaur", healthPoints: 80, attack: 100, defense: 123, specialAttack: 122, specialDefense: 120, speed: 80},
+        {name: "charmander", healthPoints: 39, attack: 52, defense: 43, specialAttack: 60, specialDefense: 50, speed: 65},
+        {name: "charmeleon", healthPoints: 58, attack: 64, defense: 58, specialAttack: 80, specialDefense: 65, speed: 80},
+        {name: "charizard", healthPoints: 78, attack: 84, defense: 78, specialAttack: 109, specialDefense: 85, speed: 100},
+        {name: "mega charizard x", healthPoints: 78, attack: 130, defense: 111, specialAttack: 130, specialDefense: 85, speed: 100},
+        {name: "mega charizard y", healthPoints: 78, attack: 104, defense: 78, specialAttack: 159, specialDefense: 115, speed: 100},
+        {name: "squirtle", healthPoints: 44, attack: 48, defense: 65, specialAttack: 50, specialDefense: 64, speed: 43},
+        {name: "wartortle", healthPoints: 59, attack: 63, defense: 80, specialAttack: 65, specialDefense: 80, speed: 58},
+        {name: "blastoise", healthPoints: 79, attack: 83, defense: 100, specialAttack: 85, specialDefense: 105, speed: 78},
+        {name: "mega blastoise", healthPoints: 79, attack: 103, defense: 120, specialAttack: 135, specialDefense: 115, speed: 78},
+        {name: "caterpie", healthPoints: 45, attack: 30, defense: 35, specialAttack: 20, specialDefense: 20, speed: 45},
+        {name: "metapod", healthPoints: 50, attack: 20, defense: 55, specialAttack: 25, specialDefense: 25, speed: 30},
+        {name: "butterfree", healthPoints: 60, attack: 45, defense: 50, specialAttack: 90, specialDefense: 80, speed: 70},
+        {name: "weedle", healthPoints: 40, attack: 35, defense: 30, specialAttack: 20, specialDefense: 20, speed: 50},
+        {name: "kakuna", healthPoints: 45, attack: 25, defense: 50, specialAttack: 25, specialDefense: 25, speed: 35},
+        {name: "beedrill", healthPoints: 65, attack: 90, defense: 40, specialAttack: 45, specialDefense: 80, speed: 75},
+        {name: "pidgey", healthPoints: 40, attack: 45, defense: 40, specialAttack: 35, specialDefense: 35, speed: 56},
+        {name: "pidgeotto", healthPoints: 63, attack: 60, defense: 55, specialAttack: 50, specialDefense: 50, speed: 71},
+        {name: "pidgeot", healthPoints: 83, attack: 80, defense: 75, specialAttack: 70, specialDefense: 70, speed: 101},
+        {name: "rattata", healthPoints: 30, attack: 56, defense: 35, specialAttack: 25, specialDefense: 35, speed: 72},
+        {name: "raticate", healthPoints: 55, attack: 81, defense: 60, specialAttack: 50, specialDefense: 70, speed: 97},
+        {name: "spearow", healthPoints: 40, attack: 60, defense: 30, specialAttack: 31, specialDefense: 31, speed: 70},
+        {name: "fearow", healthPoints: 65, attack: 90, defense: 65, specialAttack: 61, specialDefense: 61, speed: 100},
+        {name: "ekans", healthPoints: 35, attack: 60, defense: 44, specialAttack: 40, specialDefense: 54, speed: 55},
+        {name: "arbok", healthPoints: 60, attack: 85, defense: 69, specialAttack: 65, specialDefense: 79, speed: 80},
+        {name: "pikachu", healthPoints: 35, attack: 55, defense: 40, specialAttack: 50, specialDefense: 50, speed: 90},
+        {name: "raichu", healthPoints: 60, attack: 90, defense: 55, specialAttack: 90, specialDefense: 80, speed: 110},
+        {name: "sandshrew", healthPoints: 50, attack: 75, defense: 85, specialAttack: 20, specialDefense: 30, speed: 40},
+        {name: "sandslash", healthPoints: 75, attack: 100, defense: 110, specialAttack: 45, specialDefense: 55, speed: 65},
+        {name: "nidoran female", healthPoints: 55, attack: 47, defense: 52, specialAttack: 40, specialDefense: 40, speed: 41},
+        {name: "nidorina", healthPoints: 70, attack: 62, defense: 67, specialAttack: 55, specialDefense: 55, speed: 56},
+        {name: "nidoqueen", healthPoints: 90, attack: 92, defense: 87, specialAttack: 75, specialDefense: 85, speed: 76},
+        {name: "nidoran male", healthPoints: 46, attack: 57, defense: 40, specialAttack: 40, specialDefense: 40, speed: 50},
+        {name: "nidorino", healthPoints: 61, attack: 72, defense: 57, specialAttack: 55, specialDefense: 55, speed: 65},
+        {name: "nidoking", healthPoints: 81, attack: 102, defense: 77, specialAttack: 85, specialDefense: 75, speed: 85},
+        {name: "clefairy", healthPoints: 70, attack: 45, defense: 48, specialAttack: 60, specialDefense: 65, speed: 35},
+        {name: "clefable", healthPoints: 95, attack: 70, defense: 73, specialAttack: 95, specialDefense: 90, speed: 60},
+        {name: "vulpix", healthPoints: 38, attack: 41, defense: 40, specialAttack: 50, specialDefense: 65, speed: 65},
+        {name: "ninetales", healthPoints: 73, attack: 76, defense: 75, specialAttack: 81, specialDefense: 100, speed: 100},
+        {name: "jigglypuff", healthPoints: 115, attack: 45, defense: 20, specialAttack: 45, specialDefense: 25, speed: 20},
+        {name: "wigglytuff", healthPoints: 140, attack: 70, defense: 45, specialAttack: 85, specialDefense: 50, speed: 45},
+        {name: "zubat", healthPoints: 40, attack: 45, defense: 35, specialAttack: 30, specialDefense: 40, speed: 55},
+        {name: "golbat", healthPoints: 75, attack: 80, defense: 70, specialAttack: 65, specialDefense: 75, speed: 90},
+        {name: "oddish", healthPoints: 45, attack: 50, defense: 55, specialAttack: 75, specialDefense: 65, speed: 30},
+        {name: "gloom", healthPoints: 60, attack: 65, defense: 70, specialAttack: 85, specialDefense: 75, speed: 40},
+        {name: "vileplume", healthPoints: 75, attack: 80, defense: 85, specialAttack: 110, specialDefense: 90, speed: 50},
+        {name: "paras", healthPoints: 35, attack: 70, defense: 55, specialAttack: 45, specialDefense: 55, speed: 25},
+        {name: "parasect", healthPoints: 60, attack: 95, defense: 80, specialAttack: 60, specialDefense: 80, speed: 30},
+        {name: "venonat", healthPoints: 60, attack: 55, defense: 50, specialAttack: 40, specialDefense: 55, speed: 45},
+        {name: "venomoth", healthPoints: 70, attack: 65, defense: 60, specialAttack: 90, specialDefense: 75, speed: 90},
+        {name: "diglett", healthPoints: 10, attack: 55, defense: 25, specialAttack: 35, specialDefense: 45, speed: 95},
+        {name: "dugtrio", healthPoints: 35, attack: 80, defense: 50, specialAttack: 50, specialDefense: 70, speed: 120},
+        {name: "meowth", healthPoints: 40, attack: 45, defense: 35, specialAttack: 40, specialDefense: 40, speed: 90},
+        {name: "persian", healthPoints: 65, attack: 70, defense: 60, specialAttack: 65, specialDefense: 65, speed: 115},
+        {name: "psyduck", healthPoints: 50, attack: 52, defense: 48, specialAttack: 65, specialDefense: 50, speed: 55},
+        {name: "golduck", healthPoints: 80, attack: 82, defense: 78, specialAttack: 95, specialDefense: 80, speed: 85},
+        {name: "mankey", healthPoints: 40, attack: 80, defense: 35, specialAttack: 35, specialDefense: 45, speed: 70},
+        {name: "primeape", healthPoints: 65, attack: 105, defense: 60, specialAttack: 60, specialDefense: 70, speed: 95},
+        {name: "growlithe", healthPoints: 55, attack: 70, defense: 45, specialAttack: 70, specialDefense: 50, speed: 60},
+        {name: "arcanine", healthPoints: 90, attack: 110, defense: 80, specialAttack: 100, specialDefense: 80, speed: 95},
+        {name: "poliwag", healthPoints: 40, attack: 50, defense: 40, specialAttack: 40, specialDefense: 40, speed: 90},
+        {name: "poliwhirl", healthPoints: 65, attack: 65, defense: 65, specialAttack: 50, specialDefense: 50, speed: 90},
+        {name: "poliwrath", healthPoints: 90, attack: 95, defense: 95, specialAttack: 70, specialDefense: 90, speed: 70},
+        {name: "abra", healthPoints: 25, attack: 20, defense: 15, specialAttack: 105, specialDefense: 55, speed: 90},
+        {name: "kadabra", healthPoints: 40, attack: 35, defense: 30, specialAttack: 120, specialDefense: 70, speed: 105},
+        {name: "alakazam", healthPoints: 55, attack: 50, defense: 45, specialAttack: 135, specialDefense: 95, speed: 120},
+        {name: "mega alakazam", healthPoints: 55, attack: 50, defense: 65, specialAttack: 175, specialDefense: 95, speed: 150},
+        {name: "machop", healthPoints: 70, attack: 80, defense: 50, specialAttack: 35, specialDefense: 35, speed: 35},
+        {name: "machoke", healthPoints: 80, attack: 100, defense: 70, specialAttack: 50, specialDefense: 60, speed: 45},
+        {name: "machamp", healthPoints: 90, attack: 130, defense: 80, specialAttack: 65, specialDefense: 85, speed: 55},
+        {name: "bellsprout", healthPoints: 50, attack: 75, defense: 35, specialAttack: 70, specialDefense: 30, speed: 40},
+        {name: "weepinbell", healthPoints: 65, attack: 90, defense: 50, specialAttack: 85, specialDefense: 45, speed: 55},
+        {name: "victreebel", healthPoints: 80, attack: 105, defense: 65, specialAttack: 100, specialDefense: 70, speed: 70},
+        {name: "tentacool", healthPoints: 40, attack: 40, defense: 35, specialAttack: 50, specialDefense: 100, speed: 70},
+        {name: "tentacruel", healthPoints: 80, attack: 70, defense: 65, specialAttack: 80, specialDefense: 120, speed: 100},
+        {name: "geodude", healthPoints: 40, attack: 80, defense: 100, specialAttack: 30, specialDefense: 30, speed: 20},
+        {name: "graveler", healthPoints: 55, attack: 95, defense: 115, specialAttack: 45, specialDefense: 45, speed: 35},
+        {name: "golem", healthPoints: 80, attack: 120, defense: 130, specialAttack: 55, specialDefense: 65, speed: 45},
+        {name: "ponyta", healthPoints: 50, attack: 85, defense: 55, specialAttack: 65, specialDefense: 65, speed: 90},
+        {name: "rapidash", healthPoints: 65, attack: 100, defense: 70, specialAttack: 80, specialDefense: 80, speed: 105},
+        {name: "slowpoke", healthPoints: 90, attack: 65, defense: 65, specialAttack: 40, specialDefense: 40, speed: 15},
+        {name: "slowbro", healthPoints: 95, attack: 75, defense: 110, specialAttack: 100, specialDefense: 80, speed: 30},
+        {name: "magnemite", healthPoints: 25, attack: 35, defense: 70, specialAttack: 95, specialDefense: 55, speed: 45},
+        {name: "magneton", healthPoints: 50, attack: 60, defense: 95, specialAttack: 120, specialDefense: 70, speed: 70},
+        {name: "farfetch'd", healthPoints: 52, attack: 65, defense: 55, specialAttack: 58, specialDefense: 62, speed: 60},
+        {name: "doduo", healthPoints: 35, attack: 85, defense: 45, specialAttack: 35, specialDefense: 35, speed: 75},
+        {name: "dodrio", healthPoints: 60, attack: 110, defense: 70, specialAttack: 60, specialDefense: 60, speed: 100},
+        {name: "seel", healthPoints: 65, attack: 45, defense: 55, specialAttack: 45, specialDefense: 70, speed: 45},
+        {name: "dewgong", healthPoints: 90, attack: 70, defense: 80, specialAttack: 70, specialDefense: 95, speed: 70},
+        {name: "grimer", healthPoints: 80, attack: 80, defense: 50, specialAttack: 40, specialDefense: 50, speed: 25},
+        {name: "muk", healthPoints: 105, attack: 105, defense: 75, specialAttack: 65, specialDefense: 100, speed: 50},
+        {name: "shellder", healthPoints: 30, attack: 65, defense: 100, specialAttack: 45, specialDefense: 25, speed: 40},
+        {name: "cloyster", healthPoints: 50, attack: 95, defense: 180, specialAttack: 85, specialDefense: 45, speed: 70},
+        {name: "gastly", healthPoints: 30, attack: 35, defense: 30, specialAttack: 100, specialDefense: 35, speed: 80},
+        {name: "haunter", healthPoints: 45, attack: 50, defense: 45, specialAttack: 115, specialDefense: 55, speed: 95},
+        {name: "gengar", healthPoints: 60, attack: 65, defense: 60, specialAttack: 130, specialDefense: 75, speed: 110},
+        {name: "mega gengar", healthPoints: 60, attack: 65, defense: 80, specialAttack: 170, specialDefense: 95, speed: 130},
+        {name: "onix", healthPoints: 35, attack: 45, defense: 160, specialAttack: 30, specialDefense: 45, speed: 70},
+        {name: "drowzee", healthPoints: 60, attack: 48, defense: 45, specialAttack: 43, specialDefense: 90, speed: 42},
+        {name: "hypno", healthPoints: 85, attack: 73, defense: 70, specialAttack: 73, specialDefense: 115, speed: 67},
+        {name: "krabby", healthPoints: 30, attack: 105, defense: 90, specialAttack: 25, specialDefense: 25, speed: 50},
+        {name: "kingler", healthPoints: 55, attack: 130, defense: 115, specialAttack: 50, specialDefense: 50, speed: 75},
+        {name: "voltorb", healthPoints: 40, attack: 30, defense: 50, specialAttack: 55, specialDefense: 55, speed: 100},
+        {name: "electrode", healthPoints: 60, attack: 50, defense: 70, specialAttack: 80, specialDefense: 80, speed: 140},
+        {name: "exeggcute", healthPoints: 60, attack: 40, defense: 80, specialAttack: 60, specialDefense: 45, speed: 40},
+        {name: "exeggutor", healthPoints: 95, attack: 95, defense: 85, specialAttack: 125, specialDefense: 65, speed: 55},
+        {name: "cubone", healthPoints: 50, attack: 50, defense: 95, specialAttack: 40, specialDefense: 50, speed: 35},
+        {name: "marowak", healthPoints: 60, attack: 80, defense: 110, specialAttack: 50, specialDefense: 80, speed: 45},
+        {name: "hitmonlee", healthPoints: 50, attack: 120, defense: 53, specialAttack: 35, specialDefense: 110, speed: 87},
+        {name: "hitmonchan", healthPoints: 50, attack: 105, defense: 79, specialAttack: 35, specialDefense: 110, speed: 76},
+        {name: "lickitung", healthPoints: 90, attack: 55, defense: 75, specialAttack: 60, specialDefense: 75, speed: 30},
+        {name: "koffing", healthPoints: 40, attack: 65, defense: 95, specialAttack: 60, specialDefense: 45, speed: 35},
+        {name: "weezing", healthPoints: 65, attack: 90, defense: 120, specialAttack: 85, specialDefense: 70, speed: 60},
+        {name: "rhyhorn", healthPoints: 80, attack: 85, defense: 95, specialAttack: 30, specialDefense: 30, speed: 25},
+        {name: "rhydon", healthPoints: 105, attack: 130, defense: 120, specialAttack: 45, specialDefense: 45, speed: 40},
+        {name: "chansey", healthPoints: 250, attack: 5, defense: 5, specialAttack: 35, specialDefense: 105, speed: 50},
+        {name: "tangela", healthPoints: 65, attack: 55, defense: 115, specialAttack: 100, specialDefense: 40, speed: 60},
+        {name: "kangaskhan", healthPoints: 105, attack: 95, defense: 80, specialAttack: 40, specialDefense: 80, speed: 90},
+        {name: "mega kangaskhan", healthPoints: 105, attack: 125, defense: 100, specialAttack: 60, specialDefense: 100, speed: 100},
+        {name: "horsea", healthPoints: 30, attack: 40, defense: 70, specialAttack: 70, specialDefense: 25, speed: 60},
+        {name: "seadra", healthPoints: 55, attack: 65, defense: 95, specialAttack: 95, specialDefense: 45, speed: 85},
+        {name: "goldeen", healthPoints: 45, attack: 67, defense: 60, specialAttack: 35, specialDefense: 50, speed: 63},
+        {name: "seaking", healthPoints: 80, attack: 92, defense: 65, specialAttack: 65, specialDefense: 80, speed: 68},
+        {name: "staryu", healthPoints: 30, attack: 45, defense: 55, specialAttack: 70, specialDefense: 55, speed: 85},
+        {name: "starmie", healthPoints: 60, attack: 75, defense: 85, specialAttack: 100, specialDefense: 85, speed: 115},
+        {name: "mr. mime", healthPoints: 40, attack: 45, defense: 65, specialAttack: 100, specialDefense: 120, speed: 90},
+        {name: "scyther", healthPoints: 70, attack: 110, defense: 80, specialAttack: 55, specialDefense: 80, speed: 105},
+        {name: "jynx", healthPoints: 65, attack: 50, defense: 35, specialAttack: 115, specialDefense: 95, speed: 95},
+        {name: "electabuzz", healthPoints: 65, attack: 83, defense: 57, specialAttack: 95, specialDefense: 85, speed: 105},
+        {name: "magmar", healthPoints: 65, attack: 95, defense: 57, specialAttack: 100, specialDefense: 85, speed: 93},
+        {name: "pinsir", healthPoints: 65, attack: 125, defense: 100, specialAttack: 55, specialDefense: 70, speed: 85},
+        {name: "mega pinsir", healthPoints: 65, attack: 155, defense: 120, specialAttack: 65, specialDefense: 90, speed: 105},
+        {name: "tauros", healthPoints: 75, attack: 100, defense: 95, specialAttack: 40, specialDefense: 70, speed: 110},
+        {name: "magikarp", healthPoints: 20, attack: 10, defense: 55, specialAttack: 15, specialDefense: 20, speed: 80},
+        {name: "gyarados", healthPoints: 95, attack: 125, defense: 79, specialAttack: 60, specialDefense: 100, speed: 81},
+        {name: "mega gyarados", healthPoints: 95, attack: 155, defense: 109, specialAttack: 70, specialDefense: 130, speed: 81},
+        {name: "lapras", healthPoints: 130, attack: 85, defense: 80, specialAttack: 85, specialDefense: 95, speed: 60},
+        {name: "ditto", healthPoints: 48, attack: 48, defense: 48, specialAttack: 48, specialDefense: 48, speed: 48},
+        {name: "eevee", healthPoints: 55, attack: 55, defense: 50, specialAttack: 45, specialDefense: 65, speed: 55},
+        {name: "vaporeon", healthPoints: 130, attack: 65, defense: 60, specialAttack: 110, specialDefense: 95, speed: 65},
+        {name: "jolteon", healthPoints: 65, attack: 65, defense: 60, specialAttack: 110, specialDefense: 95, speed: 130},
+        {name: "flareon", healthPoints: 65, attack: 130, defense: 60, specialAttack: 95, specialDefense: 110, speed: 65},
+        {name: "porygon", healthPoints: 65, attack: 60, defense: 70, specialAttack: 85, specialDefense: 75, speed: 40},
+        {name: "omanyte", healthPoints: 35, attack: 40, defense: 100, specialAttack: 90, specialDefense: 55, speed: 35},
+        {name: "omastar", healthPoints: 70, attack: 60, defense: 125, specialAttack: 115, specialDefense: 70, speed: 55},
+        {name: "kabuto", healthPoints: 30, attack: 80, defense: 90, specialAttack: 55, specialDefense: 45, speed: 55},
+        {name: "kabutops", healthPoints: 60, attack: 115, defense: 105, specialAttack: 65, specialDefense: 70, speed: 80},
+        {name: "aerodactyl", healthPoints: 80, attack: 105, defense: 65, specialAttack: 60, specialDefense: 75, speed: 130},
+        {name: "mega aerodactyl", healthPoints: 80, attack: 135, defense: 85, specialAttack: 70, specialDefense: 95, speed: 150},
+        {name: "snorlax", healthPoints: 160, attack: 110, defense: 65, specialAttack: 65, specialDefense: 110, speed: 30},
+        {name: "articuno", healthPoints: 90, attack: 85, defense: 100, specialAttack: 95, specialDefense: 125, speed: 85},
+        {name: "zapdos", healthPoints: 90, attack: 90, defense: 85, specialAttack: 125, specialDefense: 90, speed: 100},
+        {name: "moltres", healthPoints: 90, attack: 100, defense: 90, specialAttack: 125, specialDefense: 85, speed: 90},
+        {name: "dratini", healthPoints: 41, attack: 64, defense: 45, specialAttack: 50, specialDefense: 50, speed: 50},
+        {name: "dragonair", healthPoints: 61, attack: 84, defense: 65, specialAttack: 70, specialDefense: 70, speed: 70},
+        {name: "dragonite", healthPoints: 91, attack: 134, defense: 95, specialAttack: 100, specialDefense: 100, speed: 80},
+        {name: "mewtwo", healthPoints: 106, attack: 110, defense: 90, specialAttack: 154, specialDefense: 90, speed: 130},
+        {name: "mega mewtwo x", healthPoints: 106, attack: 190, defense: 100, specialAttack: 154, specialDefense: 100, speed: 130},
+        {name: "mega mewtwo y", healthPoints: 106, attack: 150, defense: 70, specialAttack: 194, specialDefense: 120, speed: 140},
+        {name: "mew", healthPoints: 100, attack: 100, defense: 100, specialAttack: 100, specialDefense: 100, speed: 100},
+        {name: "chikorita", healthPoints: 45, attack: 49, defense: 65, specialAttack: 49, specialDefense: 65, speed: 45},
+        {name: "bayleef", healthPoints: 60, attack: 62, defense: 80, specialAttack: 63, specialDefense: 80, speed: 60},
+        {name: "meganium", healthPoints: 80, attack: 82, defense: 100, specialAttack: 83, specialDefense: 100, speed: 80},
+        {name: "cyndaquil", healthPoints: 39, attack: 52, defense: 43, specialAttack: 60, specialDefense: 50, speed: 65},
+        {name: "quilava", healthPoints: 58, attack: 64, defense: 58, specialAttack: 80, specialDefense: 65, speed: 80},
+        {name: "typhlosion", healthPoints: 78, attack: 84, defense: 78, specialAttack: 109, specialDefense: 85, speed: 100},
+        {name: "totodile", healthPoints: 50, attack: 65, defense: 64, specialAttack: 44, specialDefense: 48, speed: 43},
+        {name: "croconaw", healthPoints: 65, attack: 80, defense: 80, specialAttack: 59, specialDefense: 63, speed: 58},
+        {name: "feraligatr", healthPoints: 85, attack: 105, defense: 100, specialAttack: 79, specialDefense: 83, speed: 78},
+        {name: "sentret", healthPoints: 35, attack: 46, defense: 34, specialAttack: 35, specialDefense: 45, speed: 20},
+        {name: "furret", healthPoints: 85, attack: 76, defense: 64, specialAttack: 45, specialDefense: 55, speed: 90},
+        {name: "hoothoot", healthPoints: 60, attack: 30, defense: 30, specialAttack: 36, specialDefense: 56, speed: 50},
+        {name: "noctowl", healthPoints: 100, attack: 50, defense: 50, specialAttack: 76, specialDefense: 96, speed: 70},
+        {name: "ledyba", healthPoints: 40, attack: 20, defense: 30, specialAttack: 40, specialDefense: 80, speed: 55},
+        {name: "ledian", healthPoints: 55, attack: 35, defense: 50, specialAttack: 55, specialDefense: 110, speed: 85},
+        {name: "spinarak", healthPoints: 40, attack: 60, defense: 40, specialAttack: 40, specialDefense: 40, speed: 30},
+        {name: "ariados", healthPoints: 70, attack: 90, defense: 70, specialAttack: 60, specialDefense: 60, speed: 40},
+        {name: "crobat", healthPoints: 85, attack: 90, defense: 80, specialAttack: 70, specialDefense: 80, speed: 130},
+        {name: "chinchou", healthPoints: 75, attack: 38, defense: 38, specialAttack: 56, specialDefense: 56, speed: 67},
+        {name: "lanturn", healthPoints: 125, attack: 58, defense: 58, specialAttack: 76, specialDefense: 76, speed: 67},
+        {name: "pichu", healthPoints: 20, attack: 40, defense: 15, specialAttack: 35, specialDefense: 35, speed: 60},
+        {name: "cleffa", healthPoints: 50, attack: 25, defense: 28, specialAttack: 45, specialDefense: 55, speed: 15},
+        {name: "igglybuff", healthPoints: 90, attack: 30, defense: 15, specialAttack: 40, specialDefense: 20, speed: 15},
+        {name: "togepi", healthPoints: 35, attack: 20, defense: 65, specialAttack: 40, specialDefense: 65, speed: 20},
+        {name: "togetic", healthPoints: 55, attack: 40, defense: 85, specialAttack: 80, specialDefense: 105, speed: 40},
+        {name: "natu", healthPoints: 40, attack: 50, defense: 45, specialAttack: 70, specialDefense: 45, speed: 70},
+        {name: "xatu", healthPoints: 65, attack: 75, defense: 70, specialAttack: 95, specialDefense: 70, speed: 95},
+        {name: "mareep", healthPoints: 55, attack: 40, defense: 40, specialAttack: 65, specialDefense: 45, speed: 35},
+        {name: "flaaffy", healthPoints: 70, attack: 55, defense: 55, specialAttack: 80, specialDefense: 60, speed: 45},
+        {name: "ampharos", healthPoints: 90, attack: 75, defense: 85, specialAttack: 115, specialDefense: 90, speed: 55},
+        {name: "mega ampharos", healthPoints: 90, attack: 95, defense: 105, specialAttack: 165, specialDefense: 110, speed: 45},
+        {name: "bellossom", healthPoints: 75, attack: 80, defense: 95, specialAttack: 90, specialDefense: 100, speed: 50},
+        {name: "marill", healthPoints: 70, attack: 20, defense: 50, specialAttack: 20, specialDefense: 50, speed: 40},
+        {name: "azumarill", healthPoints: 100, attack: 50, defense: 80, specialAttack: 60, specialDefense: 80, speed: 50},
+        {name: "sudowoodo", healthPoints: 70, attack: 100, defense: 115, specialAttack: 30, specialDefense: 65, speed: 30},
+        {name: "politoed", healthPoints: 90, attack: 75, defense: 75, specialAttack: 90, specialDefense: 100, speed: 70},
+        {name: "hoppip", healthPoints: 35, attack: 35, defense: 40, specialAttack: 35, specialDefense: 55, speed: 50},
+        {name: "skiploom", healthPoints: 55, attack: 45, defense: 50, specialAttack: 45, specialDefense: 65, speed: 80},
+        {name: "jumpluff", healthPoints: 75, attack: 55, defense: 70, specialAttack: 55, specialDefense: 95, speed: 110},
+        {name: "aipom", healthPoints: 55, attack: 70, defense: 55, specialAttack: 40, specialDefense: 55, speed: 85},
+        {name: "sunkern", healthPoints: 30, attack: 30, defense: 30, specialAttack: 30, specialDefense: 30, speed: 30},
+        {name: "sunflora", healthPoints: 75, attack: 75, defense: 55, specialAttack: 105, specialDefense: 85, speed: 30},
+        {name: "yanma", healthPoints: 65, attack: 65, defense: 45, specialAttack: 75, specialDefense: 45, speed: 95},
+        {name: "wooper", healthPoints: 55, attack: 45, defense: 45, specialAttack: 25, specialDefense: 25, speed: 15},
+        {name: "quagsire", healthPoints: 95, attack: 85, defense: 85, specialAttack: 65, specialDefense: 65, speed: 35},
+        {name: "espeon", healthPoints: 65, attack: 65, defense: 60, specialAttack: 130, specialDefense: 95, speed: 110},
+        {name: "umbreon", healthPoints: 95, attack: 65, defense: 110, specialAttack: 60, specialDefense: 130, speed: 65},
+        {name: "murkrow", healthPoints: 60, attack: 85, defense: 42, specialAttack: 85, specialDefense: 42, speed: 91},
+        {name: "slowking", healthPoints: 95, attack: 75, defense: 80, specialAttack: 100, specialDefense: 110, speed: 30},
+        {name: "misdreavus", healthPoints: 60, attack: 60, defense: 60, specialAttack: 85, specialDefense: 85, speed: 85},
+        {name: "unown", healthPoints: 48, attack: 72, defense: 48, specialAttack: 72, specialDefense: 48, speed: 48},
+        {name: "wobbuffet", healthPoints: 190, attack: 33, defense: 58, specialAttack: 33, specialDefense: 58, speed: 33},
+        {name: "girafarig", healthPoints: 70, attack: 80, defense: 65, specialAttack: 90, specialDefense: 65, speed: 85},
+        {name: "pineco", healthPoints: 50, attack: 65, defense: 90, specialAttack: 35, specialDefense: 35, speed: 15},
+        {name: "forretress", healthPoints: 75, attack: 90, defense: 140, specialAttack: 60, specialDefense: 60, speed: 40},
+        {name: "dunsparce", healthPoints: 100, attack: 70, defense: 70, specialAttack: 65, specialDefense: 65, speed: 45},
+        {name: "gligar", healthPoints: 65, attack: 75, defense: 105, specialAttack: 35, specialDefense: 65, speed: 85},
+        {name: "steelix", healthPoints: 75, attack: 85, defense: 200, specialAttack: 55, specialDefense: 65, speed: 30},
+        {name: "mega steelix", healthPoints: 75, attack: 125, defense: 230, specialAttack: 55, specialDefense: 95, speed: 30},
+        {name: "snubbull", healthPoints: 60, attack: 80, defense: 50, specialAttack: 40, specialDefense: 40, speed: 30},
+        {name: "granbull", healthPoints: 90, attack: 120, defense: 75, specialAttack: 60, specialDefense: 60, speed: 45},
+        {name: "qwilfish", healthPoints: 65, attack: 95, defense: 75, specialAttack: 55, specialDefense: 55, speed: 85},
+        {name: "scizor", healthPoints: 70, attack: 130, defense: 100, specialAttack: 55, specialDefense: 80, speed: 65},
+        {name: "mega scizor", healthPoints: 70, attack: 150, defense: 140, specialAttack: 65, specialDefense: 100, speed: 75},
+        {name: "shuckle", healthPoints: 20, attack: 10, defense: 230, specialAttack: 10, specialDefense: 230, speed: 5},
+        {name: "heracross", healthPoints: 80, attack: 125, defense: 75, specialAttack: 40, specialDefense: 95, speed: 85},
+        {name: "mega heracross", healthPoints: 80, attack: 185, defense: 115, specialAttack: 40, specialDefense: 105, speed: 75},
+        {name: "sneasel", healthPoints: 55, attack: 95, defense: 55, specialAttack: 35, specialDefense: 75, speed: 115},
+        {name: "teddiursa", healthPoints: 60, attack: 80, defense: 50, specialAttack: 50, specialDefense: 50, speed: 40},
+        {name: "ursaring", healthPoints: 90, attack: 130, defense: 75, specialAttack: 75, specialDefense: 75, speed: 55},
+        {name: "slugma", healthPoints: 40, attack: 40, defense: 40, specialAttack: 70, specialDefense: 40, speed: 20},
+        {name: "magcargo", healthPoints: 50, attack: 50, defense: 120, specialAttack: 80, specialDefense: 80, speed: 30},
+        {name: "swinub", healthPoints: 50, attack: 50, defense: 40, specialAttack: 30, specialDefense: 30, speed: 50},
+        {name: "piloswine", healthPoints: 100, attack: 100, defense: 80, specialAttack: 60, specialDefense: 60, speed: 50},
+        {name: "corsola", healthPoints: 55, attack: 55, defense: 85, specialAttack: 65, specialDefense: 85, speed: 35},
+        {name: "remoraid", healthPoints: 35, attack: 65, defense: 35, specialAttack: 65, specialDefense: 35, speed: 65},
+        {name: "octillery", healthPoints: 75, attack: 105, defense: 75, specialAttack: 105, specialDefense: 75, speed: 45},
+        {name: "delibird", healthPoints: 45, attack: 55, defense: 45, specialAttack: 65, specialDefense: 45, speed: 75},
+        {name: "mantine", healthPoints: 65, attack: 40, defense: 70, specialAttack: 80, specialDefense: 140, speed: 70},
+        {name: "skarmory", healthPoints: 65, attack: 80, defense: 140, specialAttack: 40, specialDefense: 70, speed: 70},
+        {name: "houndour", healthPoints: 45, attack: 60, defense: 30, specialAttack: 80, specialDefense: 50, speed: 65},
+        {name: "houndoom", healthPoints: 75, attack: 90, defense: 50, specialAttack: 110, specialDefense: 80, speed: 95},
+        {name: "mega houndoom", healthPoints: 75, attack: 90, defense: 90, specialAttack: 140, specialDefense: 90, speed: 115},
+        {name: "kingdra", healthPoints: 75, attack: 95, defense: 95, specialAttack: 95, specialDefense: 95, speed: 85},
+        {name: "phanpy", healthPoints: 90, attack: 60, defense: 60, specialAttack: 40, specialDefense: 40, speed: 40},
+        {name: "donphan", healthPoints: 90, attack: 120, defense: 120, specialAttack: 60, specialDefense: 60, speed: 50},
+        {name: "porygon2", healthPoints: 85, attack: 80, defense: 90, specialAttack: 105, specialDefense: 95, speed: 60},
+        {name: "stantler", healthPoints: 73, attack: 95, defense: 62, specialAttack: 85, specialDefense: 65, speed: 85},
+        {name: "smeargle", healthPoints: 55, attack: 20, defense: 35, specialAttack: 20, specialDefense: 45, speed: 75},
+        {name: "tyrogue", healthPoints: 35, attack: 35, defense: 35, specialAttack: 35, specialDefense: 35, speed: 35},
+        {name: "hitmontop", healthPoints: 50, attack: 95, defense: 95, specialAttack: 35, specialDefense: 110, speed: 70},
+        {name: "smoochum", healthPoints: 45, attack: 30, defense: 15, specialAttack: 85, specialDefense: 65, speed: 65},
+        {name: "elekid", healthPoints: 45, attack: 63, defense: 37, specialAttack: 65, specialDefense: 55, speed: 95},
+        {name: "magby", healthPoints: 45, attack: 75, defense: 37, specialAttack: 70, specialDefense: 55, speed: 83},
+        {name: "miltank", healthPoints: 95, attack: 80, defense: 105, specialAttack: 40, specialDefense: 70, speed: 100},
+        {name: "blissey", healthPoints: 255, attack: 10, defense: 10, specialAttack: 75, specialDefense: 135, speed: 55},
+        {name: "raikou", healthPoints: 90, attack: 85, defense: 75, specialAttack: 115, specialDefense: 100, speed: 115},
+        {name: "entei", healthPoints: 115, attack: 115, defense: 85, specialAttack: 90, specialDefense: 75, speed: 100},
+        {name: "suicune", healthPoints: 100, attack: 75, defense: 115, specialAttack: 90, specialDefense: 115, speed: 85},
+        {name: "larvitar", healthPoints: 50, attack: 64, defense: 50, specialAttack: 45, specialDefense: 50, speed: 41},
+        {name: "pupitar", healthPoints: 70, attack: 84, defense: 70, specialAttack: 65, specialDefense: 70, speed: 51},
+        {name: "tyranitar", healthPoints: 100, attack: 134, defense: 110, specialAttack: 95, specialDefense: 100, speed: 61},
+        {name: "mega tyranitar", healthPoints: 100, attack: 164, defense: 150, specialAttack: 95, specialDefense: 120, speed: 71},
+        {name: "lugia", healthPoints: 106, attack: 90, defense: 130, specialAttack: 90, specialDefense: 154, speed: 110},
+        {name: "ho-oh", healthPoints: 106, attack: 130, defense: 90, specialAttack: 110, specialDefense: 154, speed: 90},
+        {name: "celebi", healthPoints: 100, attack: 100, defense: 100, specialAttack: 100, specialDefense: 100, speed: 100},
+        {name: "treecko", healthPoints: 40, attack: 45, defense: 35, specialAttack: 65, specialDefense: 55, speed: 70},
+        {name: "grovyle", healthPoints: 50, attack: 65, defense: 45, specialAttack: 85, specialDefense: 65, speed: 95},
+        {name: "sceptile", healthPoints: 70, attack: 85, defense: 65, specialAttack: 105, specialDefense: 85, speed: 120},
+        {name: "torchic", healthPoints: 45, attack: 60, defense: 40, specialAttack: 70, specialDefense: 50, speed: 45},
+        {name: "combusken", healthPoints: 60, attack: 85, defense: 60, specialAttack: 85, specialDefense: 60, speed: 55},
+        {name: "blaziken", healthPoints: 80, attack: 120, defense: 70, specialAttack: 110, specialDefense: 70, speed: 80},
+        {name: "mega blaziken", healthPoints: 80, attack: 160, defense: 80, specialAttack: 130, specialDefense: 80, speed: 100},
+        {name: "mudkip", healthPoints: 50, attack: 70, defense: 50, specialAttack: 50, specialDefense: 50, speed: 40},
+        {name: "marshtomp", healthPoints: 70, attack: 85, defense: 70, specialAttack: 60, specialDefense: 70, speed: 50},
+        {name: "swampert", healthPoints: 100, attack: 110, defense: 90, specialAttack: 85, specialDefense: 90, speed: 60},
+        {name: "poochyena", healthPoints: 35, attack: 55, defense: 35, specialAttack: 30, specialDefense: 30, speed: 35},
+        {name: "mightyena", healthPoints: 70, attack: 90, defense: 70, specialAttack: 60, specialDefense: 60, speed: 70},
+        {name: "zigzagoon", healthPoints: 38, attack: 30, defense: 41, specialAttack: 30, specialDefense: 41, speed: 60},
+        {name: "linoone", healthPoints: 78, attack: 70, defense: 61, specialAttack: 50, specialDefense: 61, speed: 100},
+        {name: "wurmple", healthPoints: 45, attack: 45, defense: 35, specialAttack: 20, specialDefense: 30, speed: 20},
+        {name: "silcoon", healthPoints: 50, attack: 35, defense: 55, specialAttack: 25, specialDefense: 25, speed: 15},
+        {name: "beautifly", healthPoints: 60, attack: 70, defense: 50, specialAttack: 100, specialDefense: 50, speed: 65},
+        {name: "cascoon", healthPoints: 50, attack: 35, defense: 55, specialAttack: 25, specialDefense: 25, speed: 15},
+        {name: "dustox", healthPoints: 60, attack: 50, defense: 70, specialAttack: 50, specialDefense: 90, speed: 65},
+        {name: "lotad", healthPoints: 40, attack: 30, defense: 30, specialAttack: 40, specialDefense: 50, speed: 30},
+        {name: "lombre", healthPoints: 60, attack: 50, defense: 50, specialAttack: 60, specialDefense: 70, speed: 50},
+        {name: "ludicolo", healthPoints: 80, attack: 70, defense: 70, specialAttack: 90, specialDefense: 100, speed: 70},
+        {name: "seedot", healthPoints: 40, attack: 40, defense: 50, specialAttack: 30, specialDefense: 30, speed: 30},
+        {name: "nuzleaf", healthPoints: 70, attack: 70, defense: 40, specialAttack: 60, specialDefense: 40, speed: 60},
+        {name: "shiftry", healthPoints: 90, attack: 100, defense: 60, specialAttack: 90, specialDefense: 60, speed: 80},
+        {name: "taillow", healthPoints: 40, attack: 55, defense: 30, specialAttack: 30, specialDefense: 30, speed: 85},
+        {name: "swellow", healthPoints: 60, attack: 85, defense: 60, specialAttack: 50, specialDefense: 50, speed: 125},
+        {name: "wingull", healthPoints: 40, attack: 30, defense: 30, specialAttack: 55, specialDefense: 30, speed: 85},
+        {name: "pelipper", healthPoints: 60, attack: 50, defense: 100, specialAttack: 85, specialDefense: 70, speed: 65},
+        {name: "ralts", healthPoints: 28, attack: 25, defense: 25, specialAttack: 45, specialDefense: 35, speed: 40},
+        {name: "kirlia", healthPoints: 38, attack: 35, defense: 35, specialAttack: 65, specialDefense: 55, speed: 50},
+        {name: "gardevoir", healthPoints: 68, attack: 65, defense: 65, specialAttack: 125, specialDefense: 115, speed: 80},
+        {name: "mega gardevoir", healthPoints: 68, attack: 85, defense: 65, specialAttack: 165, specialDefense: 135, speed: 100},
+        {name: "surskit", healthPoints: 40, attack: 30, defense: 32, specialAttack: 50, specialDefense: 52, speed: 65},
+        {name: "masquerain", healthPoints: 70, attack: 60, defense: 62, specialAttack: 80, specialDefense: 82, speed: 60},
+        {name: "shroomish", healthPoints: 60, attack: 40, defense: 60, specialAttack: 40, specialDefense: 60, speed: 35},
+        {name: "breloom", healthPoints: 60, attack: 130, defense: 80, specialAttack: 60, specialDefense: 60, speed: 70},
+        {name: "slakoth", healthPoints: 60, attack: 60, defense: 60, specialAttack: 35, specialDefense: 35, speed: 30},
+        {name: "vigoroth", healthPoints: 80, attack: 80, defense: 80, specialAttack: 55, specialDefense: 55, speed: 90},
+        {name: "slaking", healthPoints: 150, attack: 160, defense: 100, specialAttack: 95, specialDefense: 65, speed: 100},
+        {name: "nincada", healthPoints: 31, attack: 45, defense: 90, specialAttack: 30, specialDefense: 30, speed: 40},
+        {name: "ninjask", healthPoints: 61, attack: 90, defense: 45, specialAttack: 50, specialDefense: 50, speed: 160},
+        {name: "shedinja", healthPoints: 1, attack: 90, defense: 45, specialAttack: 30, specialDefense: 30, speed: 40},
+        {name: "whismur", healthPoints: 64, attack: 51, defense: 23, specialAttack: 51, specialDefense: 23, speed: 28},
+        {name: "loudred", healthPoints: 84, attack: 71, defense: 43, specialAttack: 71, specialDefense: 43, speed: 48},
+        {name: "exploud", healthPoints: 104, attack: 91, defense: 63, specialAttack: 91, specialDefense: 73, speed: 68},
+        {name: "makuhita", healthPoints: 72, attack: 60, defense: 30, specialAttack: 20, specialDefense: 30, speed: 25},
+        {name: "hariyama", healthPoints: 144, attack: 120, defense: 60, specialAttack: 40, specialDefense: 60, speed: 50},
+        {name: "azurill", healthPoints: 50, attack: 20, defense: 40, specialAttack: 20, specialDefense: 40, speed: 20},
+        {name: "nosepass", healthPoints: 30, attack: 45, defense: 135, specialAttack: 45, specialDefense: 90, speed: 30},
+        {name: "skitty", healthPoints: 50, attack: 45, defense: 45, specialAttack: 35, specialDefense: 35, speed: 50},
+        {name: "delcatty", healthPoints: 70, attack: 65, defense: 65, specialAttack: 55, specialDefense: 55, speed: 70},
+        {name: "sableye", healthPoints: 50, attack: 75, defense: 75, specialAttack: 65, specialDefense: 65, speed: 50},
+        {name: "mawile", healthPoints: 50, attack: 85, defense: 85, specialAttack: 55, specialDefense: 55, speed: 50},
+        {name: "mega mawile", healthPoints: 50, attack: 105, defense: 125, specialAttack: 55, specialDefense: 95, speed: 50},
+        {name: "aron", healthPoints: 50, attack: 70, defense: 100, specialAttack: 40, specialDefense: 40, speed: 30},
+        {name: "lairon", healthPoints: 60, attack: 90, defense: 140, specialAttack: 50, specialDefense: 50, speed: 40},
+        {name: "aggron", healthPoints: 70, attack: 110, defense: 180, specialAttack: 60, specialDefense: 60, speed: 50},
+        {name: "mega aggron", healthPoints: 70, attack: 140, defense: 230, specialAttack: 60, specialDefense: 80, speed: 50},
+        {name: "meditite", healthPoints: 30, attack: 40, defense: 55, specialAttack: 40, specialDefense: 55, speed: 60},
+        {name: "medicham", healthPoints: 60, attack: 60, defense: 75, specialAttack: 60, specialDefense: 75, speed: 80},
+        {name: "mega medicham", healthPoints: 60, attack: 100, defense: 85, specialAttack: 80, specialDefense: 85, speed: 100},
+        {name: "electrike", healthPoints: 40, attack: 45, defense: 40, specialAttack: 65, specialDefense: 40, speed: 65},
+        {name: "manectric", healthPoints: 70, attack: 75, defense: 60, specialAttack: 105, specialDefense: 60, speed: 105},
+        {name: "mega manectric", healthPoints: 70, attack: 75, defense: 80, specialAttack: 135, specialDefense: 80, speed: 135},
+        {name: "plusle", healthPoints: 60, attack: 50, defense: 40, specialAttack: 85, specialDefense: 75, speed: 95},
+        {name: "minun", healthPoints: 60, attack: 40, defense: 50, specialAttack: 75, specialDefense: 85, speed: 95},
+        {name: "volbeat", healthPoints: 65, attack: 73, defense: 55, specialAttack: 47, specialDefense: 75, speed: 85},
+        {name: "illumise", healthPoints: 65, attack: 47, defense: 55, specialAttack: 73, specialDefense: 75, speed: 85},
+        {name: "roselia", healthPoints: 50, attack: 60, defense: 45, specialAttack: 100, specialDefense: 80, speed: 65},
+        {name: "gulpin", healthPoints: 70, attack: 43, defense: 53, specialAttack: 43, specialDefense: 53, speed: 40},
+        {name: "swalot", healthPoints: 100, attack: 73, defense: 83, specialAttack: 73, specialDefense: 83, speed: 55},
+        {name: "carvanha", healthPoints: 45, attack: 90, defense: 20, specialAttack: 65, specialDefense: 20, speed: 65},
+        {name: "sharpedo", healthPoints: 70, attack: 120, defense: 40, specialAttack: 95, specialDefense: 40, speed: 95},
+        {name: "wailmer", healthPoints: 130, attack: 70, defense: 35, specialAttack: 70, specialDefense: 35, speed: 60},
+        {name: "wailord", healthPoints: 170, attack: 90, defense: 45, specialAttack: 90, specialDefense: 45, speed: 60},
+        {name: "numel", healthPoints: 60, attack: 60, defense: 40, specialAttack: 65, specialDefense: 45, speed: 35},
+        {name: "camerupt", healthPoints: 70, attack: 100, defense: 70, specialAttack: 105, specialDefense: 75, speed: 40},
+        {name: "torkoal", healthPoints: 70, attack: 85, defense: 140, specialAttack: 85, specialDefense: 70, speed: 20},
+        {name: "spoink", healthPoints: 60, attack: 25, defense: 35, specialAttack: 70, specialDefense: 80, speed: 60},
+        {name: "grumpig", healthPoints: 80, attack: 45, defense: 65, specialAttack: 90, specialDefense: 110, speed: 80},
+        {name: "spinda", healthPoints: 60, attack: 60, defense: 60, specialAttack: 60, specialDefense: 60, speed: 60},
+        {name: "trapinch", healthPoints: 45, attack: 100, defense: 45, specialAttack: 45, specialDefense: 45, speed: 10},
+        {name: "vibrava", healthPoints: 50, attack: 70, defense: 50, specialAttack: 50, specialDefense: 50, speed: 70},
+        {name: "flygon", healthPoints: 80, attack: 100, defense: 80, specialAttack: 80, specialDefense: 80, speed: 100},
+        {name: "cacnea", healthPoints: 50, attack: 85, defense: 40, specialAttack: 85, specialDefense: 40, speed: 35},
+        {name: "cacturne", healthPoints: 70, attack: 115, defense: 60, specialAttack: 115, specialDefense: 60, speed: 55},
+        {name: "swablu", healthPoints: 45, attack: 40, defense: 60, specialAttack: 40, specialDefense: 75, speed: 50},
+        {name: "altaria", healthPoints: 75, attack: 70, defense: 90, specialAttack: 70, specialDefense: 105, speed: 80},
+        {name: "zangoose", healthPoints: 73, attack: 115, defense: 60, specialAttack: 60, specialDefense: 60, speed: 90},
+        {name: "seviper", healthPoints: 73, attack: 100, defense: 60, specialAttack: 100, specialDefense: 60, speed: 65},
+        {name: "lunatone", healthPoints: 70, attack: 55, defense: 65, specialAttack: 95, specialDefense: 85, speed: 70},
+        {name: "solrock", healthPoints: 70, attack: 95, defense: 85, specialAttack: 55, specialDefense: 65, speed: 70},
+        {name: "barboach", healthPoints: 50, attack: 48, defense: 43, specialAttack: 46, specialDefense: 41, speed: 60},
+        {name: "whiscash", healthPoints: 110, attack: 78, defense: 73, specialAttack: 76, specialDefense: 71, speed: 60},
+        {name: "corphish", healthPoints: 43, attack: 80, defense: 65, specialAttack: 50, specialDefense: 35, speed: 35},
+        {name: "crawdaunt", healthPoints: 63, attack: 120, defense: 85, specialAttack: 90, specialDefense: 55, speed: 55},
+        {name: "baltoy", healthPoints: 40, attack: 40, defense: 55, specialAttack: 40, specialDefense: 70, speed: 55},
+        {name: "claydol", healthPoints: 60, attack: 70, defense: 105, specialAttack: 70, specialDefense: 120, speed: 75},
+        {name: "lileep", healthPoints: 66, attack: 41, defense: 77, specialAttack: 61, specialDefense: 87, speed: 23},
+        {name: "cradily", healthPoints: 86, attack: 81, defense: 97, specialAttack: 81, specialDefense: 107, speed: 43},
+        {name: "anorith", healthPoints: 45, attack: 95, defense: 50, specialAttack: 40, specialDefense: 50, speed: 75},
+        {name: "armaldo", healthPoints: 75, attack: 125, defense: 100, specialAttack: 70, specialDefense: 80, speed: 45},
+        {name: "feebas", healthPoints: 20, attack: 15, defense: 20, specialAttack: 10, specialDefense: 55, speed: 80},
+        {name: "milotic", healthPoints: 95, attack: 60, defense: 79, specialAttack: 100, specialDefense: 125, speed: 81},
+        {name: "castform", healthPoints: 70, attack: 70, defense: 70, specialAttack: 70, specialDefense: 70, speed: 70},
+        {name: "kecleon", healthPoints: 60, attack: 90, defense: 70, specialAttack: 60, specialDefense: 120, speed: 40},
+        {name: "shuppet", healthPoints: 44, attack: 75, defense: 35, specialAttack: 63, specialDefense: 33, speed: 45},
+        {name: "banette", healthPoints: 64, attack: 115, defense: 65, specialAttack: 83, specialDefense: 63, speed: 65},
+        {name: "duskull", healthPoints: 20, attack: 40, defense: 90, specialAttack: 30, specialDefense: 90, speed: 25},
+        {name: "dusclops", healthPoints: 40, attack: 70, defense: 130, specialAttack: 60, specialDefense: 130, speed: 25},
+        {name: "tropius", healthPoints: 99, attack: 68, defense: 83, specialAttack: 72, specialDefense: 87, speed: 51},
+        {name: "chimecho", healthPoints: 65, attack: 50, defense: 70, specialAttack: 95, specialDefense: 80, speed: 65},
+        {name: "absol", healthPoints: 65, attack: 130, defense: 60, specialAttack: 75, specialDefense: 60, speed: 75},
+        {name: "mega absol", healthPoints: 65, attack: 150, defense: 60, specialAttack: 115, specialDefense: 60, speed: 115},
+        {name: "wynaut", healthPoints: 95, attack: 23, defense: 48, specialAttack: 23, specialDefense: 48, speed: 23},
+        {name: "snorunt", healthPoints: 50, attack: 50, defense: 50, specialAttack: 50, specialDefense: 50, speed: 50},
+        {name: "glalie", healthPoints: 80, attack: 80, defense: 80, specialAttack: 80, specialDefense: 80, speed: 80},
+        {name: "mega glalie", healthPoints: 80, attack: 120, defense: 80, specialAttack: 120, specialDefense: 80, speed: 100},
+        {name: "spheal", healthPoints: 70, attack: 40, defense: 50, specialAttack: 55, specialDefense: 50, speed: 25},
+        {name: "sealeo", healthPoints: 90, attack: 60, defense: 70, specialAttack: 75, specialDefense: 70, speed: 45},
+        {name: "walrein", healthPoints: 110, attack: 80, defense: 90, specialAttack: 95, specialDefense: 90, speed: 65},
+        {name: "clamperl", healthPoints: 35, attack: 64, defense: 85, specialAttack: 74, specialDefense: 55, speed: 32},
+        {name: "huntail", healthPoints: 55, attack: 104, defense: 105, specialAttack: 94, specialDefense: 75, speed: 52},
+        {name: "gorebyss", healthPoints: 55, attack: 84, defense: 105, specialAttack: 114, specialDefense: 75, speed: 52},
+        {name: "relicanth", healthPoints: 100, attack: 90, defense: 130, specialAttack: 45, specialDefense: 65, speed: 55},
+        {name: "luvdisc", healthPoints: 43, attack: 30, defense: 55, specialAttack: 40, specialDefense: 65, speed: 97},
+        {name: "bagon", healthPoints: 45, attack: 75, defense: 60, specialAttack: 40, specialDefense: 30, speed: 50},
+        {name: "shelgon", healthPoints: 65, attack: 95, defense: 100, specialAttack: 60, specialDefense: 50, speed: 50},
+        {name: "salamence", healthPoints: 95, attack: 135, defense: 80, specialAttack: 110, specialDefense: 80, speed: 100},
+        {name: "beldum", healthPoints: 40, attack: 55, defense: 80, specialAttack: 35, specialDefense: 60, speed: 30},
+        {name: "metang", healthPoints: 60, attack: 75, defense: 100, specialAttack: 55, specialDefense: 80, speed: 50},
+        {name: "metagross", healthPoints: 80, attack: 135, defense: 130, specialAttack: 95, specialDefense: 90, speed: 70},
+        {name: "regirock", healthPoints: 80, attack: 100, defense: 200, specialAttack: 50, specialDefense: 100, speed: 50},
+        {name: "regice", healthPoints: 80, attack: 50, defense: 100, specialAttack: 100, specialDefense: 200, speed: 50},
+        {name: "registeel", healthPoints: 80, attack: 75, defense: 150, specialAttack: 75, specialDefense: 150, speed: 50},
+        {name: "latias", healthPoints: 80, attack: 80, defense: 90, specialAttack: 110, specialDefense: 130, speed: 110},
+        {name: "latios", healthPoints: 80, attack: 90, defense: 80, specialAttack: 130, specialDefense: 110, speed: 110},
+        {name: "kyogre", healthPoints: 100, attack: 100, defense: 90, specialAttack: 150, specialDefense: 140, speed: 90},
+        {name: "groudon", healthPoints: 100, attack: 150, defense: 140, specialAttack: 100, specialDefense: 90, speed: 90},
+        {name: "rayquaza", healthPoints: 105, attack: 150, defense: 90, specialAttack: 150, specialDefense: 90, speed: 95},
+        {name: "jirachi", healthPoints: 100, attack: 100, defense: 100, specialAttack: 100, specialDefense: 100, speed: 100},
+        {name: "deoxys normal forme", healthPoints: 50, attack: 150, defense: 50, specialAttack: 150, specialDefense: 50, speed: 150},
+        {name: "deoxys attack forme", healthPoints: 50, attack: 180, defense: 20, specialAttack: 180, specialDefense: 20, speed: 150},
+        {name: "deoxys defense forme", healthPoints: 50, attack: 70, defense: 160, specialAttack: 70, specialDefense: 160, speed: 90},
+        {name: "deoxys speed forme", healthPoints: 50, attack: 95, defense: 90, specialAttack: 95, specialDefense: 90, speed: 180},
+        {name: "turtwig", healthPoints: 55, attack: 68, defense: 64, specialAttack: 45, specialDefense: 55, speed: 31},
+        {name: "grotle", healthPoints: 75, attack: 89, defense: 85, specialAttack: 55, specialDefense: 65, speed: 36},
+        {name: "torterra", healthPoints: 95, attack: 109, defense: 105, specialAttack: 75, specialDefense: 85, speed: 56},
+        {name: "chimchar", healthPoints: 44, attack: 58, defense: 44, specialAttack: 58, specialDefense: 44, speed: 61},
+        {name: "monferno", healthPoints: 64, attack: 78, defense: 52, specialAttack: 78, specialDefense: 52, speed: 81},
+        {name: "infernape", healthPoints: 76, attack: 104, defense: 71, specialAttack: 104, specialDefense: 71, speed: 108},
+        {name: "piplup", healthPoints: 53, attack: 51, defense: 53, specialAttack: 61, specialDefense: 56, speed: 40},
+        {name: "prinplup", healthPoints: 64, attack: 66, defense: 68, specialAttack: 81, specialDefense: 76, speed: 50},
+        {name: "empoleon", healthPoints: 84, attack: 86, defense: 88, specialAttack: 111, specialDefense: 101, speed: 60},
+        {name: "starly", healthPoints: 40, attack: 55, defense: 30, specialAttack: 30, specialDefense: 30, speed: 60},
+        {name: "staravia", healthPoints: 55, attack: 75, defense: 50, specialAttack: 40, specialDefense: 40, speed: 80},
+        {name: "staraptor", healthPoints: 85, attack: 120, defense: 70, specialAttack: 50, specialDefense: 60, speed: 100},
+        {name: "bidoof", healthPoints: 59, attack: 45, defense: 40, specialAttack: 35, specialDefense: 40, speed: 31},
+        {name: "bibarel", healthPoints: 79, attack: 85, defense: 60, specialAttack: 55, specialDefense: 60, speed: 71},
+        {name: "kricketot", healthPoints: 37, attack: 25, defense: 41, specialAttack: 25, specialDefense: 41, speed: 25},
+        {name: "kricketune", healthPoints: 77, attack: 85, defense: 51, specialAttack: 55, specialDefense: 51, speed: 65},
+        {name: "shinx", healthPoints: 45, attack: 65, defense: 34, specialAttack: 40, specialDefense: 34, speed: 45},
+        {name: "luxio", healthPoints: 60, attack: 85, defense: 49, specialAttack: 60, specialDefense: 49, speed: 60},
+        {name: "luxray", healthPoints: 80, attack: 120, defense: 79, specialAttack: 95, specialDefense: 79, speed: 70},
+        {name: "budew", healthPoints: 40, attack: 30, defense: 35, specialAttack: 50, specialDefense: 70, speed: 55},
+        {name: "roserade", healthPoints: 60, attack: 70, defense: 65, specialAttack: 125, specialDefense: 105, speed: 90},
+        {name: "cranidos", healthPoints: 67, attack: 125, defense: 40, specialAttack: 30, specialDefense: 30, speed: 58},
+        {name: "rampardos", healthPoints: 97, attack: 165, defense: 60, specialAttack: 65, specialDefense: 50, speed: 58},
+        {name: "shieldon", healthPoints: 30, attack: 42, defense: 118, specialAttack: 42, specialDefense: 88, speed: 30},
+        {name: "bastiodon", healthPoints: 60, attack: 52, defense: 168, specialAttack: 47, specialDefense: 138, speed: 30},
+        {name: "burmy", healthPoints: 40, attack: 29, defense: 45, specialAttack: 29, specialDefense: 45, speed: 36},
+        {name: "wormadam plant cloak", healthPoints: 60, attack: 59, defense: 85, specialAttack: 79, specialDefense: 105, speed: 36},
+        {name: "wormadam sandy cloak", healthPoints: 60, attack: 79, defense: 105, specialAttack: 59, specialDefense: 85, speed: 36},
+        {name: "wormadam trash cloak", healthPoints: 60, attack: 69, defense: 95, specialAttack: 69, specialDefense: 95, speed: 36},
+        {name: "mothim", healthPoints: 70, attack: 94, defense: 50, specialAttack: 94, specialDefense: 50, speed: 66},
+        {name: "combee", healthPoints: 30, attack: 30, defense: 42, specialAttack: 30, specialDefense: 42, speed: 70},
+        {name: "vespiquen", healthPoints: 70, attack: 80, defense: 102, specialAttack: 80, specialDefense: 102, speed: 40},
+        {name: "pachirisu", healthPoints: 60, attack: 45, defense: 70, specialAttack: 45, specialDefense: 90, speed: 95},
+        {name: "buizel", healthPoints: 55, attack: 65, defense: 35, specialAttack: 60, specialDefense: 30, speed: 85},
+        {name: "floatzel", healthPoints: 85, attack: 105, defense: 55, specialAttack: 85, specialDefense: 50, speed: 115},
+        {name: "cherubi", healthPoints: 45, attack: 35, defense: 45, specialAttack: 62, specialDefense: 53, speed: 35},
+        {name: "cherrim", healthPoints: 70, attack: 60, defense: 70, specialAttack: 87, specialDefense: 78, speed: 85},
+        {name: "shellos", healthPoints: 76, attack: 48, defense: 48, specialAttack: 57, specialDefense: 62, speed: 34},
+        {name: "gastrodon", healthPoints: 111, attack: 83, defense: 68, specialAttack: 92, specialDefense: 82, speed: 39},
+        {name: "ambipom", healthPoints: 75, attack: 100, defense: 66, specialAttack: 60, specialDefense: 66, speed: 115},
+        {name: "drifloon", healthPoints: 90, attack: 50, defense: 34, specialAttack: 60, specialDefense: 44, speed: 70},
+        {name: "drifblim", healthPoints: 150, attack: 80, defense: 44, specialAttack: 90, specialDefense: 54, speed: 80},
+        {name: "buneary", healthPoints: 55, attack: 66, defense: 44, specialAttack: 44, specialDefense: 56, speed: 85},
+        {name: "lopunny", healthPoints: 65, attack: 76, defense: 84, specialAttack: 54, specialDefense: 96, speed: 105},
+        {name: "mismagius", healthPoints: 60, attack: 60, defense: 60, specialAttack: 105, specialDefense: 105, speed: 105},
+        {name: "honchkrow", healthPoints: 100, attack: 125, defense: 52, specialAttack: 105, specialDefense: 52, speed: 71},
+        {name: "glameow", healthPoints: 49, attack: 55, defense: 42, specialAttack: 42, specialDefense: 37, speed: 85},
+        {name: "purugly", healthPoints: 71, attack: 82, defense: 64, specialAttack: 64, specialDefense: 59, speed: 112},
+        {name: "chingling", healthPoints: 45, attack: 30, defense: 50, specialAttack: 65, specialDefense: 50, speed: 45},
+        {name: "stunky", healthPoints: 63, attack: 63, defense: 47, specialAttack: 41, specialDefense: 41, speed: 74},
+        {name: "skuntank", healthPoints: 103, attack: 93, defense: 67, specialAttack: 71, specialDefense: 61, speed: 84},
+        {name: "bronzor", healthPoints: 57, attack: 24, defense: 86, specialAttack: 24, specialDefense: 86, speed: 23},
+        {name: "bronzong", healthPoints: 67, attack: 89, defense: 116, specialAttack: 79, specialDefense: 116, speed: 33},
+        {name: "bonsly", healthPoints: 50, attack: 80, defense: 95, specialAttack: 10, specialDefense: 45, speed: 10},
+        {name: "mime jr.", healthPoints: 20, attack: 25, defense: 45, specialAttack: 70, specialDefense: 90, speed: 60},
+        {name: "happiny", healthPoints: 100, attack: 5, defense: 5, specialAttack: 15, specialDefense: 65, speed: 30},
+        {name: "chatot", healthPoints: 76, attack: 65, defense: 45, specialAttack: 92, specialDefense: 42, speed: 91},
+        {name: "spiritomb", healthPoints: 50, attack: 92, defense: 108, specialAttack: 92, specialDefense: 108, speed: 35},
+        {name: "gible", healthPoints: 58, attack: 70, defense: 45, specialAttack: 40, specialDefense: 45, speed: 42},
+        {name: "gabite", healthPoints: 68, attack: 90, defense: 65, specialAttack: 50, specialDefense: 55, speed: 82},
+        {name: "garchomp", healthPoints: 108, attack: 130, defense: 95, specialAttack: 80, specialDefense: 85, speed: 102},
+        {name: "mega garchomp", healthPoints: 108, attack: 170, defense: 115, specialAttack: 120, specialDefense: 95, speed: 92},
+        {name: "munchlax", healthPoints: 135, attack: 85, defense: 40, specialAttack: 40, specialDefense: 85, speed: 5},
+        {name: "riolu", healthPoints: 40, attack: 70, defense: 40, specialAttack: 35, specialDefense: 40, speed: 60},
+        {name: "lucario", healthPoints: 70, attack: 110, defense: 70, specialAttack: 115, specialDefense: 70, speed: 90},
+        {name: "mega lucario", healthPoints: 70, attack: 145, defense: 88, specialAttack: 140, specialDefense: 70, speed: 112},
+        {name: "hippopotas", healthPoints: 68, attack: 72, defense: 78, specialAttack: 38, specialDefense: 42, speed: 32},
+        {name: "hippowdon", healthPoints: 108, attack: 112, defense: 118, specialAttack: 68, specialDefense: 72, speed: 47},
+        {name: "skorupi", healthPoints: 40, attack: 50, defense: 90, specialAttack: 30, specialDefense: 55, speed: 65},
+        {name: "drapion", healthPoints: 70, attack: 90, defense: 110, specialAttack: 60, specialDefense: 75, speed: 95},
+        {name: "croagunk", healthPoints: 48, attack: 61, defense: 40, specialAttack: 61, specialDefense: 40, speed: 50},
+        {name: "toxicroak", healthPoints: 83, attack: 106, defense: 65, specialAttack: 86, specialDefense: 65, speed: 85},
+        {name: "carnivine", healthPoints: 74, attack: 100, defense: 72, specialAttack: 90, specialDefense: 72, speed: 46},
+        {name: "finneon", healthPoints: 49, attack: 49, defense: 56, specialAttack: 49, specialDefense: 61, speed: 66},
+        {name: "lumineon", healthPoints: 69, attack: 69, defense: 76, specialAttack: 69, specialDefense: 86, speed: 91},
+        {name: "mantyke", healthPoints: 45, attack: 20, defense: 50, specialAttack: 60, specialDefense: 120, speed: 50},
+        {name: "snover", healthPoints: 60, attack: 62, defense: 50, specialAttack: 62, specialDefense: 60, speed: 40},
+        {name: "abomasnow", healthPoints: 90, attack: 92, defense: 75, specialAttack: 92, specialDefense: 85, speed: 60},
+        {name: "mega abomasnow", healthPoints: 90, attack: 132, defense: 105, specialAttack: 132, specialDefense: 105, speed: 30},
+        {name: "weavile", healthPoints: 70, attack: 120, defense: 65, specialAttack: 45, specialDefense: 85, speed: 125},
+        {name: "magnezone", healthPoints: 70, attack: 70, defense: 115, specialAttack: 130, specialDefense: 90, speed: 60},
+        {name: "lickilicky", healthPoints: 110, attack: 85, defense: 95, specialAttack: 80, specialDefense: 95, speed: 50},
+        {name: "rhyperior", healthPoints: 115, attack: 140, defense: 130, specialAttack: 55, specialDefense: 55, speed: 40},
+        {name: "tangrowth", healthPoints: 100, attack: 100, defense: 125, specialAttack: 110, specialDefense: 50, speed: 50},
+        {name: "electivire", healthPoints: 75, attack: 123, defense: 67, specialAttack: 95, specialDefense: 85, speed: 95},
+        {name: "magmortar", healthPoints: 75, attack: 95, defense: 67, specialAttack: 125, specialDefense: 95, speed: 83},
+        {name: "togekiss", healthPoints: 85, attack: 50, defense: 95, specialAttack: 120, specialDefense: 115, speed: 80},
+        {name: "yanmega", healthPoints: 86, attack: 76, defense: 86, specialAttack: 116, specialDefense: 56, speed: 95},
+        {name: "leafeon", healthPoints: 65, attack: 110, defense: 130, specialAttack: 60, specialDefense: 65, speed: 95},
+        {name: "glaceon", healthPoints: 65, attack: 60, defense: 110, specialAttack: 130, specialDefense: 95, speed: 65},
+        {name: "gliscor", healthPoints: 75, attack: 95, defense: 125, specialAttack: 45, specialDefense: 75, speed: 95},
+        {name: "mamoswine", healthPoints: 110, attack: 130, defense: 80, specialAttack: 70, specialDefense: 60, speed: 80},
+        {name: "porygon-z", healthPoints: 85, attack: 80, defense: 70, specialAttack: 135, specialDefense: 75, speed: 90},
+        {name: "gallade", healthPoints: 68, attack: 125, defense: 65, specialAttack: 65, specialDefense: 115, speed: 80},
+        {name: "probopass", healthPoints: 60, attack: 55, defense: 145, specialAttack: 75, specialDefense: 150, speed: 40},
+        {name: "dusknoir", healthPoints: 45, attack: 100, defense: 135, specialAttack: 65, specialDefense: 135, speed: 45},
+        {name: "froslass", healthPoints: 70, attack: 80, defense: 70, specialAttack: 80, specialDefense: 70, speed: 110},
+        {name: "rotom", healthPoints: 50, attack: 50, defense: 77, specialAttack: 95, specialDefense: 77, speed: 91},
+        {name: "rotom heat rotom", healthPoints: 50, attack: 65, defense: 107, specialAttack: 105, specialDefense: 107, speed: 86},
+        {name: "rotom wash rotom", healthPoints: 50, attack: 65, defense: 107, specialAttack: 105, specialDefense: 107, speed: 86},
+        {name: "rotom frost rotom", healthPoints: 50, attack: 65, defense: 107, specialAttack: 105, specialDefense: 107, speed: 86},
+        {name: "rotom fan rotom", healthPoints: 50, attack: 65, defense: 107, specialAttack: 105, specialDefense: 107, speed: 86},
+        {name: "rotom mow rotom", healthPoints: 50, attack: 65, defense: 107, specialAttack: 105, specialDefense: 107, speed: 86},
+        {name: "uxie", healthPoints: 75, attack: 75, defense: 130, specialAttack: 75, specialDefense: 130, speed: 95},
+        {name: "mesprit", healthPoints: 80, attack: 105, defense: 105, specialAttack: 105, specialDefense: 105, speed: 80},
+        {name: "azelf", healthPoints: 75, attack: 125, defense: 70, specialAttack: 125, specialDefense: 70, speed: 115},
+        {name: "dialga", healthPoints: 100, attack: 120, defense: 120, specialAttack: 150, specialDefense: 100, speed: 90},
+        {name: "palkia", healthPoints: 90, attack: 120, defense: 100, specialAttack: 150, specialDefense: 120, speed: 100},
+        {name: "heatran", healthPoints: 91, attack: 90, defense: 106, specialAttack: 130, specialDefense: 106, speed: 77},
+        {name: "regigigas", healthPoints: 110, attack: 160, defense: 110, specialAttack: 80, specialDefense: 110, speed: 100},
+        {name: "giratina altered forme", healthPoints: 150, attack: 100, defense: 120, specialAttack: 100, specialDefense: 120, speed: 90},
+        {name: "giratina origin forme", healthPoints: 150, attack: 120, defense: 100, specialAttack: 120, specialDefense: 100, speed: 90},
+        {name: "cresselia", healthPoints: 120, attack: 70, defense: 120, specialAttack: 75, specialDefense: 130, speed: 85},
+        {name: "phione", healthPoints: 80, attack: 80, defense: 80, specialAttack: 80, specialDefense: 80, speed: 80},
+        {name: "manaphy", healthPoints: 100, attack: 100, defense: 100, specialAttack: 100, specialDefense: 100, speed: 100},
+        {name: "darkrai", healthPoints: 70, attack: 90, defense: 90, specialAttack: 135, specialDefense: 90, speed: 125},
+        {name: "shaymin land forme", healthPoints: 100, attack: 100, defense: 100, specialAttack: 100, specialDefense: 100, speed: 100},
+        {name: "shaymin sky forme", healthPoints: 100, attack: 103, defense: 75, specialAttack: 120, specialDefense: 75, speed: 127},
+        {name: "arceus", healthPoints: 120, attack: 120, defense: 120, specialAttack: 120, specialDefense: 120, speed: 120},
+        {name: "victini", healthPoints: 100, attack: 100, defense: 100, specialAttack: 100, specialDefense: 100, speed: 100},
+        {name: "snivy", healthPoints: 45, attack: 45, defense: 55, specialAttack: 45, specialDefense: 55, speed: 63},
+        {name: "servine", healthPoints: 60, attack: 60, defense: 75, specialAttack: 60, specialDefense: 75, speed: 83},
+        {name: "serperior", healthPoints: 75, attack: 75, defense: 95, specialAttack: 75, specialDefense: 95, speed: 113},
+        {name: "tepig", healthPoints: 65, attack: 63, defense: 45, specialAttack: 45, specialDefense: 45, speed: 45},
+        {name: "pignite", healthPoints: 90, attack: 93, defense: 55, specialAttack: 70, specialDefense: 55, speed: 55},
+        {name: "emboar", healthPoints: 110, attack: 123, defense: 65, specialAttack: 100, specialDefense: 65, speed: 65},
+        {name: "oshawott", healthPoints: 55, attack: 55, defense: 45, specialAttack: 63, specialDefense: 45, speed: 45},
+        {name: "dewott", healthPoints: 75, attack: 75, defense: 60, specialAttack: 83, specialDefense: 60, speed: 60},
+        {name: "samurott", healthPoints: 95, attack: 100, defense: 85, specialAttack: 108, specialDefense: 70, speed: 70},
+        {name: "patrat", healthPoints: 45, attack: 55, defense: 39, specialAttack: 35, specialDefense: 39, speed: 42},
+        {name: "watchog", healthPoints: 60, attack: 85, defense: 69, specialAttack: 60, specialDefense: 69, speed: 77},
+        {name: "lillipup", healthPoints: 45, attack: 60, defense: 45, specialAttack: 25, specialDefense: 45, speed: 55},
+        {name: "herdier", healthPoints: 65, attack: 80, defense: 65, specialAttack: 35, specialDefense: 65, speed: 60},
+        {name: "stoutland", healthPoints: 85, attack: 110, defense: 90, specialAttack: 45, specialDefense: 90, speed: 80},
+        {name: "purrloin", healthPoints: 41, attack: 50, defense: 37, specialAttack: 50, specialDefense: 37, speed: 66},
+        {name: "liepard", healthPoints: 64, attack: 88, defense: 50, specialAttack: 88, specialDefense: 50, speed: 106},
+        {name: "pansage", healthPoints: 50, attack: 53, defense: 48, specialAttack: 53, specialDefense: 48, speed: 64},
+        {name: "simisage", healthPoints: 75, attack: 98, defense: 63, specialAttack: 98, specialDefense: 63, speed: 101},
+        {name: "pansear", healthPoints: 50, attack: 53, defense: 48, specialAttack: 53, specialDefense: 48, speed: 64},
+        {name: "simisear", healthPoints: 75, attack: 98, defense: 63, specialAttack: 98, specialDefense: 63, speed: 101},
+        {name: "panpour", healthPoints: 50, attack: 53, defense: 48, specialAttack: 53, specialDefense: 48, speed: 64},
+        {name: "simipour", healthPoints: 75, attack: 98, defense: 63, specialAttack: 98, specialDefense: 63, speed: 101},
+        {name: "munna", healthPoints: 76, attack: 25, defense: 45, specialAttack: 67, specialDefense: 55, speed: 24},
+        {name: "musharna", healthPoints: 116, attack: 55, defense: 85, specialAttack: 107, specialDefense: 95, speed: 29},
+        {name: "pidove", healthPoints: 50, attack: 55, defense: 50, specialAttack: 36, specialDefense: 30, speed: 43},
+        {name: "tranquill", healthPoints: 62, attack: 77, defense: 62, specialAttack: 50, specialDefense: 42, speed: 65},
+        {name: "unfezant", healthPoints: 80, attack: 115, defense: 80, specialAttack: 65, specialDefense: 55, speed: 93},
+        {name: "blitzle", healthPoints: 45, attack: 60, defense: 32, specialAttack: 50, specialDefense: 32, speed: 76},
+        {name: "zebstrika", healthPoints: 75, attack: 100, defense: 63, specialAttack: 80, specialDefense: 63, speed: 116},
+        {name: "roggenrola", healthPoints: 55, attack: 75, defense: 85, specialAttack: 25, specialDefense: 25, speed: 15},
+        {name: "boldore", healthPoints: 70, attack: 105, defense: 105, specialAttack: 50, specialDefense: 40, speed: 20},
+        {name: "gigalith", healthPoints: 85, attack: 135, defense: 130, specialAttack: 60, specialDefense: 80, speed: 25},
+        {name: "woobat", healthPoints: 55, attack: 45, defense: 43, specialAttack: 55, specialDefense: 43, speed: 72},
+        {name: "swoobat", healthPoints: 67, attack: 57, defense: 55, specialAttack: 77, specialDefense: 55, speed: 114},
+        {name: "drilbur", healthPoints: 60, attack: 85, defense: 40, specialAttack: 30, specialDefense: 45, speed: 68},
+        {name: "excadrill", healthPoints: 110, attack: 135, defense: 60, specialAttack: 50, specialDefense: 65, speed: 88},
+        {name: "audino", healthPoints: 103, attack: 60, defense: 86, specialAttack: 60, specialDefense: 86, speed: 50},
+        {name: "timburr", healthPoints: 75, attack: 80, defense: 55, specialAttack: 25, specialDefense: 35, speed: 35},
+        {name: "gurdurr", healthPoints: 85, attack: 105, defense: 85, specialAttack: 40, specialDefense: 50, speed: 40},
+        {name: "conkeldurr", healthPoints: 105, attack: 140, defense: 95, specialAttack: 55, specialDefense: 65, speed: 45},
+        {name: "tympole", healthPoints: 50, attack: 50, defense: 40, specialAttack: 50, specialDefense: 40, speed: 64},
+        {name: "palpitoad", healthPoints: 75, attack: 65, defense: 55, specialAttack: 65, specialDefense: 55, speed: 69},
+        {name: "seismitoad", healthPoints: 105, attack: 95, defense: 75, specialAttack: 85, specialDefense: 75, speed: 74},
+        {name: "throh", healthPoints: 120, attack: 100, defense: 85, specialAttack: 30, specialDefense: 85, speed: 45},
+        {name: "sawk", healthPoints: 75, attack: 125, defense: 75, specialAttack: 30, specialDefense: 75, speed: 85},
+        {name: "sewaddle", healthPoints: 45, attack: 53, defense: 70, specialAttack: 40, specialDefense: 60, speed: 42},
+        {name: "swadloon", healthPoints: 55, attack: 63, defense: 90, specialAttack: 50, specialDefense: 80, speed: 42},
+        {name: "leavanny", healthPoints: 75, attack: 103, defense: 80, specialAttack: 70, specialDefense: 80, speed: 92},
+        {name: "venipede", healthPoints: 30, attack: 45, defense: 59, specialAttack: 30, specialDefense: 39, speed: 57},
+        {name: "whirlipede", healthPoints: 40, attack: 55, defense: 99, specialAttack: 40, specialDefense: 79, speed: 47},
+        {name: "scolipede", healthPoints: 60, attack: 100, defense: 89, specialAttack: 55, specialDefense: 69, speed: 112},
+        {name: "cottonee", healthPoints: 40, attack: 27, defense: 60, specialAttack: 37, specialDefense: 50, speed: 66},
+        {name: "whimsicott", healthPoints: 60, attack: 67, defense: 85, specialAttack: 77, specialDefense: 75, speed: 116},
+        {name: "petilil", healthPoints: 45, attack: 35, defense: 50, specialAttack: 70, specialDefense: 50, speed: 30},
+        {name: "lilligant", healthPoints: 70, attack: 60, defense: 75, specialAttack: 110, specialDefense: 75, speed: 90},
+        {name: "basculin", healthPoints: 70, attack: 92, defense: 65, specialAttack: 80, specialDefense: 55, speed: 98},
+        {name: "sandile", healthPoints: 50, attack: 72, defense: 35, specialAttack: 35, specialDefense: 35, speed: 65},
+        {name: "krokorok", healthPoints: 60, attack: 82, defense: 45, specialAttack: 45, specialDefense: 45, speed: 74},
+        {name: "krookodile", healthPoints: 95, attack: 117, defense: 80, specialAttack: 65, specialDefense: 70, speed: 92},
+        {name: "darumaka", healthPoints: 70, attack: 90, defense: 45, specialAttack: 15, specialDefense: 45, speed: 50},
+        {name: "darmanitan standard mode", healthPoints: 105, attack: 140, defense: 55, specialAttack: 30, specialDefense: 55, speed: 95},
+        {name: "darmanitan zen mode", healthPoints: 105, attack: 30, defense: 105, specialAttack: 140, specialDefense: 105, speed: 55},
+        {name: "maractus", healthPoints: 75, attack: 86, defense: 67, specialAttack: 106, specialDefense: 67, speed: 60},
+        {name: "dwebble", healthPoints: 50, attack: 65, defense: 85, specialAttack: 35, specialDefense: 35, speed: 55},
+        {name: "crustle", healthPoints: 70, attack: 95, defense: 125, specialAttack: 65, specialDefense: 75, speed: 45},
+        {name: "scraggy", healthPoints: 50, attack: 75, defense: 70, specialAttack: 35, specialDefense: 70, speed: 48},
+        {name: "scrafty", healthPoints: 65, attack: 90, defense: 115, specialAttack: 45, specialDefense: 115, speed: 58},
+        {name: "sigilyph", healthPoints: 72, attack: 58, defense: 80, specialAttack: 103, specialDefense: 80, speed: 97},
+        {name: "yamask", healthPoints: 38, attack: 30, defense: 85, specialAttack: 55, specialDefense: 65, speed: 30},
+        {name: "cofagrigus", healthPoints: 58, attack: 50, defense: 145, specialAttack: 95, specialDefense: 105, speed: 30},
+        {name: "tirtouga", healthPoints: 54, attack: 78, defense: 103, specialAttack: 53, specialDefense: 45, speed: 22},
+        {name: "carracosta", healthPoints: 74, attack: 108, defense: 133, specialAttack: 83, specialDefense: 65, speed: 32},
+        {name: "archen", healthPoints: 55, attack: 112, defense: 45, specialAttack: 74, specialDefense: 45, speed: 70},
+        {name: "archeops", healthPoints: 75, attack: 140, defense: 65, specialAttack: 112, specialDefense: 65, speed: 110},
+        {name: "trubbish", healthPoints: 50, attack: 50, defense: 62, specialAttack: 40, specialDefense: 62, speed: 65},
+        {name: "garbodor", healthPoints: 80, attack: 95, defense: 82, specialAttack: 60, specialDefense: 82, speed: 75},
+        {name: "zorua", healthPoints: 40, attack: 65, defense: 40, specialAttack: 80, specialDefense: 40, speed: 65},
+        {name: "zoroark", healthPoints: 60, attack: 105, defense: 60, specialAttack: 120, specialDefense: 60, speed: 105},
+        {name: "minccino", healthPoints: 55, attack: 50, defense: 40, specialAttack: 40, specialDefense: 40, speed: 75},
+        {name: "cinccino", healthPoints: 75, attack: 95, defense: 60, specialAttack: 65, specialDefense: 60, speed: 115},
+        {name: "gothita", healthPoints: 45, attack: 30, defense: 50, specialAttack: 55, specialDefense: 65, speed: 45},
+        {name: "gothorita", healthPoints: 60, attack: 45, defense: 70, specialAttack: 75, specialDefense: 85, speed: 55},
+        {name: "gothitelle", healthPoints: 70, attack: 55, defense: 95, specialAttack: 95, specialDefense: 110, speed: 65},
+        {name: "solosis", healthPoints: 45, attack: 30, defense: 40, specialAttack: 105, specialDefense: 50, speed: 20},
+        {name: "duosion", healthPoints: 65, attack: 40, defense: 50, specialAttack: 125, specialDefense: 60, speed: 30},
+        {name: "reuniclus", healthPoints: 110, attack: 65, defense: 75, specialAttack: 125, specialDefense: 85, speed: 30},
+        {name: "ducklett", healthPoints: 62, attack: 44, defense: 50, specialAttack: 44, specialDefense: 50, speed: 55},
+        {name: "swanna", healthPoints: 75, attack: 87, defense: 63, specialAttack: 87, specialDefense: 63, speed: 98},
+        {name: "vanillite", healthPoints: 36, attack: 50, defense: 50, specialAttack: 65, specialDefense: 60, speed: 44},
+        {name: "vanillish", healthPoints: 51, attack: 65, defense: 65, specialAttack: 80, specialDefense: 75, speed: 59},
+        {name: "vanilluxe", healthPoints: 71, attack: 95, defense: 85, specialAttack: 110, specialDefense: 95, speed: 79},
+        {name: "deerling", healthPoints: 60, attack: 60, defense: 50, specialAttack: 40, specialDefense: 50, speed: 75},
+        {name: "sawsbuck", healthPoints: 80, attack: 100, defense: 70, specialAttack: 60, specialDefense: 70, speed: 95},
+        {name: "emolga", healthPoints: 55, attack: 75, defense: 60, specialAttack: 75, specialDefense: 60, speed: 103},
+        {name: "karrablast", healthPoints: 50, attack: 75, defense: 45, specialAttack: 40, specialDefense: 45, speed: 60},
+        {name: "escavalier", healthPoints: 70, attack: 135, defense: 105, specialAttack: 60, specialDefense: 105, speed: 20},
+        {name: "foongus", healthPoints: 69, attack: 55, defense: 45, specialAttack: 55, specialDefense: 55, speed: 15},
+        {name: "amoonguss", healthPoints: 114, attack: 85, defense: 70, specialAttack: 85, specialDefense: 80, speed: 30},
+        {name: "frillish", healthPoints: 55, attack: 40, defense: 50, specialAttack: 65, specialDefense: 85, speed: 40},
+        {name: "jellicent", healthPoints: 100, attack: 60, defense: 70, specialAttack: 85, specialDefense: 105, speed: 60},
+        {name: "alomomola", healthPoints: 165, attack: 75, defense: 80, specialAttack: 40, specialDefense: 45, speed: 65},
+        {name: "joltik", healthPoints: 50, attack: 47, defense: 50, specialAttack: 57, specialDefense: 50, speed: 65},
+        {name: "galvantula", healthPoints: 70, attack: 77, defense: 60, specialAttack: 97, specialDefense: 60, speed: 108},
+        {name: "ferroseed", healthPoints: 44, attack: 50, defense: 91, specialAttack: 24, specialDefense: 86, speed: 10},
+        {name: "ferrothorn", healthPoints: 74, attack: 94, defense: 131, specialAttack: 54, specialDefense: 116, speed: 20},
+        {name: "klink", healthPoints: 40, attack: 55, defense: 70, specialAttack: 45, specialDefense: 60, speed: 30},
+        {name: "klang", healthPoints: 60, attack: 80, defense: 95, specialAttack: 70, specialDefense: 85, speed: 50},
+        {name: "klinklang", healthPoints: 60, attack: 100, defense: 115, specialAttack: 70, specialDefense: 85, speed: 90},
+        {name: "tynamo", healthPoints: 35, attack: 55, defense: 40, specialAttack: 45, specialDefense: 40, speed: 60},
+        {name: "eelektrik", healthPoints: 65, attack: 85, defense: 70, specialAttack: 75, specialDefense: 70, speed: 40},
+        {name: "eelektross", healthPoints: 85, attack: 115, defense: 80, specialAttack: 105, specialDefense: 80, speed: 50},
+        {name: "elgyem", healthPoints: 55, attack: 55, defense: 55, specialAttack: 85, specialDefense: 55, speed: 30},
+        {name: "beheeyem", healthPoints: 75, attack: 75, defense: 75, specialAttack: 125, specialDefense: 95, speed: 40},
+        {name: "litwick", healthPoints: 50, attack: 30, defense: 55, specialAttack: 65, specialDefense: 55, speed: 20},
+        {name: "lampent", healthPoints: 60, attack: 40, defense: 60, specialAttack: 95, specialDefense: 60, speed: 55},
+        {name: "chandelure", healthPoints: 60, attack: 55, defense: 90, specialAttack: 145, specialDefense: 90, speed: 80},
+        {name: "axew", healthPoints: 46, attack: 87, defense: 60, specialAttack: 30, specialDefense: 40, speed: 57},
+        {name: "fraxure", healthPoints: 66, attack: 117, defense: 70, specialAttack: 40, specialDefense: 50, speed: 67},
+        {name: "haxorus", healthPoints: 76, attack: 147, defense: 90, specialAttack: 60, specialDefense: 70, speed: 97},
+        {name: "cubchoo", healthPoints: 55, attack: 70, defense: 40, specialAttack: 60, specialDefense: 40, speed: 40},
+        {name: "beartic", healthPoints: 95, attack: 110, defense: 80, specialAttack: 70, specialDefense: 80, speed: 50},
+        {name: "cryogonal", healthPoints: 70, attack: 50, defense: 30, specialAttack: 95, specialDefense: 135, speed: 105},
+        {name: "shelmet", healthPoints: 50, attack: 40, defense: 85, specialAttack: 40, specialDefense: 65, speed: 25},
+        {name: "accelgor", healthPoints: 80, attack: 70, defense: 40, specialAttack: 100, specialDefense: 60, speed: 145},
+        {name: "stunfisk", healthPoints: 109, attack: 66, defense: 84, specialAttack: 81, specialDefense: 99, speed: 32},
+        {name: "mienfoo", healthPoints: 45, attack: 85, defense: 50, specialAttack: 55, specialDefense: 50, speed: 65},
+        {name: "mienshao", healthPoints: 65, attack: 125, defense: 60, specialAttack: 95, specialDefense: 60, speed: 105},
+        {name: "druddigon", healthPoints: 77, attack: 120, defense: 90, specialAttack: 60, specialDefense: 90, speed: 48},
+        {name: "golett", healthPoints: 59, attack: 74, defense: 50, specialAttack: 35, specialDefense: 50, speed: 35},
+        {name: "golurk", healthPoints: 89, attack: 124, defense: 80, specialAttack: 55, specialDefense: 80, speed: 55},
+        {name: "pawniard", healthPoints: 45, attack: 85, defense: 70, specialAttack: 40, specialDefense: 40, speed: 60},
+        {name: "bisharp", healthPoints: 65, attack: 125, defense: 100, specialAttack: 60, specialDefense: 70, speed: 70},
+        {name: "bouffalant", healthPoints: 95, attack: 110, defense: 95, specialAttack: 40, specialDefense: 95, speed: 55},
+        {name: "rufflet", healthPoints: 70, attack: 83, defense: 50, specialAttack: 37, specialDefense: 50, speed: 60},
+        {name: "braviary", healthPoints: 100, attack: 123, defense: 75, specialAttack: 57, specialDefense: 75, speed: 80},
+        {name: "vullaby", healthPoints: 70, attack: 55, defense: 75, specialAttack: 45, specialDefense: 65, speed: 60},
+        {name: "mandibuzz", healthPoints: 110, attack: 65, defense: 105, specialAttack: 55, specialDefense: 95, speed: 80},
+        {name: "heatmor", healthPoints: 85, attack: 97, defense: 66, specialAttack: 105, specialDefense: 66, speed: 65},
+        {name: "durant", healthPoints: 58, attack: 109, defense: 112, specialAttack: 48, specialDefense: 48, speed: 109},
+        {name: "deino", healthPoints: 52, attack: 65, defense: 50, specialAttack: 45, specialDefense: 50, speed: 38},
+        {name: "zweilous", healthPoints: 72, attack: 85, defense: 70, specialAttack: 65, specialDefense: 70, speed: 58},
+        {name: "hydreigon", healthPoints: 92, attack: 105, defense: 90, specialAttack: 125, specialDefense: 90, speed: 98},
+        {name: "larvesta", healthPoints: 55, attack: 85, defense: 55, specialAttack: 50, specialDefense: 55, speed: 60},
+        {name: "volcarona", healthPoints: 85, attack: 60, defense: 65, specialAttack: 135, specialDefense: 105, speed: 100},
+        {name: "cobalion", healthPoints: 91, attack: 90, defense: 129, specialAttack: 90, specialDefense: 72, speed: 108},
+        {name: "terrakion", healthPoints: 91, attack: 129, defense: 90, specialAttack: 72, specialDefense: 90, speed: 108},
+        {name: "virizion", healthPoints: 91, attack: 90, defense: 72, specialAttack: 90, specialDefense: 129, speed: 108},
+        {name: "tornadus incarnate forme", healthPoints: 79, attack: 115, defense: 70, specialAttack: 125, specialDefense: 80, speed: 111},
+        {name: "tornadus therian forme", healthPoints: 79, attack: 100, defense: 80, specialAttack: 110, specialDefense: 90, speed: 121},
+        {name: "thundurus incarnate forme", healthPoints: 79, attack: 115, defense: 70, specialAttack: 125, specialDefense: 80, speed: 111},
+        {name: "thundurus therian forme", healthPoints: 79, attack: 105, defense: 70, specialAttack: 145, specialDefense: 80, speed: 101},
+        {name: "reshiram", healthPoints: 100, attack: 120, defense: 100, specialAttack: 150, specialDefense: 120, speed: 90},
+        {name: "zekrom", healthPoints: 100, attack: 150, defense: 120, specialAttack: 120, specialDefense: 100, speed: 90},
+        {name: "landorus incarnate forme", healthPoints: 89, attack: 125, defense: 90, specialAttack: 115, specialDefense: 80, speed: 101},
+        {name: "landorus therian forme", healthPoints: 89, attack: 145, defense: 90, specialAttack: 105, specialDefense: 80, speed: 91},
+        {name: "kyurem kyurem", healthPoints: 125, attack: 130, defense: 90, specialAttack: 130, specialDefense: 90, speed: 95},
+        {name: "kyurem white kyurem", healthPoints: 125, attack: 120, defense: 90, specialAttack: 170, specialDefense: 100, speed: 95},
+        {name: "kyurem black kyurem", healthPoints: 125, attack: 170, defense: 100, specialAttack: 120, specialDefense: 90, speed: 95},
+        {name: "keldeo ordinary forme", healthPoints: 91, attack: 72, defense: 90, specialAttack: 129, specialDefense: 90, speed: 108},
+        {name: "keldeo resolute forme", healthPoints: 91, attack: 72, defense: 90, specialAttack: 129, specialDefense: 90, speed: 108},
+        {name: "meloetta aria forme", healthPoints: 100, attack: 77, defense: 77, specialAttack: 128, specialDefense: 128, speed: 90},
+        {name: "meloetta pirouette forme", healthPoints: 100, attack: 128, defense: 90, specialAttack: 77, specialDefense: 77, speed: 128},
+        {name: "genesect", healthPoints: 71, attack: 120, defense: 95, specialAttack: 120, specialDefense: 95, speed: 99},
+        {name: "chespin", healthPoints: 56, attack: 61, defense: 65, specialAttack: 48, specialDefense: 45, speed: 38},
+        {name: "quilladin", healthPoints: 61, attack: 78, defense: 95, specialAttack: 56, specialDefense: 58, speed: 57},
+        {name: "chesnaught", healthPoints: 88, attack: 107, defense: 122, specialAttack: 74, specialDefense: 75, speed: 64},
+        {name: "fennekin", healthPoints: 40, attack: 45, defense: 40, specialAttack: 62, specialDefense: 60, speed: 60},
+        {name: "braixen", healthPoints: 59, attack: 59, defense: 58, specialAttack: 90, specialDefense: 70, speed: 73},
+        {name: "delphox", healthPoints: 75, attack: 69, defense: 72, specialAttack: 114, specialDefense: 100, speed: 104},
+        {name: "froakie", healthPoints: 41, attack: 56, defense: 40, specialAttack: 62, specialDefense: 44, speed: 71},
+        {name: "frogadier", healthPoints: 54, attack: 63, defense: 52, specialAttack: 83, specialDefense: 56, speed: 97},
+        {name: "greninja", healthPoints: 72, attack: 95, defense: 67, specialAttack: 103, specialDefense: 71, speed: 122},
+        {name: "bunnelby", healthPoints: 38, attack: 36, defense: 38, specialAttack: 32, specialDefense: 36, speed: 57},
+        {name: "diggersby", healthPoints: 85, attack: 56, defense: 77, specialAttack: 50, specialDefense: 77, speed: 78},
+        {name: "fletchling", healthPoints: 45, attack: 50, defense: 43, specialAttack: 40, specialDefense: 38, speed: 62},
+        {name: "fletchinder", healthPoints: 62, attack: 73, defense: 55, specialAttack: 56, specialDefense: 52, speed: 84},
+        {name: "talonflame", healthPoints: 78, attack: 81, defense: 71, specialAttack: 74, specialDefense: 69, speed: 126},
+        {name: "scatterbug", healthPoints: 38, attack: 35, defense: 40, specialAttack: 27, specialDefense: 25, speed: 35},
+        {name: "spewpa", healthPoints: 45, attack: 22, defense: 60, specialAttack: 27, specialDefense: 30, speed: 29},
+        {name: "vivillon", healthPoints: 80, attack: 52, defense: 50, specialAttack: 90, specialDefense: 50, speed: 89},
+        {name: "litleo", healthPoints: 62, attack: 50, defense: 58, specialAttack: 73, specialDefense: 54, speed: 72},
+        {name: "pyroar", healthPoints: 86, attack: 68, defense: 72, specialAttack: 109, specialDefense: 66, speed: 106},
+        {name: "flab_b_", healthPoints: 44, attack: 38, defense: 39, specialAttack: 61, specialDefense: 79, speed: 42},
+        {name: "floette", healthPoints: 54, attack: 45, defense: 47, specialAttack: 75, specialDefense: 98, speed: 52},
+        {name: "florges", healthPoints: 78, attack: 65, defense: 68, specialAttack: 112, specialDefense: 154, speed: 75},
+        {name: "skiddo", healthPoints: 66, attack: 65, defense: 48, specialAttack: 62, specialDefense: 57, speed: 52},
+        {name: "gogoat", healthPoints: 123, attack: 100, defense: 62, specialAttack: 97, specialDefense: 81, speed: 68},
+        {name: "pancham", healthPoints: 67, attack: 82, defense: 62, specialAttack: 46, specialDefense: 48, speed: 43},
+        {name: "pangoro", healthPoints: 95, attack: 124, defense: 78, specialAttack: 69, specialDefense: 71, speed: 58},
+        {name: "furfrou", healthPoints: 75, attack: 80, defense: 60, specialAttack: 65, specialDefense: 90, speed: 102},
+        {name: "espurr", healthPoints: 62, attack: 48, defense: 54, specialAttack: 63, specialDefense: 60, speed: 68},
+        {name: "meowstic male", healthPoints: 74, attack: 48, defense: 76, specialAttack: 83, specialDefense: 81, speed: 104},
+        {name: "meowstic female", healthPoints: 74, attack: 48, defense: 76, specialAttack: 83, specialDefense: 81, speed: 104},
+        {name: "honedge", healthPoints: 45, attack: 80, defense: 100, specialAttack: 35, specialDefense: 37, speed: 28},
+        {name: "doublade", healthPoints: 59, attack: 110, defense: 150, specialAttack: 45, specialDefense: 49, speed: 35},
+        {name: "aegislash blade forme", healthPoints: 60, attack: 150, defense: 50, specialAttack: 150, specialDefense: 50, speed: 60},
+        {name: "aegislash shield forme", healthPoints: 60, attack: 50, defense: 150, specialAttack: 50, specialDefense: 150, speed: 60},
+        {name: "spritzee", healthPoints: 78, attack: 52, defense: 60, specialAttack: 63, specialDefense: 65, speed: 23},
+        {name: "aromatisse", healthPoints: 101, attack: 72, defense: 72, specialAttack: 99, specialDefense: 89, speed: 29},
+        {name: "swirlix", healthPoints: 62, attack: 48, defense: 66, specialAttack: 59, specialDefense: 57, speed: 49},
+        {name: "slurpuff", healthPoints: 82, attack: 80, defense: 86, specialAttack: 85, specialDefense: 75, speed: 72},
+        {name: "inkay", healthPoints: 53, attack: 54, defense: 53, specialAttack: 37, specialDefense: 46, speed: 45},
+        {name: "malamar", healthPoints: 86, attack: 92, defense: 88, specialAttack: 68, specialDefense: 75, speed: 73},
+        {name: "binacle", healthPoints: 42, attack: 52, defense: 67, specialAttack: 39, specialDefense: 56, speed: 50},
+        {name: "barbaracle", healthPoints: 72, attack: 105, defense: 115, specialAttack: 54, specialDefense: 86, speed: 68},
+        {name: "skrelp", healthPoints: 50, attack: 60, defense: 60, specialAttack: 60, specialDefense: 60, speed: 30},
+        {name: "dragalge", healthPoints: 65, attack: 75, defense: 90, specialAttack: 97, specialDefense: 123, speed: 44},
+        {name: "clauncher", healthPoints: 50, attack: 53, defense: 62, specialAttack: 58, specialDefense: 63, speed: 44},
+        {name: "clawitzer", healthPoints: 71, attack: 73, defense: 88, specialAttack: 120, specialDefense: 89, speed: 59},
+        {name: "helioptile", healthPoints: 44, attack: 38, defense: 33, specialAttack: 61, specialDefense: 43, speed: 70},
+        {name: "heliolisk", healthPoints: 62, attack: 55, defense: 52, specialAttack: 109, specialDefense: 94, speed: 109},
+        {name: "tyrunt", healthPoints: 58, attack: 89, defense: 77, specialAttack: 45, specialDefense: 45, speed: 48},
+        {name: "tyrantrum", healthPoints: 82, attack: 121, defense: 119, specialAttack: 69, specialDefense: 59, speed: 71},
+        {name: "amaura", healthPoints: 77, attack: 59, defense: 50, specialAttack: 67, specialDefense: 63, speed: 46},
+        {name: "aurorus", healthPoints: 123, attack: 77, defense: 72, specialAttack: 99, specialDefense: 92, speed: 58},
+        {name: "sylveon", healthPoints: 95, attack: 65, defense: 65, specialAttack: 110, specialDefense: 130, speed: 60},
+        {name: "hawlucha", healthPoints: 78, attack: 92, defense: 75, specialAttack: 74, specialDefense: 63, speed: 118},
+        {name: "dedenne", healthPoints: 67, attack: 58, defense: 57, specialAttack: 81, specialDefense: 67, speed: 101},
+        {name: "carbink", healthPoints: 50, attack: 50, defense: 150, specialAttack: 50, specialDefense: 150, speed: 50},
+        {name: "goomy", healthPoints: 45, attack: 50, defense: 35, specialAttack: 55, specialDefense: 75, speed: 40},
+        {name: "sliggoo", healthPoints: 68, attack: 75, defense: 53, specialAttack: 83, specialDefense: 113, speed: 60},
+        {name: "goodra", healthPoints: 90, attack: 100, defense: 70, specialAttack: 110, specialDefense: 150, speed: 80},
+        {name: "klefki", healthPoints: 57, attack: 80, defense: 91, specialAttack: 80, specialDefense: 87, speed: 75},
+        {name: "phantump", healthPoints: 43, attack: 70, defense: 48, specialAttack: 50, specialDefense: 60, speed: 38},
+        {name: "trevenant", healthPoints: 85, attack: 110, defense: 76, specialAttack: 65, specialDefense: 82, speed: 56},
+        {name: "pumpkaboo average size", healthPoints: 49, attack: 66, defense: 70, specialAttack: 44, specialDefense: 55, speed: 51},
+        {name: "pumpkaboo small size", healthPoints: 44, attack: 66, defense: 70, specialAttack: 44, specialDefense: 55, speed: 56},
+        {name: "pumpkaboo large size", healthPoints: 54, attack: 66, defense: 70, specialAttack: 44, specialDefense: 55, speed: 46},
+        {name: "pumpkaboo super size", healthPoints: 59, attack: 66, defense: 70, specialAttack: 44, specialDefense: 55, speed: 41},
+        {name: "gourgeist average size", healthPoints: 65, attack: 90, defense: 122, specialAttack: 58, specialDefense: 75, speed: 84},
+        {name: "gourgeist small size", healthPoints: 55, attack: 85, defense: 122, specialAttack: 58, specialDefense: 75, speed: 99},
+        {name: "gourgeist large size", healthPoints: 75, attack: 95, defense: 122, specialAttack: 58, specialDefense: 75, speed: 69},
+        {name: "gourgeist super size", healthPoints: 85, attack: 100, defense: 122, specialAttack: 58, specialDefense: 75, speed: 54},
+        {name: "bergmite", healthPoints: 55, attack: 69, defense: 85, specialAttack: 32, specialDefense: 35, speed: 28},
+        {name: "avalugg", healthPoints: 95, attack: 117, defense: 184, specialAttack: 44, specialDefense: 46, speed: 28},
+        {name: "noibat", healthPoints: 40, attack: 30, defense: 35, specialAttack: 45, specialDefense: 40, speed: 55},
+        {name: "noivern", healthPoints: 85, attack: 70, defense: 80, specialAttack: 97, specialDefense: 80, speed: 123},
+        {name: "xerneas", healthPoints: 126, attack: 131, defense: 95, specialAttack: 131, specialDefense: 98, speed: 99},
+        {name: "yveltal", healthPoints: 126, attack: 131, defense: 95, specialAttack: 131, specialDefense: 98, speed: 99},
+        {name: "zygarde", healthPoints: 108, attack: 100, defense: 121, specialAttack: 81, specialDefense: 95, speed: 95},
+        {name: "diancie", healthPoints: 50, attack: 100, defense: 150, specialAttack: 100, specialDefense: 150, speed: 50},
+        {name: "hoopa", healthPoints: 80, attack: 110, defense: 60, specialAttack: 150, specialDefense: 130, speed: 70},
+        {name: "volcanion", healthPoints: 80, attack: 110, defense: 120, specialAttack: 130, specialDefense: 90, speed: 70}
+    ]); 
+
+
+    // create function to return data based on name
+    var namer = pokemon.dimension(function(d) { return d.name; });
+
+    // average stats and add them together
+    function addStats(thisOne,thisObj) {
+
+        // update team
+        thisObj[0].value = thisObj[0].value + namer.top(1)[0].attack/6.0;
+        thisObj[1].value = thisObj[1].value + namer.top(1)[0].defense/6.0;
+        thisObj[2].value = thisObj[2].value + namer.top(1)[0].healthPoints/6.0;
+        thisObj[3].value = thisObj[3].value + namer.top(1)[0].specialAttack/6.0;
+        thisObj[4].value = thisObj[4].value + namer.top(1)[0].specialDefense/6.0;
+        thisObj[5].value = thisObj[5].value + namer.top(1)[0].speed/6.0;
+    }
+
+
+    function getPokemon() {
+
+        var theTeams = [
+
+            // Ash
+            [
+                {axis:"Attack", value:0},
+                {axis:"Defense", value:0},
+                {axis:"Health Points", value:0},
+                {axis:"Special Attack", value:0},
+                {axis:"Special Defense", value:0},
+                {axis:"Speed", value:0}
+            ],
+
+            // Gary
+            [
+                {axis:"Attack", value:0},
+                {axis:"Defense", value:0},
+                {axis:"Health Points", value:0},
+                {axis:"Special Attack", value:0},
+                {axis:"Special Defense", value:0},
+                {axis:"Speed", value:0}
+            ]
+
+        ];
+
+        // update Ash's Team
+        namer.filter(ash1.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[0]);
+        namer.filter(ash2.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[0]);
+        namer.filter(ash3.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[0]);
+        namer.filter(ash4.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[0]);
+        namer.filter(ash5.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[0]);
+        namer.filter(ash6.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[0]);
+
+        // update Gary's Team
+        namer.filter(gary1.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[1]);
+        namer.filter(gary2.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[1]);
+        namer.filter(gary3.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[1]);
+        namer.filter(gary4.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[1]);
+        namer.filter(gary5.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[1]);
+        namer.filter(gary6.value.toLowerCase());
+        addStats(namer.top(1)[0],theTeams[1]);
+
+        // Round numbers
+        theTeams[0][0].value = Math.round(theTeams[0][0].value*10.0)/10.0;
+        theTeams[0][1].value = Math.round(theTeams[0][1].value*10.0)/10.0;
+        theTeams[0][2].value = Math.round(theTeams[0][2].value*10.0)/10.0;
+        theTeams[0][3].value = Math.round(theTeams[0][3].value*10.0)/10.0;
+        theTeams[0][4].value = Math.round(theTeams[0][4].value*10.0)/10.0;
+        theTeams[0][5].value = Math.round(theTeams[0][5].value*10.0)/10.0;
+
+        // Round numbers
+        theTeams[1][0].value = Math.round(theTeams[1][0].value*10.0)/10.0;
+        theTeams[1][1].value = Math.round(theTeams[1][1].value*10.0)/10.0;
+        theTeams[1][2].value = Math.round(theTeams[1][2].value*10.0)/10.0;
+        theTeams[1][3].value = Math.round(theTeams[1][3].value*10.0)/10.0;
+        theTeams[1][4].value = Math.round(theTeams[1][4].value*10.0)/10.0;
+        theTeams[1][5].value = Math.round(theTeams[1][5].value*10.0)/10.0;
+
+        // redraw plot
+        draw(theTeams)
+
+    }
+
+</script>
+
+</body>
+</html>

@@ -7,9 +7,14 @@
     http://bl.ocks.org/jasondavies/1341281 
     https://syntagmatic.github.io/parallel-coordinates/
     http://graphicdesign.stackexchange.com/questions/29256/text-not-very-readable-on-different-image-backgrounds
+    http://bl.ocks.org/ABSegler/9791707
 -->
 
 <style>
+
+  svg {
+    font: 10px sans-serif;
+  }
 
   /* automatically center plot */
   #centerPlot {
@@ -25,8 +30,10 @@
   }
   
   .axis text {
-    font: 11px sans-serif; 
-    text-shadow: 1px 1px #ffffff;
+    font: 9px, sans-serif; 
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+    /*font-weight: bold;*/
   }
     
   /* make background not black */
@@ -46,6 +53,22 @@
     stroke: #fff;
     shape-rendering: crispEdges;
   }
+
+/* tooltip */
+.tooltip {   
+  background-color: rgba(220,220,220,0.5);
+  color: #333;
+            margin: 10px;
+            height: 25px;
+            padding-right: 10px;
+            padding-left: 10px; 
+            padding-top: 10px;
+      -webkit-border-radius:10px;
+      -moz-border-radius:10px;
+      border-radius:10px;
+}
+/* tooltip */
+
 </style>
 
 <!-- load d3 -->
@@ -57,10 +80,20 @@
   <div id="para"></div>
 <script>
 
+// tooltip
+var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .text("a simple tooltip")
+    .attr("class","tooltip");
+// tooltip
+
 // define margins
 var margin = {top: 50, right: 30, bottom: 40, left: 20},
     width = 900 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 450 - margin.top - margin.bottom;
 
 // colors
 var color = d3.scale.category10();
@@ -122,19 +155,41 @@ d3.csv("pokemon3.csv", function(error, data) {
     .selectAll("path")
     .data(data)
     .enter().append("path")
-
-    // color based on Generation
+    // tooltip
+        // color based on Generation
     .style("stroke", function (d) { 
       return color(d.Generation); }
     )
-    // TODO: look into changing this based on user
 
     // width 
-    .style("stroke-width", 0.90)
+    .style("stroke-width", 1.0)
 
     // opacity
-    .style("stroke-opacity", 0.90)
-    .attr("d", path);
+    .style("stroke-opacity", 0.30)
+    .attr("d", path)
+    .on("mouseover", function(n){
+      d3.select(this).transition().duration(100)
+        .style({'stroke' : '#000'})
+        .style("stroke-width", 3)
+        .style("stroke-opacity",1);
+      tooltip.text(n.Name);
+      return tooltip.style("visibility", "visible");
+    })
+    .on("mousemove", function(){
+      return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+    })
+    .on("mouseout", function(d){
+      d3.select(this).transition().duration(100)
+        // .style({'stroke': 'steelblue' })
+        .style("stroke", function (d) { 
+          return color(d.Generation); }
+        )
+        .style("stroke-opacity", 0.30)
+        .style({'stroke-width' : 1.0});
+        return tooltip.style("visibility", "hidden");
+    });
+    // tooltip
+
 
   var g = svg.selectAll(".dimension")
       .data(dimensions)
@@ -218,7 +273,9 @@ d3.csv("pokemon3.csv", function(error, data) {
   }
 
   function path(d) {
-    return line(dimensions.map(function(p) { return [position(p), y[p](d[p])]; }));
+    return line(dimensions.map(function(p) { 
+      return [position(p), y[p](d[p])]; 
+    }));
   }
 
   function brushstart() {
