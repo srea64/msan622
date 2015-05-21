@@ -58,14 +58,14 @@ circle.hidden {
   Use the parallel coordinates plot below to really make sure you have a good understanding of everything.
   To take advantage of the plot, make sure to play with it!  For example, try the following:
   <ul>
-    <li> Filter the Data: Click and drag vertically along one of the axes to allow only pokemon who meet that criteria to be seen.
+    <li> Filter the Data: Click and drag vertically along one of the axes to allow only pokemon who meet that criteria to be seen.  Click anywhere along the axis outside the filter to reset it.
     <li> Drag the Axes: If you want to see two columns closer to each other, just click on the title of one and drag it closer to the other.
     <li> Hover over the lines: To see the name of the pokemon, hover over the line and you'll see the pokemon's name.
   </ul>
   This dataset will contain all information across all pokemon (up to 721 now). I think you'll find it much more useful than an <a href="http://www.halolz.com/wp-content/uploads/2010/11/halolz-dot-com-pokemon-adviceoak-empty-pokedex.jpg">empty pokedex</a>!
 </p>
 <center>
-  <iframe src="para.html" width="980" height="550" frameBorder="0"></iframe>
+  <iframe src="para.html" width="980" height="650" frameBorder="0"></iframe>
 </center>
 
 
@@ -85,7 +85,7 @@ circle.hidden {
     <li> Attack (and Health Points) vs. Special Defense (and Special Attack)
     <li> Health Points vs. Defense, Speed, and Attack
   </ul>
-  Once again, this plot is interactive: Click and drag across any of the subplots to filter the pokemon that you're looking at.  The pokemon that aren't within that area will be dimmed across all of the other subplots as well.
+  Once again, this plot is interactive: Click and drag across any of the subplots to filter the pokemon that you're looking at.  The pokemon that aren't within that area will be dimmed across all of the other subplots as well.  To remove a filter, just click anywhere outside of it and all the pokemon will be displayed again.
 </p>
 
 <center><b>Generation</b></center>
@@ -269,13 +269,7 @@ d3.csv("poke-pcs.csv", function(error, data) {
   &nbsp;&nbsp;&nbsp;&nbsp;
   Now that you've had the opportunity to explore the dataset, try building some teams for comparison.  The final plot will take two teams of six pokemon and compute the average for each stat across all of them.
   <br>  
-  Please note that:
-  <ul>
-    <li>you must fill out all of the slots to get results
-    <li>misspellings and omissions will result in the plot not updating
-    <li>the names are case-insensitive, so don't worry about punctuation
-    <li>if you don't remember how to spell a name, google it or use the top plot for help
-  </ul>
+  &nbsp;&nbsp;&nbsp;&nbsp;
   Highlight the dots with your mouse to see the actual averages across the teams.  This will also make that team's color more prominent in the plot.
 </p>
 <center>
@@ -286,7 +280,7 @@ d3.csv("poke-pcs.csv", function(error, data) {
 I hope this was informative!
 </p>
 
-<br><br><br>
+<br><br><br><br><br><br>
 <h2>
   Writeup
 </h2>
@@ -338,22 +332,33 @@ I hope this was informative!
         
 <h3> Interactivity (per visualization -or- overall) [2-5 Paragraphs] </h3>
     <b>Question</b><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         Discuss the interactivity implemented in your project. Indicate the type of interactivity and describe how it enhances your visualization. For example, interactivity can help provide focus + context, help overcome overplotting issues, decrease or increase data density, and so on.
     <br><b>Answer</b><br>
-        Parallel Coordinates
-            Tooltip
+      <ul>
+        <li>Parallel Coordinates
+          <ul>
+            <li><i>Tooltip.</i>
                 The ultimate goal of my visualization is to allow users the ability to form better teams as they play through the games.  (See the radar plot for more on this.)  After filtering the data in order to see what pokemon meet certain criteria I thought it would be very beneficial to see which of the pokemon meet the filtering criteria.  So when a user hovers over each line in the parallel coordinates plot, the line indicated my the mouse becomes much easier to see in comparison with the rest, and the pokemon's name is displayed over it so that the user can learn which pokemon it is.
-            filtering axes
-                there are over 700 pokemon, so allowing the user to decrease the amount of information being viewed at a time is really helpful to answer questions they may have
-            movable axes
-                it can be difficult to compare two metrics that are not close together, so allowing the user to move metrics into an order that more sense or for easier comparison
-        Scatterplot matrix
-            brushing
+            <li><i>Filtering Poles.</i>
+                There are over 700 pokemon, so allowing the user to decrease the amount of information being viewed at a time is really helpful to answer questions they may have
+            <li><i>Movable Poles.</i>
+                It can be difficult to compare two metrics that are not close together, so allowing the user to move metrics into an order that more sense or for easier comparison
+          </ul>
+        <li>Scatterplot matrix
+          <ul>
+            <li><i>Brushing.</i>
                 The point of the scatterplot matrix is to allow users to explore the data in a different way than the first plot (parallel coordinates).  In the first plot they are given access to the raw data itself, and allowed to filter and understand which pokemon excel in which areas.  In this visualization, the data has gone through principal component analysis to allow users to get a general sense of how pokemon's skills move together, and get an idea of what stat-combos they should focus on.  (E.g. if their team has a lot of heavy hitters, what stats might they be lacking and therefore need to be on guard against?)  This allows them to get a good sense of this.
                 Brushing in one area affects all of the other areas in the scatterplot matrix.
-        Radar Plot
-            Filtering
-                This was my favorite, and what I think will have the most reusability of all my visualizations ___
+          </ul>
+        <li>Radar Plot
+          <ul>
+            <li><i>Filtering.</i>
+                I think this plot will have the most reusability of all my visualizations.
+            <li><i>Drop-Down Menu.</i>
+                Rather than relying on the user's memory of so many names, I thought it would be easier for them to select from a menu.  Also, you can use the keyboard to jump to a particular letter, which gives faster turnarounds in team comparisons.
+          </ul>
+      </ul>
 
 
 <h3> Feedback (overall) [2-5 Paragraphs] </h3>
@@ -366,45 +371,52 @@ I hope this was informative!
 
 <h3> Challenges (overall) [2-5 Paragraphs] </h3>
     <b>Question</b><br>
-        Discuss the challenges you encountered during this project, how you addressed the challenge, or why you did not address the challenge. Use this discussion to (a) help illustrate for others how difficult small changes can be, and (b) to try and earn some credit for your work that did not make it into the final visualizations.
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      Discuss the challenges you encountered during this project, how you addressed the challenge, or why you did not address the challenge. Use this discussion to (a) help illustrate for others how difficult small changes can be, and (b) to try and earn some credit for your work that did not make it into the final visualizations.
         If you ran into 0 challenges, I'll assume you are a visualization/JavaScript/D3 expert and raise my expectations of your work accordingly!
     <br><b>Answer</b><br>
-        Separation of Data
+      <ul>
+        <li><i>Separation of Data</i>
             It is probably not best practice, but I tailored one dataset to each of the visualizations so that it would be easiest to work with.  For the radar plot this makes sense, since I have allowed users to refresh the data and don't want to have to redraw all of the plots to update that one, but I think I could have been more clever and used one pass of the data to draw the first two if I had more time.
-        Scatterplot Matrix
+        <li><i>Scatterplot Matrix</i>
             Some pokemon have some interesting characters (such as dashes and apostrophes) which made parsing a little funny as I was cleaning my dataset.  While getting my dataset ready for the scatterplot matrix, I didn't realize I had errors which was leading to dots being placed in very random locations.
             Legend
-                The legend was rather difficult
-        CrossFilter
-          took about a day to get a handle on this
-            Turns out it works much better with .json than .csv, so I updated my dataset accordingly 
-          Understanding what is being returned 
-            typeof was very useful
-          I had to go to many blogs for this since people assumed a knowledge of javascript
-        JavaScript
-            when I look at code, things make sense, but I would not have thought to do that
-        Para
-            6.0 5.5 -- numeric to string
-            Coloring
+                I spent a lot of time trying to get the legend to work within the realm of the matrix before coming to the conclusion that I could just put it near the graph in a way that was easy for the user to digest.
+        <li><i>CrossFilter.</i>
+          It took about a day to be able to get enough out of this library to use it for my project. It works much better with <code>.json</code> than <code>.csv</code>, so I updated my dataset accordingly.  Understanding what was being returned ended up being the hardest part of working with this library.  <code>typeof</code> was very useful in determining what I was working with and what I needed to search for, to better understand how to extract information.  I had to go to many blogs for this since people assumed a certain level of javascript knowledge.
+        <li><i>JavaScript.</i>
+            When looking at javascript code, it's not too difficult to understand the process, but I do not know enough to be able to generate it from scratch, so I spent a lot of time examining implementations that were similar to what I was working with in order to find useful code that I could alter for my purposes.
+        <li><i>Parallel Coordinates.</i>
+          <ul>
+            <li>6.0 5.5 -- numeric to string.  When I tried to display the generation as a category and not a real number, the 
+            <li>Coloring.  Initially I was hoping to give users the ability to color by Types as well as generation but when I actually did
                 option -- bad idea
                   too many colors for brain
+          </ul>
+      </ul>
 
 
 <h3> Conclusion (per visualization -or- overall) [2-5 Paragraphs] </h3>
     <b>Question</b><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         What did you learn about the dataset from your visualizations? This is a difficult but critical part of your discussion. We care utmost about the accuracy and informativeness in the field of information visualization, and you must convince me that your visualizations were informative. Use your visualizations to make conclusions about the data, explain those conclusions, and explain how your visualization supports those conclusions.
     <br><b>Answer</b><br>
-        Parallel Coordinates
+      <ul>
+        <li><i>Parallel Coordinates.</i>
             Just looking at different generations it was easy to see when new types were introduced.
-            It was interesting seeing Sp. Attack and Sp. Defense because the distinction came in after the first generation, which is where I logged the most hours
-        Scatterplot Matrix
+            It was interesting seeing Sp. Attack and Sp. Defense because the distinction came in after the first generation, which is where I logged the most hours.  Having them separate adds another factor to consider when choosing your team, and it was nice having such a simple way to filter and compare.
+        <li><i>Scatterplot Matrix.</i>
             Seeing the dimensions grouped together really made me realize how (from a stats standpoint) evenly the different creatures were created.  From this point of view it looks like the creators did their best to make sure that pokemon weren't too disparate in their abilities.
-        Radar Plots
+            Running the pca wasn't enough -- visualizing really helped drive home two facts:
+              more powerful pokemon are more evenly balanced
+              overall the creators made balanced creatures
+        <li><i>Radar Plots.</i>
             I created and compared two teams, one that was obviously superior to the other to see what would happen, and ___.
             I created two more even teams and found ___.
             I created my usual dream team (which I always made while playing through the games) and compared it to a few others to find ___.
             After these scenarios I think this visualization is best at showing ___
             However, I think this will just be a fun thing to play with.
+      </ul>
 
 
 
@@ -483,3 +495,4 @@ http://bl.ocks.org/ABSegler/9791707
 </body>
 
 </html>
+
