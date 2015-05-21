@@ -54,17 +54,16 @@ circle.hidden {
 <h3>First Look</h3>
 <p>
   &nbsp;&nbsp;&nbsp;&nbsp; 
-  The following visualizations explore the pokemon dataset, including the various attributes (e.g., speed, defense) of the pokemon.  I hope you're able to learn something new and just have a good time exploring!
+  The following visualizations explore the pokemon dataset, including the various attributes (e.g., speed, defense) of the pokemon.  I hope you are able to learn something new and just have a good time exploring!
   <br>&nbsp;&nbsp;&nbsp;&nbsp; 
   Getting familiar with your dataset is always a top priority.
-  Use the parallel coordinates plot below to really make sure you have a good understanding of everything.
-  To take advantage of the plot, make sure to play with it!  For example, try the following:
+  Use the parallel coordinates plot below to get a better understanding of the creatures in this universe. To take advantage of the plot, make sure to play with it!  For example, try the following:
   <ul>
     <li> Filter the Data: Click and drag vertically along one of the axes to allow only pokemon who meet that criteria to be seen.  Click anywhere along the axis outside the filter to reset it.
     <li> Drag the Axes: If you want to see two columns closer to each other, just click on the title of one and drag it closer to the other.
-    <li> Hover over the lines: To see the name of the pokemon, hover over the line and you'll see the pokemon's name.
+    <li> Hover over the lines: To see the name of the pokemon, hover over the line and you will see the pokemon's name.
   </ul>
-  This dataset will contain all information across all pokemon (up to 721 now). I think you'll find it much more useful than an <a href="http://www.halolz.com/wp-content/uploads/2010/11/halolz-dot-com-pokemon-adviceoak-empty-pokedex.jpg">empty pokedex</a>!
+  This dataset will contain all information across all pokemon (up to 721 now). I think you will find it much more useful than an <a href="http://www.halolz.com/wp-content/uploads/2010/11/halolz-dot-com-pokemon-adviceoak-empty-pokedex.jpg">empty pokedex</a>!
 </p>
 <center>
   <iframe src="para.html" width="980" height="650" frameBorder="0"></iframe>
@@ -80,14 +79,15 @@ circle.hidden {
   Each axis in the graphs below corresponds to a combination of columns that 'get at' something.  For example, take a look at the second principal component: Speed vs Defense.  As you go to one side of the axis the pokemon listed there have much higher speed than they do defense, whereas going in the other direction will yield pokemon with much higher defense than speed.  A pokemon with very high values in both categories will be closer to the middle.  This area will also include pokemon which score very low in both categories.  So whether weak or strong, balanced pokemon should stick around zero whereas those specialized in a certain area will appear closer to the end of one of the axes.
   Keep in mind that these graphs will really be useful in telling the difference between pokemon in general rather than finding an individual pokemon.  The point here is to get an understanding of how certain groups of attributes move together.
   <br> &nbsp;&nbsp;&nbsp;&nbsp;
-  To better understand what you're looking at, each axis of the subplots below corresponds to one of the following (Note that attributes in parentheses less significant than those outside of parentheses.):
+  To better understand what you are viewing, each axis of the subplots below corresponds to one of the following (Note that attributes in parentheses less significant than those outside of parentheses.):
   <ul>
     <li> Overall (This is an overall measure of the strength of a pokemon, with a slight advantage given to Attack, Special Attack, and Special Defense; the higher the score of a pokemon here, the better.)
     <li> Speed (and Special Attack) vs. Defense (and Special Defense)
     <li> Attack (and Health Points) vs. Special Defense (and Special Attack)
     <li> Health Points vs. Defense, Speed, and Attack
   </ul>
-  Once again, this plot is interactive: Click and drag across any of the subplots to filter the pokemon that you're looking at.  The pokemon that are not within that area will be dimmed across all of the other subplots as well.  To remove a filter, just click anywhere outside of it and all the pokemon will be displayed again.
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  Once again, this plot is interactive: Click and drag across any of the subplots to filter the pokemon that you are looking at.  The pokemon that are not within that area will be dimmed across all of the other subplots as well.  To remove a filter, just click anywhere outside of it and all the pokemon will be displayed again.
 </p>
 
 <!-- legend -->
@@ -298,19 +298,21 @@ d3.csv("poke-pcs.csv", function(error, data) {
 
 <h3>Techniques (per visualization) [2-5 Paragraphs]</h3>
     <b>Question</b><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         For each of your D3 visualizations, include the following information:
         <ul>
             <li>Describe how you encoded the data. Include specifics on which columns/rows are mapped to which pre-attentive attributes in your visualization, and describe the design choices you made.
             <li>Provide an evaluation of the lie factor, data density, and data-ink ratio of your visualization.
             <li>Discuss what you think the visualization excels at, such as showing an overview, identifying outliers, patterns, clusters, or trends, or providing context for other visualizations. In other words, describe why you chose to include this particular visualization versus other alternatives.
         </ul>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         Include a brief summary of any additional visualizations you provided as well. If you implemented them using something other than D3, please state as much in your discussion.
     <br><b>Answer</b><br>
       <ul>
         <li><i>Parallel Coordinates</i>
           <ul>
-            <li>The data is encoded with lines that pass through various points on poles, showing the values of many points at once in two dimensions, and also allowing users to easily see how records are similar or different.
-            <li>I mainly used colors as preattentive attributes.  I chose a different color for each generation (which I continue in the Scatterplot Matrix as well). This highlights the differences between generations so that users can get a better understanding of how the creators' creature design changed over the years. I also used different intensity of colors when brushing and filtering to bring the desired information into context and making it more easy to ignore information not included in the filter. To further assist users in seeing the results of their filter, I have made a tooltip that boldens and blackens lines, and shows pokemon's name on mouseover.
+            <li>The data is encoded with lines that pass through various points on poles, showing the values of many points at once in two dimensions, and also allowing users to easily see how different observations are similar or different.
+            <li>I mainly used colors as preattentive attributes.  I chose a different color for each generation (which I continue in the scatterplot matrix as well). This highlights the differences between generations so that users can get a better understanding of how the creators' creature design changed over the years. I also used different intensity of colors when brushing and filtering to bring the desired information into context and making it more easy to ignore information not included in the filter. To further assist users in seeing the results of their filter, I have made a tooltip that boldens and blackens lines, and shows pokemon's name on mouseover.
             <li>This plot does not have any lie factor; everything is a normal scale on the poles and there is no area or anything difficult to compute.
             <li>The data density of this plot is high.  There is a lot of information in a small amount of space so brushing is very helpful to minimize what you are seeing.
             <li>The data-to-ink ratio of this plot is high; removing anything would lead to loss in information.
@@ -323,7 +325,7 @@ d3.csv("poke-pcs.csv", function(error, data) {
             <li> As in the parallel coordinates plot, I colored the pokemon by generation (including a legend for reference).  This will allow for the user to continue with this plot without having to learn another coloring scheme.  Also, when filtering the data the unchosen creatures lose their color and fade into the background to help distinguish between where the selected pokemon appear in all graphs.
             <li> The plot does not inherently have any lie factor, but some exists because of the principal component analysis.  This is the hardest plot to interpret, so I made sure to explain things a little better here in order to minimize the loss of information of the  user due to (1) not showing the actual scores and (2) lack of familiarity with PCA.  My hope here really was to emphasize general principles and good creature design rather than to give particular values.
             <li>This plot has a high data density; there is a lot of information in a small amount of space.  This makes brushing very helpful to minimize the amount of information you have to process at once.
-            <li>The data-to-ink ratio here is medium since scatterplot matrices have the same information twice.  However, because people are not as good at flipping data mentally, I still think it makes sense to have both so that you can get two looks and a better view of the same story.
+            <li>The data-to-ink ratio here is medium since scatterplot matrices have the same information twice.  However, because people are not as good at switching axes mentally, I still think it makes sense to have both so that you can get two looks and a better view of the same story.
             <li>This visualization excels at finding outliers and patterns within the dataset. And, since the circles are encoded by color, it really allows you to see how the creators' patterns changed (or didn't) throughout the games.
             <li>I chose to include this particular visualization instead of others because I wanted to be able to see how several factors influence each other at once.  Other visualizations I considered would not have allowed such straightforward comparisons.
           </ul>
@@ -400,9 +402,9 @@ VERY LONG DESCRIPTION ON CHALLENGES
       <ul>
         <li><i>Separation of Data.</i>
             Initially I was hoping to have one set of data that all of the plots used, but instead tailored one dataset to each of the visualizations so that it would be easiest to work with.  For the radar plot this makes sense, since I have allowed users to refresh the data and do not want to have to redraw all of the plots to update that one, but I think I could have been more clever and used one pass of the data to draw the first two if I had more time to do so.
-        <li><i>Parsing</i>
+        <li><i>Parsing.</i>
             Some pokemon have some non-standard characters (such as dashes and apostrophes) which made parsing a little funny as I was cleaning my dataset.  While getting my dataset ready for the scatterplot matrix, I did not realize I had errors which was leading to dots being placed in very random locations.
-        <li><i>Scatterplot Matrix Legend</i>
+        <li><i>Scatterplot Matrix Legend.</i>
             I spent a lot of time trying to get the legend to work within the realm of the matrix before coming to the conclusion that I could just put it near the graph in a way that was easy for the user to digest.
         <li><i>CrossFilter.</i>
             It took about a day to be able to get enough out of this library to use it for my project. It works much better with <code>.json</code> than <code>.csv</code> data, so I created another version of my dataset in this format.  
@@ -410,12 +412,12 @@ VERY LONG DESCRIPTION ON CHALLENGES
         <li><i>JavaScript.</i>
             When looking at javascript code, it is not too difficult to understand what is happening, but I do not know enough to be able to generate it from scratch, so I spent a lot of time examining implementations that were similar to what I was working with in order to find useful code that I could alter for my purposes.  Even after doing so it was difficult to get exactly what I wanted, so there were times I had to resort to other methods (such as drawing my legend outside of the plot margins on the scatterplot matrix).
         <li><i>Filtering.</i>
-            When I tried to display the generation as a category and not a real number, the filtering stopped working correctly: All of the values were only filterable from a very small portion of the pole towards the top.  I looked into the issue but was not able to figure out how to make it work properly, so I just left them as real numbers.  This adds a few unnecessary labels to the plot but I do not feel it's too distracting and the correct functionality really makes it worthwhile.
+            When I tried to display the generation as a category and not a real number, the filtering stopped working correctly: All of the values were only filterable from a very small portion of the pole towards the top.  I looked into the issue but was not able to figure out how to make it work properly, so I just left them as real numbers.  This adds a few unnecessary labels to the plot but I do not feel it is too distracting and the correct functionality really makes it worthwhile.
         <li><i>Color.</i>
             Initially I was hoping to give users the ability to color by a pokemon's types as well as generation but when I actually did there were too many colors to make sense of, and it ended up being overwhelming and unhelpful.
         <li><i>Overplotting.</i>
             The parallel coordinates plot has too much information in it.  I got some great feedback to try thinner and transparent lines which makes it easier to see.
-            The problem is that each successive generation is laid over the previous making the earliest generations difficult to see without filtering (by brushing).  Filtering is really key to getting this plot to be helpful.
+            The problem is that each successive generation is laid over the previous making the earliest generations difficult to see without filtering (by brushing).  Filtering is really key to making this plot helpful.
       </ul>
 
 
@@ -433,12 +435,12 @@ VERY LONG DESCRIPTION ON CHALLENGES
             Running PCA was not enough to understand everything, however.  Visualizing really helped drive home two facts:
             <ul>
               <li>Powerful pokemon tend to be evenly balanced across "Attack vs Special Defense" and "Speed and Defense", but vary from a "Health Points vs Defense" point of view.
-              <li>Overall, across generations, the creators made balanced creatures.  It is great to see that they obviously planned out how the 
+              <li>Overall, across generations, the creators made balanced creatures.  It is great to see that some time obviously went into the creation of pokemon.
             </ul>
 
-        <li><i>Radar Plots.</i>
+        <li><i>Radar Plot.</i>
             I created and compared two teams, one that was obviously superior to the other to see what would happen, and it was definitely reflected well in the statistics.
-            I created two more even teams and found that it's easy to see how one can be favored in certain areas.  For example, I created my usual team (which I always made while playing) and compared it to the rival's team and found that mine favored special ability and speed whereas the rival's favors defense, attack, and health points.
+            I created two more even teams and found that it is easy to see how one can be favored in certain areas.  For example, I created my usual team (which I always made while playing) and compared it to the rival's team and found that mine favored special ability and speed whereas the rival's favors defense, attack, and health points.
             After these scenarios I think this visualization is best at getting a basic understanding of where one team will be favored compared to the other, and whether or not you would need to change your team in order to get an advantage there.
             From playing the game you get a naive perspective on strong versus weak pokemon, but seeing this in action really highlighted the disparity in ability between strong and weak teams.
       </ul>
