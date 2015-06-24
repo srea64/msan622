@@ -14,64 +14,182 @@
 easy = Array(
     "<b>P-Value</b> <br> <i>Statistics</i> <br><br> The probability of finding a more extreme example given that the null hypothesis is correct.",
     "<b>pi (up to 50)</b> <br> math <br> 3. 141 59 26 535 8979 323 846264 3383 279 502 884 1971 69399 37 510",
-    "<b>Euler's Number</b> (up to 9) <br> <i>Math</i> <br><br> 2. 7 1828 1828"
-        );
+    "<b>Euler's Number</b> (up to 9) <br> <i>Math</i> <br><br> 2. 7 1828 1828",
+    "<b>Hello World</b> <br> <i>Java</i> <br><br> <code> <br>public class HelloWorld {<br> <br>&nbsp;&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(\"Hello, World\"); <br>&nbsp;&nbsp;&nbsp;&nbsp; } <br> <br>} </code>",
+    "<b>Hello World</b> <br> <i>VBA</i> <br><br> <code> ' A \"Hello, World!\" program in Visual Basic. <br>Module Hello <br>&nbsp;&nbsp;&nbsp;&nbsp; Sub Main() <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MsgBox(\"Hello, World!\") ' Display message on computer screen. <br>&nbsp;&nbsp;&nbsp;&nbsp; End Sub <br>End Module </code>",
+    "<b>Hello World</b> <br> <i>Awk</i> <br><br> <code> echo \"\" | awk 'BEGIN{print \"Hello World\"}' </code> <br> <br> OR <br> <br> <code> echo \"Hello World\" | awk '{print $0}' </code>",
+    "<b>Hello World</b> <br> <i>GNU Awk</i> <br><br> <code>awk 'BEGIN{print \"Hello World\"}'</code>",
+    "<b>Hello World</b> <br> <i>Bourne Shell</i> <br><br> <code> #!/bin/sh <br>echo hello, world</code>",
+    "<b>Hello World</b> <br> <i>C</i> <br><br> <code> <br>#include < stdio.h> <br>#include < stdlib.h> <br> <br>int main(void) {<br>&nbsp;&nbsp;&nbsp;&nbsp; printf(\"Hello, world\\n\"); <br>&nbsp;&nbsp;&nbsp;&nbsp; return EXIT_SUCCESS; <br>} </code>",
+    "<b>Hello World</b> <br> <i>C#</i> <br><br> <code> class Hello {<br>&nbsp;&nbsp;&nbsp;&nbsp; static void Main() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.Console.Write(\"Hello World\"); <br>&nbsp;&nbsp;&nbsp;&nbsp; } <br>} </code>",
+    "<b>Hello World</b> <br> <i>C++</i> <br><br> <code> #include < iostream> <br> <br>int main() <br>{<br>&nbsp;&nbsp;&nbsp;&nbsp; std::cout << \"Hello, World.\"; <br>} </code>",
+    "<b>Hello World</b> <br> <i>CommonLisp</i> <br><br> <code> (write-line \"Hello World!\") </code>",
+    "<b>Hello World</b> <br> <i>Erlang</i> <br><br> <code> -module(hello). <br> -export([hello_world/0]). <br> <br> hello_world() -> io:fwrite(\"hello, world\n\"). </code>",
+    "<b>Hello World</b> <br> <i>Fortran</i> <br><br> <code> PROGRAM HELLOWORLD <br>10 FORMAT (1X,11HHELLO WORLD) <br>WRITE(6,10) <br>END </code>",
+    "<b>Hello World</b> <br> <i>Go</i> <br><br> <code> package main <br> <br> import \"fmt\"<br> <br> func main() {<br>&nbsp;&nbsp;&nbsp;&nbsp; fmt.Printf(\"Hello, World\\n\") <br> } </code>",
+    "<b>Hello World</b> <br> <i>Haskell</i> <br><br> <code> main = do putStrLn \"Hello, world.\" </code>",
+    "<b>Hello World</b> <br> <i>Object oriented Java</i> <br><br> <code> class Greeting {<br> &nbsp;&nbsp;&nbsp;&nbsp; void greet(Named target) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(\"Hello, \" + target.getName() + \"!\"); <br> &nbsp;&nbsp;&nbsp;&nbsp; } <br> } <br> <br> interface Named {<br> &nbsp;&nbsp;&nbsp;&nbsp; String getName(); <br> } <br> <br> class World implements Named {<br> &nbsp;&nbsp;&nbsp;&nbsp; String getName() {<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return \"World\"; <br> &nbsp;&nbsp;&nbsp;&nbsp; } <br> } <br> <br> class Main {<br> &nbsp;&nbsp;&nbsp;&nbsp; public static void main( String[] args ) {<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Greeting greeting = new Greeting(); <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; greeting.greet(new World()); <br> &nbsp;&nbsp;&nbsp;&nbsp; } <br> } </code>",
+    "<b>Hello World</b> <br> <i>LISP</i> <br><br> <code> (DEFUN HELLO-WORLD () <br>(PRINT (LIST 'HELLO 'WORLD))) </code>",
+    "<b>Hello World</b> <br> <i>Objective C</i> <br> <code> <br> #import < Foundation/Foundation.h> <br> <br> @interface Greeter : NSObject {<br> } <br> - greet; <br> @end <br> <br> @implementation Greeter <br> - greet {<br> &nbsp;&nbsp; NSLog(@\"Hello, World!\"); <br> } <br> @end <br> <br> int main(int argc, char *argv[]) {<br> &nbsp;&nbsp; Greeter *gr = [Greeter new]; <br> &nbsp;&nbsp; [gr greet]; <br> &nbsp;&nbsp; [gr release]; <br> &nbsp;&nbsp; return 0; <br> } </code>",
+    "<b>Hello World</b> <br> <i>Perl</i> <br> <br>.pl file: <br>&nbsp;&nbsp;&nbsp;&nbsp; <code>print \"Hello World\n\"</code> <br>command line: <br>&nbsp;&nbsp;&nbsp;&nbsp; <code>perl -e \"print 'Hello, world'\"</code>",
+    "<b>Hello World</b> <br> <i>JavaScript</i> <br><br> <code> < !DOCTYPE HTML> <br>< html> <br>< body> <br> <br>&nbsp;&nbsp;  < script> <br>&nbsp;&nbsp;&nbsp;&nbsp; alert('Hello, World!') <br>&nbsp;&nbsp; < /script> <br> <br>< /body> <br>< /html> </code>",
+    "<b>Hello World</b> <br> <i>php</i> <br> <code> <br> < ?php echo \"Hello World\"; ?> </code>",
+    "<b>Hello World</b> <br> <i>PowerShell</i> <br><br> <code>\"Hello World\"</code>",
+    "<b>Hello World</b> <br> <i>Pascal</i> <br> <code> <br> program HelloWorld; <br> <br> begin <br> &nbsp;&nbsp;&nbsp;&nbsp; writeln('Hello World'); <br> end. </code>",
+    "<b>Mod Button</b> <br> <i>xmonad</i> <br><br> Mac: <code>mod = alt</code>",
+    "<b>New Terminal</b> <br> <i>xmonad</i> <br><br> <code>mod + shift + enter</code>",
+    "<b>Window Navigation</b> <br> <i>xmonad</i> <br><br> next window: &nbsp; <code>mod + j</code> <br>previous window: &nbsp; <code>mod + k</code>",
+    "<b>Install</b> <br> <i>xmonad</i> <br><br> Install through terminal: <code> sudo apt-get install xmonad </code> <br> <br> After installing, log out of your Ubuntu system, click the icon next to your name on the login screen, and select xmonad before logging back in.",
+    "<b>Switch Tiling Modes</b> <br> <i>xmonad</i> <br><br> <code>Alt + Space</code>",
+    "<b>Close the Focused Window</b> <br> <i>xmonad</i> <br><br> <code>Alt+Shift+C </code>",
+    "<b>Control the Number of Windows Displayed in the Master Pane on the Left </b> <br> <i>xmonad</i> <br><br> <code>Alt+.</code> &nbsp; & &nbsp; <code>Alt+,</code>",
+    "<b>Move the Focused Window to the Master Pane on the Left </b> <br> <i>xmonad</i> <br><br> <code>Alt+Enter</code>",
+    "<b>Resize the Border Between the Master and Secondary Panes </b> <br> <i>xmonad</i> <br><br> <code>Alt+H</code> &nbsp; & &nbsp; <code>Alt+L</code>",
+    "<b>Log Out</b> <br> <i>xmonad</i> <br><br> <code>Alt + Shift + Q</code>",
+    "<b>Range Navigation</b> <br> <i>Excel</i> <br><br> Go To Right-Most column in current range -- Ctrl + RightArrow <br>Go to left-most column in current range -- Ctrl + LeftArrow <br>Go to bottom-most row in current range -- Ctrl + DownArrow <br>Go to top-most row in current range -- Ctrl + UpArrow ",
+    "<b>Workbook Navigation</b> <br> <i>Excel</i> <br><br> Go to next open WorkBook -- Ctrl + Tab <br>Go to previous open Workbook -- Ctrl + Shift + Tab"
+);
 
 
 hard = Array(
     " <b>Communality</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of the variance of the ith variable contributed by the m common factors is called the ith communality. <br> Var(X_i) = Communality + Specific Variance ",
     " <b>Uniqueness, Specific Variance</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of Var(X_i) = sigma_ii due to the specific factor. <br> Var(X_i) = Communality + Specific Variance ",
     " <b>Beautiful Soup Example</b> <br> <i>python</i> <br><br> <code> import requests <br>from bs4 import BeautifulSoup <br><br>userID = thisID <br>baseURL = 'https://www.youtube.com/user/'<br>userURL = baseURL + str(userID) <br>r = requests.get(userURL) <br>soup = BeautifulSoup(r.text) </code>",
-    " <b>First Line in Script</b> <br> <i>python</i> <br><br> #!/usr/bin/env python ",
-    "<b>Common Pandas Data Manipulations</b> <br> <i>python</i> <br><br> # add dummy variables <br> X_df = pd.get_dummies(X_df) <br><br> # read in data <br> df = pd.read_csv(myFile, header=None) <br><br> # drop column <br> df = df.drop('badCol', axis=1) <br><br> # rename columns <br> df.columns = names ",
+    " <b>First Line in Script</b> <br> <i>python</i> <br><br> <code> #!/usr/bin/env python </code>",
     "<b>Correlation between Numeric Columns in Data Frame</b> <br> <i>R</i> <br><br> <code> cor(df[sapply(df, is.numeric)]) </code>",
-    "<b>aggregate() (SQL Group By in R)</b> <br> <i>R</i> <br><br> aggregate(df['count'], by=c(df['day'], df['month'],df['year']), FUN=sum)",
-    " <b>Proper Python Function</b> <br> <i>python</i> <br><br> <DL> <DT> def myFunction(myParameter1,myParameter2=0): <DD>'''<br>This is an explanation of the function. <br> <br>:param myParameter1: explanation <br>:type myParameter1: type <br>:param myParameter2: explanation <br>:type myParameter2: type <br>:return: explanation <br>:rtype: return type <br>'''</DL>",
+    "<b>aggregate() (SQL Group By in R)</b> <br> <i>R</i> <br><br> <code>aggregate(df['count'], by=c(df['day'], df['month'],df['year']), FUN=sum)</code>",
+    " <b>Proper Python Function</b> <br> <i>python</i> <br><br> <code> <DL> <DT> def myFunction(myParameter1,myParameter2=0): <DD>'''<br>This is an explanation of the function. <br> <br>:param myParameter1: explanation <br>:type myParameter1: type <br>:param myParameter2: explanation <br>:type myParameter2: type <br>:return: explanation <br>:rtype: return type <br>'''</DL> </code>",
     "<b>Linear Regression in R</b> <br> <i>Statistics</i> <br><br> <code> # Multiple Linear Regression Example <br> fit <- lm(y ~ x1 + x2 + x3, data=mydata) <br><br> # Other useful functions <br> summary(fit) # show results <br> coefficients(fit) # model coefficients <br> confint(fit, level=0.95) # CIs for model parameters <br> fitted(fit) # predicted values <br> residuals(fit) # residuals <br> anova(fit) # anova table <br> vcov(fit) # covariance matrix for model parameters <br> influence(fit) # regression diagnostics </code>",
-    "<b>conditionals in python</b> <br> <i>python</i> <br><br>if a==b:<br>&nbsp;&nbsp;&nbsp;&nbsp;pass",
-    "<b>Space in HTML</b> <br> <i> Computer Science </i> <br><br> & nbsp;<br>(without a space)",
-    "<b>PCA in R</b> <br> <i>Statistics</i> <br><br> <code> library(stats) <br><br> # Create Principal Componenets <br> track.c <- prcomp(track,scale=TRUE) <br><br># check standard deviations of the PCs <br>track.c$sdev <br><br># check PCs (matrix of variable loadings) <br>track.c$rotation <br><br># create a scree plot <br>plot(track.c$sdev**2) <br><br># check eigenvalues <br>track.c$sdev**2 <br><br># calculate value of first principal component across all countries <br>as.matrix(track)%*%track.c$rotation[,1] </code>",
+    "<b>conditionals in python</b> <br> <i>python</i> <br><br> <code> if a==b:<br>&nbsp;&nbsp;&nbsp;&nbsp;pass </code>",
+    "<b>Space in HTML</b> <br> <i> Computer Science </i> <br><br> <code> & nbsp;</code><br>(without a space)",
+    "<b>PCA in R</b> <br> <i>Statistics</i> <br><br> <code> library(stats) <br><br> # Create Principal Componenets <br> track.c <- prcomp(track, scale=TRUE) <br><br># check standard deviations of the PCs <br>track.c$sdev <br><br># check PCs (matrix of variable loadings) <br>track.c$rotation <br><br># create a scree plot <br>plot(track.c$sdev**2) <br><br># check eigenvalues <br>track.c$sdev**2 <br><br># calculate value of first principal component across all countries <br>as.matrix(track)%*%track.c$rotation[,1] </code>",
     "<b>Create Factors</b> <br> <i>R</i> <br><br> <code> daylight$char.year <- factor(daylight$year) </code>",
     "<b>Change Column Names</b> <br> <i> R </i> <br><br> <code> new.names <- c('sunrise','sunset','month','day','year') <br> names(daylight) <- new.names </code>",
     "<b>Merge Data Frames</b> <br> <i> R </i> <br><br> <code> # add daylight data <br> df <- merge(x=df1,y=df2,by=c('year','month','day'),x.all=TRUE) </code>",
     "<b>Add Boolean Column to Data Frame</b> <br> <i> R </i> <br><br> <code> # Add is.working.hour <br> df$is.working.hour <- 0 <br> df[df$working.day==1 & df$hour>=9 & df$hour<17,]$is.working.hour <- 1 </code>",
     "<b>Drop Columns from Data Frame</b> <br> <i>R</i> <br><br> <code> df <- df[-c(6,7,9,10)] </code>",
-    "<b>Create Lagged Features</b> <br> <i>R</i> <br> <br> # create lagged features (to include 1,2,3, and 24 hour lags) <br> df$lag.1  <- c(rep(NA, 1), head(df$count, -1)) <br> df$lag.2  <- c(rep(NA, 2), head(df$count, -2)) <br> df$lag.3  <- c(rep(NA, 3), head(df$count, -3)) <br> df$lag.24 <- c(rep(NA,24), head(df$count,-24))",
+    "<b>Create Lagged Features</b> <br> <i>R</i> <br><br> <code> # create lagged features (to include 1,2,3, and 24 hour lags) <br> df$lag.1  <- c(rep(NA, 1), head(df$count, -1)) <br> df$lag.2  <- c(rep(NA, 2), head(df$count, -2)) <br> df$lag.3  <- c(rep(NA, 3), head(df$count, -3)) <br> df$lag.24 <- c(rep(NA,24), head(df$count,-24)) </code>",
     "<b>Days of Week</b> <br> <i>R</i> <br><br> <code> # add days of week <br> df$weekday <- as.factor(weekdays(as.Date(paste(df$year,df$month,df$day,sep='-')))) </code>",
     "<b>Create Date</b> <br> <i>R</i> <br><br> <code> as.Date(paste(df$year,df$month,df$day,sep='-')) </code>",
     "<b>Scatterplot Matrix</b> <br> <i>R</i> <br><br> <code> pairs(~temp+atemp+count,data=df) </code>",
-    "<b>Count of Field</b> <br> <i>unix</i> <br><br> time tail +2 ~/Downloads/file.csv | cut -d, -f6  | sort | uniq -c | sort -rn",
+    "<b>Count of Field</b> <br> <i>unix</i> <br><br> <code> time tail +2 ~/Downloads/file.csv | cut -d, -f6  | sort | uniq -c | sort -rn </code>",
     "<b>Start HTTP Server</b> <br> <i>Unix/Python</i> <br><br> <code> python2.7 -m SimpleHTTPServer </code> <br>(Available at localhost:8000)",
     "<b>Check for SSH keys on your computer</b> <br> <i>Unix</i> <br><br> <code> # Lists the files in your .ssh directory, if they exist <br>ls -al ~/.ssh </code>",
-    "<b>Add Line to Plot</b> <br> <i>R</i> <br><br> # dotted, blue vertical line at y=0.3 <br>abline(v=0.3, lty=2, col='blue') <br><br># dot-dash, green horizontal line at x=0.3 <br>abline(h=0.3, lty=6, col='green')",
+    "<b>Add Line to Plot</b> <br> <i>R</i> <br><br> <code> # dotted, blue vertical line at x=0.3 <br>abline(v=0.3, lty=2, col='blue') <br><br># dot-dash, green horizontal line at y=0.3 <br>abline(h=0.3, lty=6, col='green') </code>",
     "<b>Creating a Function</b> <br> <i>R</i> <br><br> <code> myfunction <- function(arg1, arg2) {<br> &nbsp;&nbsp;&nbsp;&nbsp; # statements <br> &nbsp;&nbsp;&nbsp;&nbsp; return(object) <br>} </code>",
     "<b>Unique Values from each Column in Data Frame</b> <br> <i>R</i> <br><br> <code> apply(df, MARGIN=2, FUN=unique) <br># MARGIN=2 Specifies Column </code",
     "<b>Create CSV from Data Frame</b> <br> <i>R</i> <br><br> <code> write.csv(<br>&nbsp;&nbsp;&nbsp;&nbsp; df, <br>&nbsp;&nbsp;&nbsp;&nbsp; file = \"seatbelts.csv\", <br>&nbsp;&nbsp;&nbsp;&nbsp; row.names = FALSE <br>) </code>",
-    "<b>Check Data Frame</b> <br> <i>R</i> <br><br> str(df) <br>summary(df)",
-    "<b>Time Series Tests</b> <br> <i>R</i> <br><br> adf.test(count, alternative='stationary', k=24) <br>pp.test(count)",
-    "<b>(Partial and not) AutoCorrelation Function Plots</b> <br> <i>R</i> <br><br> <code> acf(t1, 50, main=\"TS of count group by day\") <br>pacf(t1, 50, main=\"TS of count group by day\") </code>",
+    "<b>Check Data Frame</b> <br> <i>R</i> <br><br> <code> str(df) <br>summary(df) </code>",
+    "<b>Time Series Tests</b> <br> <i>R</i> <br><br> <code> adf.test(count, alternative='stationary', k=24) <br>pp.test(count) </code>",
+    "<b>Partial (and not) AutoCorrelation Function Plots</b> <br> <i>R</i> <br><br> <code> acf(t1, 50, main=\"TS of count group by day\") <br>pacf(t1, 50, main=\"TS of count group by day\") </code>",
     "<b>Create Time Series Object</b> <br> <i>R</i> <br><br> <code> count.ts <- ts(df_$count) </code>",
     "<b>Transpose Matrix</b> <br> <i>R</i> <br><br> <code> t(my.matrix) </code>",
-    "<b>Correlations</b> <br> <i>R</i> <br><br> cor(df[c('count','day.hours','temp')],use=\"complete.obs\")",
-    "<b>Write to CSV File</b> <br> <i>R</i> <br><br> <code> # write dfx to csv file <br>write.table(testx, file=\"testFinal.csv\", sep=\",\", row.names=FALSE) </code>",
+    "<b>Correlations</b> <br> <i>R</i> <br><br> <code> cor(df[c('count','day.hours','temp')],use=\"complete.obs\") </code>",
+    "<b>Write to CSV File</b> <br> <i>R</i> <br><br> <code> # write df to csv file <br>write.table(df, file=\"testFinal.csv\", sep=\",\", row.names=FALSE) </code>",
     "<b>Public Classes</b> <br> <i>Spark</i> <br><br> SparkContext: Main entry point for Spark functionality. <br> RDD: A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. <br> Broadcast: A broadcast variable that gets reused across tasks. <br> Accumulator: An \"add-only\" shared variable that tasks can only add values to. <br> SparkConf: For configuring Spark. <br> SparkFiles: Access files shipped with jobs. <br> StorageLevel: Finer-grained cache persistence levels.",
     "<b>Plot Two Functions</b> <br> <i>R</i> <br><br> <code> plot(fn1, col='black') <br>plot(fn2, col='red', add=TRUE) </code>",
     "<b>PySpark</b> <br> <i>python</i> <br><br> PySpark is the Python API for Spark.",
     "<b>Histogram</b> <br> <i>R</i> <br><br> <code> hist(df$count,breaks=20) </code>",
-    "<b>Random Forest in sklearn</b> <br> <i>Machine Learning</i> <br><br> from sklearn.ensemble import RandomForestClassifier <br> <br> # create random forest object <br>rf = RandomForestClassifier(<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  n_estimators=32, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  max_depth=None, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  min_samples_split=2, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  min_samples_leaf=1, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  max_features=32, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  max_leaf_nodes=None, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  bootstrap=True, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  oob_score=True, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  n_jobs=1, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  random_state=None <br> &nbsp;&nbsp;&nbsp;&nbsp;   ) <br> <br> # train random forest <br> rf.fit(X_sample,y_sample) <br> <br># out of bag score <br>print 'out of bag score'<br>print rf.oob_score_ <br> <br># Compute ROC curve and area the curve <br>fpr, tpr, thresholds = roc_curve(y_test, probas_[:, 1]) <br>roc_auc = auc(fpr, tpr) <br>print \"Area under the ROC curve : %f\" % roc_auc <br> <br># save the classifier <br>with open('rf_clf2.pkl', 'wb') as fid: <br>    &nbsp;&nbsp;&nbsp;&nbsp; cPickle.dump(rf, fid)",
+    "<b>Random Forest in sklearn</b> <br> <i>Machine Learning</i> <br><br> <code> from sklearn.ensemble import RandomForestClassifier <br> <br> # create random forest object <br>rf = RandomForestClassifier(<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  n_estimators=32, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  oob_score=True, <br> &nbsp;&nbsp;&nbsp;&nbsp;   ) <br> <br> # train random forest <br> rf.fit(X_sample,y_sample) <br> <br># out of bag score <br>print 'out of bag score'<br>print rf.oob_score_ <br> <br># Compute ROC curve and area the curve <br>fpr, tpr, thresholds = roc_curve(y_test, probas_[:, 1]) <br>roc_auc = auc(fpr, tpr) <br>print \"Area under the ROC curve : %f\" % roc_auc <br> <br># save the classifier <br>with open('rf_clf2.pkl', 'wb') as fid: <br>    &nbsp;&nbsp;&nbsp;&nbsp; cPickle.dump(rf, fid) </code>",
     "<b>Dummitize a Field</b> <br> <i>R</i> <br><br> <code> # season <br>dfx$is.spring <- 0 <br>dfx[dfx$season==\"1\",]$is.spring <- 1 <br>dfx$is.summer <- 0 <br>dfx[dfx$season==\"2\",]$is.summer <- 1 <br>dfx$is.fall <- 0 <br>dfx[dfx$season==\"3\",]$is.fall <- 1 <br>dfx$is.winter <- 0 <br>dfx[dfx$season==\"4\",]$is.winter <- 1 </code>",
     "<b>Investigating an object</b> <br> <i>R</i> <br><br> <code> mode(object) <br>class(object) </code>",
     "<b>Invert a Matrix</b> <br> <i>R</i> <br><br> <code> inv(my.matrix) </code>",
-    "<b>Create a Matrix</b> <br> <i>R</i> <br><br> matrix(c(1,2,3,2),nrow=2,ncol=2)",
+    "<b>Create a Matrix</b> <br> <i>R</i> <br><br> <code>matrix(c(1,2,3,2),nrow=2,ncol=2)</code>",
     "<b>Lift</b> <br> <i>Machine Learning</i> <br><br> Ratio between the success rate and the base rate <br> Equivalent to True Positive Rate divided by percent targeted",
     "<b>Concatenating Text</b> <br> <i>R</i> <br><br> <code> paste('category:', '1900', ', measure:', nrow(movies[movies$year<1920 & movies$year>=1900,]), '},' ) </code>",
     "<b>Diagnostics</b> <br> <i>Machine Learning</i> <br><br> Suppose you are working on a model and you get a high error: <br>&nbsp;&nbsp;&nbsp;&nbsp; if you have high variance: <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; get more training examples <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try smaller set of features <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try decreasing lambda (penalty term) <br>&nbsp;&nbsp;&nbsp;&nbsp; if you have high bias: <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try getting additional features <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try getting polynomial features <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try increasing lambda (penalty term)",
         "<b>Latency Numbers</b> <br> <i>Computer Science</i> <br><br> Latency numbers every programmer should know <code><br> &nbsp;&nbsp;&nbsp;&nbsp;L1 cache reference ......................... 0.5 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Branch mispredict ............................ 5 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;L2 cache reference ........................... 7 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Mutex lock/unlock ........................... 25 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Main memory reference ...................... 100 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Compress 1K bytes with Zippy ............. 3,000 ns  =   3 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Send 2K bytes over 1 Gbps network ....... 20,000 ns  =  20 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;SSD random read ........................ 150,000 ns  = 150 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from memory ..... 250,000 ns  = 250 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Round trip within same datacenter ...... 500,000 ns  = 0.5 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from SSD* ..... 1,000,000 ns  =   1 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Disk seek ........................... 10,000,000 ns  =  10 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from disk .... 20,000,000 ns  =  20 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Send packet CA->Netherlands->CA .... 150,000,000 ns  = 150 ms</code>",
-    "<b>Testing</b> <br> <i>python</i> <br> <br>def test(actual, expected): <br> &nbsp;&nbsp;&nbsp;&nbsp;   if (actual != expected): <br>       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print '[FAILED] actual: {}, expected: {}'.format(actual, expected) <br> <br>if __name__ == '__main__': <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([]), -1) <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([2, -2, 3, 0, 4, -7]), 4) <br> <br>    &nbsp;&nbsp;&nbsp;&nbsp; print 'Successful Run (if you can see this)'",
+    "<b>Testing</b> <br> <i>python</i> <br><br> <code>def test(actual, expected): <br> &nbsp;&nbsp;&nbsp;&nbsp;   if (actual != expected): <br>       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print '[FAILED] actual: {}, expected: {}'.format(actual, expected) <br> <br>if __name__ == '__main__': <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([]), -1) <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([2, -2, 3, 0, 4, -7]), 4) <br> <br>    &nbsp;&nbsp;&nbsp;&nbsp; print 'Successful Run (if you can see this)' </code>",
     "<b>Create .JSON file from Data Frame</b> <br> <i>R</i> <br> <code> <br>library(jsonlite) <br>json <- toJSON(<br> &nbsp;&nbsp;&nbsp;&nbsp; df, <br> &nbsp;&nbsp;&nbsp;&nbsp; dataframe = \"rows\", <br> &nbsp;&nbsp;&nbsp;&nbsp; factor = \"string\", <br> &nbsp;&nbsp;&nbsp;&nbsp; pretty = TRUE <br>) <br>cat(json, file = \"seatbelts.json\") </code> ",
     "<b>Random Forest in __package__</b> <br> <i>Machine Learning in R</i> <br><br> <code> rf0 <- randomForest(<br> &nbsp;&nbsp;&nbsp;&nbsp; count ~ <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   atemp      + day    + holiday + hour    + humidity <br> &nbsp;&nbsp;&nbsp;&nbsp; + month      + season + temp    + weather + windspeed <br> &nbsp;&nbsp;&nbsp;&nbsp; + workingday + year, <br> &nbsp;&nbsp;&nbsp;&nbsp; data=df.all, <br> &nbsp;&nbsp;&nbsp;&nbsp; na.action=na.omit <br>) <br><br> plot(rf0) <br> plot(rf0$importance) <br> mean(rf0$mse) # Mean Squared Error <br> mean(rf0$rsq) # Pseudo R Squared </code>",
     "<b>requests</b> <br> <i>python</i> <br><br> <code> import requests <br> <br> # base url for api call <br> baseURL = 'http://api.com/'<br> <br> # dictionary of parameters for call <br> params = {<br>     &nbsp;&nbsp;&nbsp;&nbsp; 'group': 'day', <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'metric': 'views', <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'start': startDate, <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'end': endDate <br> } <br> <br> # send request to API <br> r = requests.get(baseURL,param=params) <br> <br> # data in json <br> r.json() </code>",
-    "<b>Object Dimensions</b> <br> <i>R</i> <br> <code><br>dim(object) # number of rows and columns <br>nrow(object) # number of rows <br>ncol(object) # number of columns <br>length(object) # number of items</code>"
+    "<b>Object Dimensions</b> <br> <i>R</i> <br> <code><br>dim(object) # number of rows and columns <br>nrow(object) # number of rows <br>ncol(object) # number of columns <br>length(object) # number of items</code>",
+    "<b>Create Silhouette Objects</b> <br> <i>R</i> <br><br> <code> for (i in 2:9){<br> &nbsp;&nbsp;&nbsp;&nbsp; assign(paste(\"vids.c\", i,\".s\", sep=\"\"), <br> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; silhouette(pam(x=vids.df, k=i, diss=FALSE, metric='manhattan'))) <br>} </code>",
+    "<b>Three Axioms of Probability</b> <br> <i>Probability</i> <br> TODO: add math <br><br> <ol> <li>The probability of an event is a non-negative real number <li>the probability that some elementary event in the entire sample space will occur is 1. More specifically, there are no elementary events outside the sample space. <li>Any countable sequence of disjoint (synonymous with mutually exclusive) events E_{1}, E_{2}, ... satisfies P(union_all(events)) = sum(probability of all events)</ol> ",
+    "<b>Logistic Regression in R</b> <br> <i>Statistics</i> <br> <code> <br> # create model <br> sub.logit <- glm(Subscribe~Age+Income, data=sub, family = \"binomial\") <br> <br> # summary of model <br> summary(sub.logit) </code>",
+    "<b>Scientific Notation</b> <br> <i>LaTeX</i> <br><br> <code> \\num{0.00001} </code>",
+    "<b>Quotes</b> <br> <i>LaTeX</i> <br><br> <code> \\enquote{quote} </code> or  <code>``quote'' </code>",
+    "<b>Add Column</b> <br> <i>postgres</i> <br><br> <code> ALTER TABLE metrics ADD COLUMN prop REAL; </code>",
+    "<b>Add Index</b> <br> <i>postgres</i> <br><br> <code> CREATE INDEX video_age ON video_metrics (video_id, age); </code>",
+    "<b>Find Value in DataFrame</b> <br> <i>pandas</i> <br><br> <code> import numpy as np <br> import pandas as pd <br><br> for col in df: <br>     &nbsp;&nbsp;&nbsp;&nbsp;if 'string' in [i for i in df[col]]: <br>     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    print col, np.unique(df[col]) </code>",
+    "<b>List Unique Values in a DataFrame Column</b> <br> <i>pandas</i> <br><br> <code> pd.unique(df.column_name.ravel()) </code>",
+    "<b>Add Dummy Variables</b> <br> <i>pandas</i> <br><br> <code> X_df = pd.get_dummies(X_df) </code>",
+    "<b>Discrete Choice</b> <br> <i>Economics</i> <br><br> Discrete choice models, or qualitative choice models, describe, explain, and predict choices between two or more discrete alternatives, such as entering or not entering the labor market, or choosing between modes of transport.",
+    "<b>Rename Columns</b> <br> <i>pandas</i> <br><br> <code> df.columns = names </code>",
+    "<b>Read in CSV</b> <br> <i>pandas</i> <br><br> <code> df = pd.read_csv(myFile, header=None) </code>",
+    "<b>Drop Column</b> <br> <i>pandas</i> <br><br> <code> df = df.drop('badCol', axis=1) </code>",
+    "<b>Number of Rows in a DataFrame</b> <br> <i>pandas</i> <br><br> <code>len(df.index)</code>",
+    "<b>Convert All Column Names to Lowercase</b> <br> <i>pandas</i> <br><br> <code> df.columns = map(str.lower, df.columns) </code>",
+    "<b>Insignificant Factor Interpretation</b> <br> <i>Statistics</i> <br><br> 1: segmentation; some people prefer this and others don't ==> larger sample needed <br>2: variety-seeking; leads to poor results since people want variety in their life <br>3: it doesn't matter (probably not the best answer)",
+    "<b>Latent Class Analysis (LCA)</b> <br> <i>Statistics</i> <br><br> A subset of structural equation modeling, used to find groups or subtypes of cases in multivariate categorical data. These subtypes are called \"latent classes\". <br> (Used for clustering for binary data)",
+    "<b>Grab DataFrame rows where column has certain values</b> <br> <i>pandas</i> <br><br> <code> valuelist = ['value1', 'value2', 'value3'] <br>df = df[df.column.isin(value_list)] </code> ",
+    "<b>Function</b> <br> <i>Fortran</i> <br><br> <code> subroutine func_fort(n, d) <br>&nbsp;&nbsp;&nbsp;&nbsp; integer, intent(in) :: n <br>&nbsp;&nbsp;&nbsp;&nbsp; double precision, intent(out) :: d <br>&nbsp;&nbsp;&nbsp;&nbsp; integer :: i <br>&nbsp;&nbsp;&nbsp;&nbsp; d = 0 <br>&nbsp;&nbsp;&nbsp;&nbsp; do i = 0, n - 1 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d = d + (mod(i, 3) - 1) * i <br>&nbsp;&nbsp;&nbsp;&nbsp; end do <br>end subroutine func_fort </code>",
+    "<b>Cost Minimization in lpSolve</b> <br> <i>R</i> <br> <code> <br># import library <br>library('lpSolve') <br> <br># read in cost matrix <br>costs <- read.csv(dir, header=FALSE) <br> <br># solve <br>lp.assign(as.matrix(costs)) </code>",
+    "<b>Bounce Rate</b> <br> <i>Web Analytics</i> <br><br> Click on website from search results, then bounce back to search page",
+    "<b>Lagrange Multiplier</b> <br> <i>optimization</i> <br><br> Strategy for finding the local maxima and minima of a function subject to equality constraints.",
+    "<b>Get rid of Non-Numeric Values throughout a DataFrame</b> <br> <i>pandas</i> <br><br> <code> for col in df.columns.values: <br>&nbsp;&nbsp;&nbsp;&nbsp;df[col] = df[col].replace('[^0-9]+.-', '', regex=True) </code>",
+    "<b>Change Column Data Type</b> <br> <i>pandas</i> <br><br> <code> df.column_name = df.column_name.astype(np.int64) </code>",
+    "<b>Proportion Test Steps</b> <br> <i>Statistics</i> <br><br> <u>Pooled sample proportion.</u> Since the null hypothesis states that P1=P2, we use a pooled sample proportion (p) to compute the standard error of the sampling distribution. <br> <code> &nbsp;&nbsp; p = (p1 * n1 + p2 * n2) / (n1 + n2) </code> <br> where p1 is the sample proportion from population 1, p2 is the sample proportion from population 2, n1 is the size of sample 1, and n2 is the size of sample 2. <br> <br> <u>Standard error.</u> Compute the standard error (SE) of the sampling distribution difference between two proportions. <br> <code> &nbsp;&nbsp; SE = sqrt{ p * ( 1 - p ) * [ (1/n1) + (1/n2) ] } </code> <br> where p is the pooled sample proportion, n1 is the size of sample 1, and n2 is the size of sample 2. <br> <br> <u>Test statistic.</u> The test statistic is a z-score (z) defined by the following equation. <br> <code> &nbsp;&nbsp; z = (p1 - p2) / SE </code>",
+    "<b>Cook's Distance</b> <br> <i>Statistics</i> <br><br> Estimate of the influence of a data point when performing least squares regression analysis.",
+    "<b>DF Betas</b> <br> <i>Statistics</i> <br><br> For each observation, dfBetas estimate the standardized differences in the parameter coefficients if the observation is deleted.",
+    "<b>Common Hypotheses</b> <br> <i>Statistics</i> <br> <br> <code> Set &nbsp; Null Hypothesis &nbsp; Alternative hypothesis &nbsp; Number of tails <br> &nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 = 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 &ne; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 <br> &nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 > 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 &le; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 <br> &nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 < 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 &ge; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 </code>",
+    "<b>Binomial Distribution Assumptions</b> <br> <i>Statistics</i> <br> <br>1. There are n trials, each classifiable as \"success\" or \"failure\". <br>2. The trials are independent. <br>3. The probability of success, p, is constant from trial to trial. <br>4. X = # of successes out of the n trials.",
+    "<b>Hypergeometric Distribution Assumptions</b> <br> <i>Statistics</i> <br> <br>1. There is a population of N items, r of which are classifiable as \"success\" and w of which are classifiable as \"failure\". <br>2. A random sample (without replacement) of n items is taken from the N items. <br>3. X = # of successes out of the n sampled items. <br> <br>If ALL of these are true, then X has the hypergeometric distribution with parameters N, n and w.",
+    "<b>Z Score</b> <br> <i>Statistics</i> <br><br> z = ( x_bar - &mu; ) / &sigma;",
+    "<b>Linear Regression Assumptions</b> <br> <i>Statistics</i> <br> <br>Linear relationship <br>Multivariate normality <br>No or little multicollinearity <br>No auto-correlation <br>Homoscedasticity",
+    "<b>Normal PDF</b> <br> <i>Statistics</i> <br><br> <code> (1/&radic;(2&pi;)&sigma;)*exp(-(1/2)((x-&mu;)/&sigma;)&sup2;) </code>",
+    "<b>Odds Ratio</b> <br> <i>Logistic Regression</i> <br><br> <code>p(x)/(1-p(x))</code> <br><br>So, P(.5) in odds ratio is 1",
+    "<b>f(x)</b> <br> <i>Logistic Regression</i> <br><br> The probability of the dependent variable equaling a \"success\" or \"case\" rather than a failure or non-case.",
+    "<b>Odds</b> <br> <i>Logistic Regression</i> <br><br> The probability that a particular outcome is a case divided by the probability that it is a noncase.",
+    "<b>Odds Ratio for a Variable</b> <br> <i>Logistic Regression</i> <br><br> How the odds change with a one unit increase in that variable holding all other variables constant. (Compared against the base case.)",
+    "<b>A/B Test</b> <br> <i>Analytics</i> <br><br> An A/B test involves testing two versions of a web page, an A version (the control) and a B version (the variation), with live traffic and measuring the effect each version has on your metric of interest (for example: conversion rate, click rate).",
+    "<b>Assignment Checking</b> <br> <i>A/B Testing</i> <br><br> <u>In an A/B test, how can you check if assignment to the various buckets was truly random?</u> <br> &nbsp;&nbsp;&nbsp;&nbsp; Look at metrics that should not be changed by the experiments and test that the distributions are similar in the two buckets (example: demographic data, number of visitors, browser version, time of assignment). The best way to test is to run A/A experiments. An A/A test is simply a test where both pages/ad copy/creatives/etc. are exactly the same. You split your traffic randomly and showing both groups the same page. A/A will help you check your split testing tool and help you understand the expected variation in your metrics.",
+    "<b>Testing Process</b> <br> <i>A/B Testing</i> <br> <br> Define Success (by quantifiable core metrics). <br> Identify bottleknecks. <br> Construct a hypothesis. (If I change X, we may see an improvement in...) <br> Prioritize. <br> Test.",
+    "<b>ANOVA Table</b> <br> <i>Statistics</i> <br><br> <code>Source of Variation &nbsp; Degrees of Freedom &nbsp;&nbsp; Sum of Squares &nbsp; Mean of Squares &nbsp; F Ratio <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Regression &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; k &nbsp; &Sigma;(y_hat-y_bar)&sup2; &nbsp;&nbsp;&nbsp;&nbsp; MSR = SSR/df &nbsp; MSR/MSE <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Residuals &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N-(k+1) &nbsp;&nbsp;&nbsp; &Sigma;(y_i-y_hat)&sup2; &nbsp;&nbsp;&nbsp;&nbsp; MSE = SSE/df <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N-1 &nbsp;&nbsp;&nbsp; &Sigma;(y_i-y_bar)&sup2; </code>",
+    "<b>Count If</b> <br> <i>Excel</i> <br><br> <code>=COUNTIF(Range, Criterion)</code> <br>Counts cells if they meet a certain criterion.  (Use COUNTIFS for multiple criteria.)",
+    "<b>End of Month</b> <br> <i>Excel</i> <br><br> <code>=EOMONTH(Start Date, Months)</code> <br>Returns the last day of the month, and since Excel handles days as integers, you can add or subtract days fairly easily <br><br>Example: <br> &nbsp; <code>=EOMONTH(NOW(), -1)+1</code> <br> &nbsp; This returns the first day of the current month.",
+    "<b>Get Pivot Data</b> <br> <i>Excel</i> <br><br> Just hit '<code>=</code>' and then click on the cell you want; it's much faster than creating it yourself.  Once it's created, it's easy to make it dependent on cells of your choosing.",
+    "<b>If Error</b> <br> <i>Excel</i> <br><br> <code>=IFERROR( Formula or Cell, [If Error return whatever you put here] )</code> <br> Returns the Formula or Cell if there's no error, otherwise returns whatever you put after the comma (usually \"\" to give a blank cell).",
+    "<b>Index</b> <br> <i>Excel</i> <br><br> <code>=INDEX(Array, Row Number, [Column Number] )</code> <br>Returns a value or reference of a cell from a given matrix",
+    "<b>Left</b> <br> <i>Excel</i> <br><br> <code>=LEFT(Cell, Number of Characters)</code> <br>Grabs the left-most number of characters from a cell",
+    "<b>Match</b> <br> <i>Excel</i> <br><br> <code>=MATCH(Value, Column, Match Type)</code> <br>Looks for a value in a column and returns the row number of the value.",
+    "<b>Mid</b> <br> <i>Excel</i> <br><br> <code>=MID(Cell, Starting Number, [Number of Characters])</code> <br>Gives a certain number of characters from a starting point within a cell",
+    "<b>Now</b> <br> <i>Excel</i> <br><br> <code>=NOW()</code> <br> Returns current date and time.",
+    "<b>Right</b> <br> <i>Excel</i> <br><br> <code>=RIGHT(Cell, Number of Characters)</code> <br> Grabs the right-most number of characters from a cell",
+    "<b>Search</b> <br> <i>Excel</i> <br><br> <code>=SEARCH(Search Characters, Cell, [Start Number])</code> <br>Finds certain character(s) within a string.",
+    "<b>Vertical Lookup</b> <br> <i>Excel</i> <br><br> <code>=VLOOKUP(Value to Search For, Table to Look In, Column Number of Value in Table, Match Type)</code> <br>Looks for the row of a value in a table, then gives a value from a column to the right in the same row <br><br> &nbsp;&nbsp; Match Type Parameter: <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE ==> Allows for a close match to be found, instead of an exact match <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FALSE ==> Only an exact match will be returned, else an error will be given",
+    "<b>Left VLookup</b> <br> <i>Excel</i> <br><br> A mixture of Index and Match Functions, where Match becomes the Row Number parameter within Index <br><code>=INDEX(Matrix, MATCH(Value, Column, Match Type), Matrix Column Number)</code>",
+    "<b>Number of Unique Values in a Column</b> <br> <i>Excel</i> <br><br> This shows the number of times A1 appears in the column A1:A100. <br><code>=COUNTIF(A1:$A$100, A1)</code>",
+    "<b>Extract Text</b> <br> <i>Excel</i> <br><br> Get a certain part of a cell (Such as 'OneScreen.com' from 'htttp://www.OneScreen.com/ExcelRocks!!.php/') <br> Cell A1 = htttp://www.OneScreen.com/ExcelRocks!!.php/ <br> Cell B1 = <code>=MID(A1,SEARCH(\".\",A1,1)+1,SEARCH(\"/\",A1,SEARCH(\".\",A1,1))-SEARCH(\".\", A1, 1)-1)</code> <br> <br>This grabs a certain number of characters &nbsp;&nbsp; <code>SEARCH(\"/\", A1, SEARCH(\".\", A1, 1))-SEARCH(\".\", A1, 1)-1 </code> <br>from a starting point &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code> SEARCH(\".\", A1, 1)+1 </code> <br>in a cell &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>A1</code>",
+    "<b>Particular Cell Navigation</b> <br> <i>Excel</i> <br><br> <br> Go To Cell \"A1\" -- Ctrl + Home <br> Go To Bottom-Right-Most Used Cell -- Ctrl + End <br> Go To Cell -- F5  (Allows you to choose which cell to go to.)",
+    "<b>Covariance</b> <br> <i>Statistics</i> <br><br> Cov(X,Y) = &Sigma;(X-&mu;_x)(Y-&mu;_y)/(n-1)",
+    "<b>Variance</b> <br> <i>Statistics</i> <br><br> Var(X) = Cov(X,X) = &Sigma;(X-&mu;_x)&sup2;/(n-1)",
+    "<b>Worksheet Navigation</b> <br> <i>Excel</i> <br><br> Go down one worksheet -- Ctrl + PageDown <br>Go up one worksheet -- Ctrl + PageUp",
+    "<b>Select</b> <br> <i>Excel</i> <br><br> Select Column -- Ctrl + SpaceBar <br>Select Row -- Shift + SpaceBar",
+    "<b>Misc</b> <br> <i>Excel</i> <br><br> Enter current date -- Ctrl + ';'<br>Enter current time -- Ctrl + Shift + ';'<br>Sum -- Alt + '='   (Excel will guess which row or column to sum, and it's usually accurate.) <br>Cell Formula -- F2 <br>VBA -- Alt + F11",
+    "<b>Pasting</b> <br> <i>Excel</i> <br><br> Paste Values -- Ctrl + V -> Ctrl -> V <br>Paste Formulas -- Ctrl + V -> Ctrl -> F <br>Transpose Paste -- Ctrl + V -> Ctrl -> T",
+    "<b>Sheet Administration</b> <br> <i>Excel</i> <br><br> Rename Sheet -- Alt -> H -> O -> R <br>Delete Sheet -- Alt -> E -> L <br>Move Sheet -- Alt -> H -> O -> M",
+    "<b>Row and Column Sizes</b> <br> <i>Excel</i> <br><br> Resize All Columns -- Alt -> H -> O -> I <br>Column Width -- Alt -> H -> O -> W <br><br>Resize All Rows -- ALT -> H -> O -> A <br>Row Height -- Alt -> H -> O -> H",
+    "<b>Binomial PDF</b> <br> <i>Statistics</i> <br><br> (n choose k)*(p**k)*((1-p)**(n-k))",
+    "<b>Binomial Distribution Heuristics</b> <br> <i>Statistics</i> <br><br> For large n: <br> &nbsp;&nbsp;&nbsp;&nbsp; &mu; = np <br> &nbsp;&nbsp;&nbsp;&nbsp; &sigma;&sup2; = np(1-p)",
+    "<b>Combinations</b> <br> <i>Math</i> <br><br> (n choose k) = n! / (k!(n-k)!)",
+    "<b>Permuations</b> <br> <i>Math</i> <br><br> (n permute k) = n! / (n-k)!",
+    "<b>Exponential PDF</b> <br> <i>Statistics</i> <br><br> &lambda;exp(&lambda;x)",
+    "<b>Exponential CDF</b> <br> <i>Statistics</i> <br><br> 1-exp(-&lambda;x)",
+    "<b>Geometric Mean</b> <br> <i>Math</i> <br><br> The nth root of the product of n numbers.",
+    "<b>Survival Bias</b> <br> <i>Statistics</i> <br><br> The logical error of concentrating on the people or things that \"survived\" some process and inadvertently overlooking those that did not because of their lack of visibility. ",
+    "<b>Chi-squared Test</b> <br> <i>Statistics</i> <br><br> Used to determine whether there is a significant difference between the expected frequencies and the observed frequencies in one or more categories. <br> e.g., Does the number of individuals or objects that fall in each category differ significantly from the number you would expect?",
+    "<b>Insert, Delete</b> <br> <i>Excel</i> <br><br> Insert -- Ctrl + Shift + '='<br> Delete -- Ctrl + '-'",
+    "<b>Formatting</b> <br> <i>Excel</i> <br><br> Money -- Alt -> H -> A -> N -> Enter <br>Integer -- Alt -> H -> O -> K ->Alt -> H -> 9 -> Alt -> H -> 9",
+    "<b>Harmonic Mean</b> <br> <i>Math</i> <br><br> inverse of the sum of inverses for a group of numbers, multiplied by the number of numbers",
+    "<b>Assumptions of Linear Regression</b> <br> <i>Statistics</i> <br> <br>Linear Relationship between the independent and dependent variables <br>Multivariate normality <br>No or little multicollinearity <br>No auto-correlation <br>Homoscedasticity",
+    "<b>While Loop</b> <br> <i>bash</i> <br><br> <code>while true; do say 'hello, world'; done</code>",
+    "<b>Shapiro-Wilk Test</b> <br> <i>Statistics</i> <br> <br> Normality Test <br> H0: population is normally distributed",
+    "<b>Append Text to Beginning of Each .png File Name in Directory</b> <br> <i>unix</i> <br><br> <code>for file in *.png; do mv $file old_$file; done</code>",
+    "<b>Subtract Month from Date</b> <br> <i>postgres</i> <br><br> <code>view_date - '1 month'::interval</code>",
+    "<b>What to do with Outliers</b> <br> <i>Statistics</i> <br> <br>check for incorrect measurements or assumptions <br>try transformations <br>try more robust methods <br>Throw them out",
+    "<b>Inter Quartile Range</b> <br> <i>Statistics</i> <br> <br>= 3rd Quartile - 1st Quartile <br>aka midspread or middle fifty",
+    "<b>Detecting Outliers</b> <br> <i>Statistics</i> <br> <br>(Q1 - 1.5*IQR, Q3 + 1.5*IQR) <br>Extreme Outliers: use 3*IQR <br>(aka Tukey rules?)"
 );
 
 
@@ -80,17 +198,47 @@ if (Math.random()<.99) {document.write(hard[Math.floor(Math.random()*hard.length
 
 // &nbsp;
 // start adding code tags
+// zzzzzzzzzzzzzzzzz # unique string to search
 
 testing = Array(
-
 
 )
 document.write("<br><br><br>",testing)
 
 
 </script>
+</body>
 
 <!-- Notes
+
+
+
+    "<b>Variance Sums Derivation</b> <br> <i>Statistics</i> <br><br> Var(X_1 + X_2) <br> = E[(X_1 + X_2 - E[X_1 + X_2])&sup2;] <br> = E[(X_1 + X_2 - E[X_1] - E[X_2])&sup2;] <br> = E[(X_1 - E[X_1] + X_2 - E[X_2])&sup2;] <br> = E[((X_1 - E[X_1]) + (X_2 - E[X_2]))&sup2;] <br> = E[(X_1 - E[X_1])&sup2; + (X_2 - E[X_2])&sup2; + 2(X_1-E[X_1])(X_2-E[X_2])] <br> = E[(X_1 - E[X_1])&sup2;] + E[(X_2 - E[X_2])&sup2;] + 2E[(X_1-E[X_1])(X_2-E[X_2])] <br> = Var[X_1] + Var[X_2] + 2Cov[X_1,X_2]"
+
+
+<b>Hiding</b> <br> <i>Excel</i> <br><br>
+    Hide Column -- Ctrl + 0   
+    <br>Unhide Column -- Ctrl + Shift + 0
+    <br>Hide Row -- Ctrl + 9 
+    <br>Unhide Row -- Ctrl + Shift + 9 
+
+
+
+<b>Window Management</b> <br> <i>Windows</i> <br><br>
+    Minimize Window -- Start + DownArrow
+    <br>Maximize Window -- Start + UpArrow
+    <br>Put current window on left half of screen -- Start + LeftArrow
+    <br>Put current window on right half of screen -- Start + RightArrow
+
+
+
+    <b>Model Considerations</b> <br> <i>Machine Learning</i> <br>
+        Bias v. Variance (Overfitting)
+            Training MSE v. Test MSE
+        Accuracy v. Interpretability
+        Supervised v. Unsupervised
+        Regression v. Classification
+
 
 
 "Naive Bayes in sklearn
@@ -106,9 +254,6 @@ nb = MultinomialNB(
             class_prior=None
         )
 
-# top features, as given from testing with Random Forests
-topFeatures = ['Education_ Bachelors degree(BA AB BS)', 'Education_ Children', 
-                ...'NumUnder18_ Not in universe']
 
 # get data
 print 'get data'
@@ -129,19 +274,12 @@ X_sample, y_sample = cleaning.create_sample_dataframe2(
 "
 
 Definitions
-    Logistic Regression
-        f(x)
-            the probability of the dependent variable equaling a "success" or "case" rather than a failure or non-case
-        Odds
-            the probability that a particular outcome is a case divided by the probability that it is a noncase
-        Odds Ratio for a variable
-            how the odds change with a one unit increase in that variable holding all other variables constant
+
     Probabilistic Graphical Model
         A graphical model or probabilistic graphical model (PGM) is a probabilistic model for which a graph expresses the conditional dependence structure between random variables.
     Cosine Similarity
         Cosine similarity is a measure of similarity between two vectors of an inner product space that measures the cosine of the angle between them.
 
-    Three Axioms of Probability
     Learning Curve     
               |                         
         error |                         
@@ -164,9 +302,7 @@ Definitions
 
     power analysis for two independent proportions
     paired sample testing
-    Bounce Rate (Google)
-        click on website from Google search, then bounce back to search page
-        go to your site and leave (bounce rate)
+
     HashTable
         Definition: data structure
             implements a structure that can map keys to values.
@@ -189,20 +325,7 @@ Definitions
     
     Hypothesis Test
     Significance
-    A/B Test
-        Definition
-            An A/B test involves testing two versions of a web page, an A version (the control) and a B version (the variation), with live traffic and measuring the effect each version has on your metric of interest (for example: conversion rate, click rate).
-        In an A/B test, how can you check if assignment to the various buckets was truly random?
-            One way to check is to look at metrics that should not be changed by the experiments and test that the distributions are similar in the two buckets (example: demographic data, number of visitors, browser version, time of assignment). The best way to test is to run A/A experiments. An A/A test is simply a test where both pages/ad copy/creatives/etc. are exactly the same. You split your traffic randomly and showing both groups the same page. A/A will help you check your split testing tool and help you understand the expected variation in your metrics.
-        Process
-            Define Success
-                quantifiable core metrics
-            identify bottleknecks
-            construct a hypothesis
-                if I change X, we may see an improvement in...
-            prioritize
-            test
-
+    
 
 
 Examples
@@ -337,20 +460,1525 @@ Also count the number of errors
 
 
 
+
+
+
+
+
+Cassandra
+Apache Projects
+Apache Cassandra is an open source distributed database management system designed to handle large amounts of data across many commodity servers, providing high availability with no single point of failure. Cassandra offers robust support for clusters spanning multiple datacenters,[1] with asynchronous masterless replication allowing low latency operations for all clients.
+
+
+Hadoop
+Apache Projects
+Apache Hadoop is an open-source software framework written in Java for distributed storage and distributed processing of very large data sets on computer clusters built from commodity hardware. All the modules in Hadoop are designed with a fundamental assumption that hardware failures (of individual machines, or racks of machines) are commonplace and thus should be automatically handled in software by the framework.
+
+
+Spark
+Apache Projects
+Apache Spark is an open-source cluster computing framework originally developed in the AMPLab at UC Berkeley. In contrast to Hadoop's two-stage disk-based MapReduce paradigm, Spark's in-memory primitives provide performance up to 100 times faster for certain applications. By allowing user programs to load data into a cluster's memory and query it repeatedly, Spark is well suited to machine learning algorithms.
+
+
+https://projects.apache.org/indexes/alpha.html
+Apache Projects
+    CouchDB
+
+
+
+Speak
+python
+
+import os
+sentence = 'your output is ready for you. I want chocolate'
+os.system('say "' + sentence + '"')
+
+
+
+Run script
+Sublime
+Mac: Command B
+
+
+
+Regular Expressions in re
+python
+The special characters are:
+
+    '.'
+    (Dot.) In the default mode, this matches any character except a newline. If the DOTALL flag has been specified, this matches any character including a newline.
+    '^'
+    (Caret.) Matches the start of the string, and in MULTILINE mode also matches immediately after each newline.
+    '$'
+    Matches the end of the string or just before the newline at the end of the string, and in MULTILINE mode also matches before a newline. foo matches both ‘foo’ and ‘foobar’, while the regular expression foo$ matches only ‘foo’. More interestingly, searching for foo.$ in 'foo1\nfoo2\n' matches ‘foo2’ normally, but ‘foo1’ in MULTILINE mode; searching for a single $ in 'foo\n' will find two (empty) matches: one just before the newline, and one at the end of the string.
+    '*'
+    Causes the resulting RE to match 0 or more repetitions of the preceding RE, as many repetitions as are possible. ab* will match ‘a’, ‘ab’, or ‘a’ followed by any number of ‘b’s.
+    '+'
+    Causes the resulting RE to match 1 or more repetitions of the preceding RE. ab+ will match ‘a’ followed by any non-zero number of ‘b’s; it will not match just ‘a’.
+    '?'
+    Causes the resulting RE to match 0 or 1 repetitions of the preceding RE. ab? will match either ‘a’ or ‘ab’.
+    *?, +?, ??
+    The '*', '+', and '?' qualifiers are all greedy; they match as much text as possible. Sometimes this behaviour isn’t desired; if the RE <.*> is matched against '<H1>title</H1>', it will match the entire string, and not just '<H1>'. Adding '?' after the qualifier makes it perform the match in non-greedy or minimal fashion; as few characters as possible will be matched. Using .*? in the previous expression will match only '<H1>'.
+    {m}
+    Specifies that exactly m copies of the previous RE should be matched; fewer matches cause the entire RE not to match. For example, a{6} will match exactly six 'a' characters, but not five.
+    {m,n}
+    Causes the resulting RE to match from m to n repetitions of the preceding RE, attempting to match as many repetitions as possible. For example, a{3,5} will match from 3 to 5 'a' characters. Omitting m specifies a lower bound of zero, and omitting n specifies an infinite upper bound. As an example, a{4,}b will match aaaab or a thousand 'a' characters followed by a b, but not aaab. The comma may not be omitted or the modifier would be confused with the previously described form.
+    {m,n}?
+    Causes the resulting RE to match from m to n repetitions of the preceding RE, attempting to match as few repetitions as possible. This is the non-greedy version of the previous qualifier. For example, on the 6-character string 'aaaaaa', a{3,5} will match 5 'a' characters, while a{3,5}? will only match 3 characters.
+    '\'
+    Either escapes special characters (permitting you to match characters like '*', '?', and so forth), or signals a special sequence; special sequences are discussed below.
+
+    If you’re not using a raw string to express the pattern, remember that Python also uses the backslash as an escape sequence in string literals; if the escape sequence isn’t recognized by Python’s parser, the backslash and subsequent character are included in the resulting string. However, if Python would recognize the resulting sequence, the backslash should be repeated twice. This is complicated and hard to understand, so it’s highly recommended that you use raw strings for all but the simplest expressions.
+
+    []
+    Used to indicate a set of characters. In a set:
+
+    Characters can be listed individually, e.g. [amk] will match 'a', 'm', or 'k'.
+    Ranges of characters can be indicated by giving two characters and separating them by a '-', for example [a-z] will match any lowercase ASCII letter, [0-5][0-9] will match all the two-digits numbers from 00 to 59, and [0-9A-Fa-f] will match any hexadecimal digit. If - is escaped (e.g. [a\-z]) or if it’s placed as the first or last character (e.g. [a-]), it will match a literal '-'.
+    Special characters lose their special meaning inside sets. For example, [(+*)] will match any of the literal characters '(', '+', '*', or ')'.
+    Character classes such as \w or \S (defined below) are also accepted inside a set, although the characters they match depends on whether LOCALE or UNICODE mode is in force.
+    Characters that are not within a range can be matched by complementing the set. If the first character of the set is '^', all the characters that are not in the set will be matched. For example, [^5] will match any character except '5', and [^^] will match any character except '^'. ^ has no special meaning if it’s not the first character in the set.
+    To match a literal ']' inside a set, precede it with a backslash, or place it at the beginning of the set. For example, both [()[\]{}] and []()[{}] will both match a parenthesis.
+    '|'
+    A|B, where A and B can be arbitrary REs, creates a regular expression that will match either A or B. An arbitrary number of REs can be separated by the '|' in this way. This can be used inside groups (see below) as well. As the target string is scanned, REs separated by '|' are tried from left to right. When one pattern completely matches, that branch is accepted. This means that once A matches, B will not be tested further, even if it would produce a longer overall match. In other words, the '|' operator is never greedy. To match a literal '|', use \|, or enclose it inside a character class, as in [|].
+    (...)
+    Matches whatever regular expression is inside the parentheses, and indicates the start and end of a group; the contents of a group can be retrieved after a match has been performed, and can be matched later in the string with the \number special sequence, described below. To match the literals '(' or ')', use \( or \), or enclose them inside a character class: [(] [)].
+    (?...)
+    This is an extension notation (a '?' following a '(' is not meaningful otherwise). The first character after the '?' determines what the meaning and further syntax of the construct is. Extensions usually do not create a new group; (?P<name>...) is the only exception to this rule. Following are the currently supported extensions.
+    (?iLmsux)
+    (One or more letters from the set 'i', 'L', 'm', 's', 'u', 'x'.) The group matches the empty string; the letters set the corresponding flags: re.I (ignore case), re.L (locale dependent), re.M (multi-line), re.S (dot matches all), re.U (Unicode dependent), and re.X (verbose), for the entire regular expression. (The flags are described in Module Contents.) This is useful if you wish to include the flags as part of the regular expression, instead of passing a flag argument to the re.compile() function.
+
+    Note that the (?x) flag changes how the expression is parsed. It should be used first in the expression string, or after one or more whitespace characters. If there are non-whitespace characters before the flag, the results are undefined.
+
+    (?:...)
+    A non-capturing version of regular parentheses. Matches whatever regular expression is inside the parentheses, but the substring matched by the group cannot be retrieved after performing a match or referenced later in the pattern.
+
+
+
+(?P=name)
+A backreference to a named group; it matches whatever text was matched by the earlier group named name.
+(?#...)
+A comment; the contents of the parentheses are simply ignored.
+(?=...)
+Matches if ... matches next, but doesn’t consume any of the string. This is called a lookahead assertion. For example, Isaac (?=Asimov) will match 'Isaac ' only if it’s followed by 'Asimov'.
+(?!...)
+Matches if ... doesn’t match next. This is a negative lookahead assertion. For example, Isaac (?!Asimov) will match 'Isaac ' only if it’s not followed by 'Asimov'.
+(?<=...)
+Matches if the current position in the string is preceded by a match for ... that ends at the current position. This is called a positive lookbehind assertion. (?<=abc)def will find a match in abcdef, since the lookbehind will back up 3 characters and check if the contained pattern matches. The contained pattern must only match strings of some fixed length, meaning that abc or a|b are allowed, but a* and a{3,4} are not. Group references are not supported even if they match strings of some fixed length. Note that patterns which start with positive lookbehind assertions will not match at the beginning of the string being searched; you will most likely want to use the search() function rather than the match() function:
+
+>>>
+>>> import re
+>>> m = re.search('(?<=abc)def', 'abcdef')
+>>> m.group(0)
+'def'
+This example looks for a word following a hyphen:
+
+>>>
+>>> m = re.search('(?<=-)\w+', 'spam-egg')
+>>> m.group(0)
+'egg'
+(?<!...)
+Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion. Similar to positive lookbehind assertions, the contained pattern must only match strings of some fixed length and shouldn’t contain group references. Patterns which start with negative lookbehind assertions may match at the beginning of the string being searched.
+(?(id/name)yes-pattern|no-pattern)
+Will try to match with yes-pattern if the group with given id or name exists, and with no-pattern if it doesn’t. no-pattern is optional and can be omitted. For example, (<)?(\w+@\w+(?:\.\w+)+)(?(1)>) is a poor email matching pattern, which will match with '<user@host.com>' as well as 'user@host.com', but not with '<user@host.com'.
+
+New in version 2.4.
+
+The special sequences consist of '\' and a character from the list below. If the ordinary character is not on the list, then the resulting RE will match the second character. For example, \$ matches the character '$'.
+
+\number
+Matches the contents of the group of the same number. Groups are numbered starting from 1. For example, (.+) \1 matches 'the the' or '55 55', but not 'thethe' (note the space after the group). This special sequence can only be used to match one of the first 99 groups. If the first digit of number is 0, or number is 3 octal digits long, it will not be interpreted as a group match, but as the character with octal value number. Inside the '[' and ']' of a character class, all numeric escapes are treated as characters.
+\A
+Matches only at the start of the string.
+\b
+Matches the empty string, but only at the beginning or end of a word. A word is defined as a sequence of alphanumeric or underscore characters, so the end of a word is indicated by whitespace or a non-alphanumeric, non-underscore character. Note that formally, \b is defined as the boundary between a \w and a \W character (or vice versa), or between \w and the beginning/end of the string, so the precise set of characters deemed to be alphanumeric depends on the values of the UNICODE and LOCALE flags. For example, r'\bfoo\b' matches 'foo', 'foo.', '(foo)', 'bar foo baz' but not 'foobar' or 'foo3'. Inside a character range, \b represents the backspace character, for compatibility with Python’s string literals.
+\B
+Matches the empty string, but only when it is not at the beginning or end of a word. This means that r'py\B' matches 'python', 'py3', 'py2', but not 'py', 'py.', or 'py!'. \B is just the opposite of \b, so is also subject to the settings of LOCALE and UNICODE.
+\d
+When the UNICODE flag is not specified, matches any decimal digit; this is equivalent to the set [0-9]. With UNICODE, it will match whatever is classified as a decimal digit in the Unicode character properties database.
+\D
+When the UNICODE flag is not specified, matches any non-digit character; this is equivalent to the set [^0-9]. With UNICODE, it will match anything other than character marked as digits in the Unicode character properties database.
+\s
+When the UNICODE flag is not specified, it matches any whitespace character, this is equivalent to the set [ \t\n\r\f\v]. The LOCALE flag has no extra effect on matching of the space. If UNICODE is set, this will match the characters [ \t\n\r\f\v] plus whatever is classified as space in the Unicode character properties database.
+\S
+When the UNICODE flag is not specified, matches any non-whitespace character; this is equivalent to the set [^ \t\n\r\f\v] The LOCALE flag has no extra effect on non-whitespace match. If UNICODE is set, then any character not marked as space in the Unicode character properties database is matched.
+\w
+When the LOCALE and UNICODE flags are not specified, matches any alphanumeric character and the underscore; this is equivalent to the set [a-zA-Z0-9_]. With LOCALE, it will match the set [0-9_] plus whatever characters are defined as alphanumeric for the current locale. If UNICODE is set, this will match the characters [0-9_] plus whatever is classified as alphanumeric in the Unicode character properties database.
+\W
+When the LOCALE and UNICODE flags are not specified, matches any non-alphanumeric character; this is equivalent to the set [^a-zA-Z0-9_]. With LOCALE, it will match any character not in the set [0-9_], and not defined as alphanumeric for the current locale. If UNICODE is set, this will match anything other than [0-9_] plus characters classified as not alphanumeric in the Unicode character properties database.
+\Z
+Matches only at the end of the string.
+
+
+
+list comprehension if else
+python
+
+# add 1 to dataframe if topic[1] is found, else add 0
+df[topic[0]] = [ 1 if re.search(topic[1],i) is not None else 0 for i in vidDF.topics]
+
+
+
+
+drop column in pandas dataframe by index
+python
+df.drop(df.columns[[1, 69]], axis=1, inplace=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pandas dataframe dimensions
+python
+df.shape
+# = (numRows,numCols)
+
+
+
+
+
+
+
+
+Set Operations
+Operation   Equivalent  Result
+len(s)      cardinality of set s
+x in s      test x for membership in s
+x not in s      test x for non-membership in s
+s.issubset(t)   s <= t  test whether every element in s is in t
+s.issuperset(t) s >= t  test whether every element in t is in s
+s.union(t)  s | t   new set with elements from both s and t
+s.intersection(t)   s & t   new set with elements common to s and t
+s.difference(t) s - t   new set with elements in s but not in t
+s.symmetric_difference(t)   s ^ t   new set with elements in either s or t but not both
+s.copy()        new set with a shallow copy of s
+
+
+
+
+
+
+
+
+# find unique values in each column
+for i in range(xTrain.shape[1]): 
+    print i
+    print xTrain.ix[:,i].unique()
+    print '\n'
+
+
+histogram in matplotlib
+python
+# import library
+import matplotlib.pyplot as plt
+# create histogram
+plt.hist(diff,bins=60,cumulative=False)
+# show plot
+plt.show()
+
+
+
+
+
+
+
+403 Error
+HTTP
+A web server may return a 403 Forbidden HTTP status code in response to a request from a client for a web page or resource to indicate that the server can be reached and understood the request, but refuses to take any further action. Status code 403 responses are the result of the web server being configured to deny access, for some reason, to the requested resource by the client.
+
+
+
+
+Request methods
+HTTP
+OPTIONS GET HEAD POST PUT DELETE TRACE CONNECT PATCH
+
+
+ETL
+Data Storage
+In computing, Extract, Transform and Load (ETL) refers to a process in database usage and especially in data warehousing that:
+Extracts data from homogeneous or heterogeneous data sources
+Transforms the data for storing it in proper format or structure for querying and analysis purpose
+Loads it into the final target (database, more specifically, operational data store, data mart, or data warehouse)
+
+
+
+
+
+CAP theorem
+Databases
+The CAP theorem, also known as Brewer's theorem, states that it is impossible for a distributed computer system to simultaneously provide all three of the following guarantees:
+Consistency (all nodes see the same data at the same time)
+Availability (a guarantee that every request receives a response about whether it succeeded or failed)
+Partition tolerance (the system continues to operate despite arbitrary message loss or failure of part of the system)
+
+
+
+ACID
+Databases
+
+
+Common Calculus stuff
+
+
+trig identities
+
+
+soh cah toa
+
+
+sin
+cos
+
+
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/6  = 0.1667"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/7  = 0.1429"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/8  = 0.1250"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/9  = 0.1111"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/11 = 0.0909"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/12 = 0.0833"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/13 = 0.0769"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/14 = 0.0714"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/15 = 0.0667"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/16 = 0.0625"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/17 = 0.0588"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/18 = 0.0556"
+"<b>Common Fractions</b> <br> <i>Math</i> <br><br> 1/19 = 0.0526"
+
+
+
+Scatterplot & Histogram & Correlation
 R
-# create silhouette objects
-for (i in 2:9){
-  assign(paste("vids.c", i,".s", sep=""),silhouette(pam(x=vids.df,k=i,diss=FALSE,metric='manhattan')))
-}
+library('GGally')
+ggpairs(defaulted)
 
 
 
-Logistic Regression in R
+
+Detach Package
+R
+detach("package:car", unload=TRUE)
+
+
+
+limit as x goes to infinity of f(x)
+latex
+$$\lim_{x\to\infty} f(x)$$
+
+
+
+For all (Mathematics)
+latex
+\forall
+
+
+
+Table
+LaTeX
+\begin{center}
+ \begin{tabular}{||c c c c||} 
+ \hline
+ Col1 & Col2 & Col2 & Col3 \\ [0.5ex] 
+ \hline\hline
+ 1 & 6 & 87837 & 787 \\ 
+ \hline
+ 2 & 7 & 78 & 5415 \\
+ \hline
+ 3 & 545 & 778 & 7507 \\
+ \hline
+ 4 & 545 & 18744 & 7560 \\
+ \hline
+ 5 & 88 & 788 & 6344 \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center}
+
+
+
+
+DataFrame.idxmin(axis=0, skipna=True)
+Return index of first occurrence of minimum over requested axis. NA/null values are excluded.
+
+Parameters :    
+    axis : {0, 1}
+        0 for row-wise, 1 for column-wise
+    skipna : boolean, default True
+        Exclude NA/null values. If an entire row/column is NA, the result will be NA
+Returns :   
+    idxmin : Series
+
+
+
+
+
+Common Bash Profile Settings
+Unix
+alias ls='ls -GF'
+alias ll='ls -l'
+alias u='cd ..'
+alias subl='open -a "Sublime Text 2"'
+
+
+
+
+
+Logistic (logit) model
+statistics
+ln[p/(1-p)] = a + BX + e
+
+p/(1-p)  = exp(a + BX + e)
+
+p/(1-p) is the "odds ratio"
+ln[p/(1-p)] is the log odds ratio, or "logit"
+
+
+
+
+
+Interpreting Beta in Logistic Regression
+Stats
+the slope coefficient is interpreted as the rate of change in the "log odds" as X changes
+ln[p/(1-p)] is the log odds ratio, or "logit"
+
+
+
+
+Akaike's Information Criterion
 Statistics
+AIC = 2k - 2*ln(L)
+Minimum is strongest model
+k = # of parameters, including intercept
 
-# create model
-sub.logit <- glm(Subscribe~Age+Income,data=sub, family = "binomial")
 
-# summary of model
-summary(sub.logit)
+
+
+
+
+
+Odds
+ratio of the probabilities
+odds = p/(1 - p)
+
+Log Odds
+Natural log of the odds, also known as a logit.
+log odds = logit = log(p/(1 - p))
+
+Odds Ratio
+Showing that odds ratios are actually ratios of ratios.
+odds_ratio =  odds1/odds2 = (p1/(1 - p1)) / (p2/(1 - p2))
+
+
+
+
+
+
+Cook's distance
+Linear Regression
+In statistics, Cook's distance or Cook's D is a commonly used estimate of the influence of a data point when performing least squares regression analysis.[1] In a practical ordinary least squares analysis, Cook's distance can be used in several ways: to indicate data points that are particularly worth checking for validity; to indicate regions of the design space where it would be good to be able to obtain more data points. It is named after the American statistician R. Dennis Cook, who introduced the concept in 1977.
+Cook's distance measures the effect of deleting a given observation. Data points with large residuals (outliers) and/or high leverage may distort the outcome and accuracy of a regression. Points with a large Cook's distance are considered to merit closer examination in the analysis. 
+
+
+
+
+
+output to screen and file
+unix
+time python pull.py > >(tee out.txt) 2> >(tee err.txt >&2)
+
+
+
+
+Screen
+Unix
+
+# create screen
+screen -t puller
+
+# leave screen
+Ctrl + 'A', 'D'
+
+# resume screen
+screen -r
+
+
+
+
+    # view day columns
+    dayCols = ['day' == i[:3] for i in vidDF.columns]
+
+    # new column names
+    vidDF.ix[:,dayCols].columns + 'Prop'
+
+    # add proportion columns
+    vidDF[['day1Prop','day2Prop']] = vidDF[['day1','day2']].div(vidDF[['day1','day2']].max(axis=1),axis='index')
+
+    # drop columns
+    vidDF.drop(vidDF[['day1Prop', 'day2Prop']],axis=1,inplace=True)
+
+
+
+
+
+Receiver operating characteristic
+Statistics
+In statistics, a receiver operating characteristic (ROC), or ROC curve, is a graphical plot that illustrates the performance of a binary classifier system as its discrimination threshold is varied. The curve is created by plotting the true positive rate against the false positive rate at various threshold settings. (The true-positive rate is also known as sensitivity in biomedical informatics, or recall in machine learning. The false-positive rate is also known as the fall-out and can be calculated as 1 - specificity). The ROC curve is thus the sensitivity as a function of fall-out. In general, if the probability distributions for both detection and false alarm are known, the ROC curve can be generated by plotting the cumulative distribution function (area under the probability distribution from -\infty to +\infty) of the detection probability in the y-axis versus the cumulative distribution function of the false-alarm probability in x-axis.
+
+
+
+
+
+
+ 
+#Convert Series datatype to numeric, getting rid of any non-numeric values
+df['col'] = df['col'].astype(str).convert_objects(convert_numeric=True)
+ 
+
+ 
+#Grab DataFrame rows where column doesn't have certain values
+valuelist = ['value1', 'value2', 'value3']
+df = df[~df.column.isin(value_list)]
+ 
+#Delete column from DataFrame
+del df['column']
+ 
+#Select from DataFrame using criteria from multiple columns
+newdf = df[(df['column_one']>2004) & (df['column_two']==9)]
+ 
+#Rename several DataFrame columns
+df = df.rename(columns = {
+    'col1 old name':'col1 new name',
+    'col2 old name':'col2 new name',
+    'col3 old name':'col3 new name',
+})
+ 
+
+ 
+#even more fancy DataFrame column re-naming
+#lower-case all DataFrame column names (for example)
+df.rename(columns=lambda x: x.split('.')[-1], inplace=True)
+ 
+#Loop through rows in a DataFrame
+#(if you must)
+for index, row in df:
+    print index, row['some column']  
+ 
+#Lower-case everything in a DataFrame column
+df.column_name = df.column_name.str.lower()
+ 
+#Sort dataframe by multiple columns
+df = df.sort(['col1','col2','col3'],ascending=[1,1,0])
+ 
+#get top n for each group of columns in a sorted dataframe
+#(make sure dataframe is sorted first)
+top5 = df.groupby(['groupingcol1', 'groupingcol2']).head(5)
+ 
+#Grab DataFrame rows where specific column is null/notnull
+newdf = df[df['column'].isnull()]
+len(newdf)
+ 
+#select from DataFrame using multiple keys of a hierarchical index
+df.xs(('index level 1 value','index level 2 value'), level=('level 1','level 2'))
+ 
+#Change all NaNs to None (useful before
+#loading to a db)
+df = df.where((pd.notnull(df)), None)
+ 
+#Slice values in a DataFrame column (aka Series)
+df.column.str[0:2]
+ 
+#Pivot data (with flexibility about what what
+#becomes a column and what stays a row).
+#Syntax works on Pandas >= .14
+pd.pivot_table(
+  df,values='cell_value',
+  index=['col1', 'col2', 'col3'], #these stay as columns
+  columns=['col4']) #data values in this column become their own column
+ 
+ 
+
+#Set DataFrame column values based on other column values
+df['column_to_change'][(df['column1'] == some_value) & (df['column2'] == some_other_value)] = new_value
+ 
+#Clean up missing values in multiple DataFrame columns
+df = df.fillna({
+    'col1': 'missing',
+    'col2': '99.999',
+    'col3': '999',
+    'col4': 'missing',
+    'col5': 'missing',
+    'col6': '99'
+})
+ 
+#Doing calculations with DataFrame columns that have missing values
+#In example below, swap in 0 for df['col1'] cells that contain null
+df['new_col'] = np.where(pd.isnull(df['col1']),0,df['col1']) + df['col2']
+ 
+# Split delimited values in a DataFrame column into two new columns
+df['new_col1'], df['new_col2'] = zip(*df['original_col'].apply(lambda x: x.split(': ', 1)))
+ 
+#Convert Django queryset to DataFrame
+#convert queryset to dataframe
+qs = DjangoModelName.objects.all()
+q = qs.values()
+df = pd.DataFrame.from_records(q)
+
+
+
+
+<i>LaTeX</i> <br><br>
+\subsection*{Model 1}
+\begin{verbatim}
+Coefficients:
+                    Estimate Std. Error z value Pr(>|z|)  
+(Intercept)        3.968e+00  1.894e+00   2.095   0.0362 *
+Age               -9.025e-03  3.469e-02  -0.260   0.7948  
+Income            -2.911e-05  1.150e-05  -2.531   0.0114 *
+\end{verbatim}
+
+
+
+output
+discrete choice
+hazard ratio = odds ratio
+
+
+
+
+
+
+
+&nbsp;
+
+
+
+
+
+
+
+
+
+RubyLanguage:
+ puts "Hello, world"
+(run with ruby hello.rb or ruby -e 'puts "Hello, world"')
+
+
+ScalaLanguage:
+HelloWorld in Scala is discussed in several steps on this page: http://www.artima.com/scalazine/articles/steps.html
+ println("Hello, world, from a script!")
+
+
+
+
+ SchemeLanguage:
+ (display "Hello, World!")
+ (newline)
+
+
+
+
+ VisualBasic:
+ Sub Main()
+
+ MessageBox("Hello World")
+
+ End Sub
+
+
+
+
+
+
+
+
+
+
+
+Types of NoSQL Databases
+
+There are four general types of NoSQL databases, each with their own specific attributes:
+
+Key-Value store – we start with this type of database because these are some of the least complex NoSQL options. These databases are designed for storing data in a schema-less way. In a key-value store, all of the data within consists of an indexed key and a value, hence the name. Examples of this type of database include: Cassandra, DyanmoDB, Azure Table Storage (ATS), Riak, BerkeleyDB.
+Column store – (also known as wide-column stores) instead of storing data in rows, these databases are designed for storing data tables as sections of columns of data, rather than as rows of data. While this simple description sounds like the inverse of a standard database, wide-column stores offer very high performance and a highly scalable architecture. Examples include: HBase, BigTable and HyperTable.
+Document database – expands on the basic idea of key-value stores where “documents” are more complex, in that they contain data and each document is assigned a unique key, which is used to retrieve the document. These are designed for storing, retrieving, and managing document-oriented information, also known as semi-structured data. Examples include: MongoDB and CouchDB.
+Graph database – Based on graph theory, these databases are designed for data whose relations are well represented as a graph and has elements which are interconnected, with an undetermined number of relations between them. Examples include: Neo4J and Polyglot.
+
+
+
+The following table lays out some of the key attributes that should be considered when evaluating NoSQL databases.
+    Datamodel       Performance Scalability     Flexibility Complexity  Functionality
+    Key-value store High        High            High        None        Variable (None)
+    Column Store    High        High            Moderate    Low         Minimal
+    Document Store  High        Variable (High) High        Low         Variable (Low)
+    Graph Database  Variable    Variable        High        High        Graph Theory
+
+
+
+
+filter list comprehension
+python
+[i[1] for i in channelData if i[0]==0]
+
+
+
+
+
+dashed line in pyplot
+python
+plt.plot(x, y[0], '--', color='b')
+
+
+
+
+Seconds
+computer science
+1000 nanoseconds (ns) = 1 microsecond (μs)
+1000 μs = 1 milliseconds (ms)
+1000 ms = 1 second (s)
+
+
+
+
+
+get put post delete head
+
+
+
+
+
+<b>Spoof Header</b>
+curl
+curl -v http://www.usatoday.com/ -A "Mozilla and stuff"
+
+
+
+
+Web Tips
+    open developer tools while browsing the web
+
+
+Database Tip
+SQL
+use explain
+
+
+
+take a picture
+mac
+command shift 4
+
+
+
+
+
+latex
+ graphic example
+\begin{figure}[h]
+\centering
+ \includegraphics[width=430pt]{boxplot_proportions.png}
+\caption{\label{boxplot_proportions} Comparison across over 70,000 videos of the number of views seen in the first five days of a video's life divided by the maximum number of views in a day from that time period.}
+\end{figure}
+
+
+
+
+essential packages
+sublime 
+predawn
+github changes
+
+
+
+
+spoof user agent string
+curl
+<code>curl -v http://www.usatoday.com/ -A "a new user agent string"</code>
+
+
+
+
+start server
+google apps
+dev_appserver.py rootFolder
+
+
+
+
+
+
+Hat matrix
+Statistics
+The hat matrix, sometimes also called influence matrix and projection matrix, maps the vector of observed values to the vector of fitted values (or predicted values). It describes the influence each observed value has on each fitted value. The diagonal elements of the hat matrix are the leverages, which describe the influence each observed value has on the fitted value for that same observation.
+
+
+
+list of wildcards
+postgres
+SELECT topics 
+FROM videos 
+WHERE topics ~ '.*(11|22|44).*' 
+LIMIT 4
+;
+
+
+
+
+
+
+distinct list of characters from a column
+postgres
+SELECT STRING_AGG(c,'' ORDER BY c)
+FROM (
+  SELECT DISTINCT REGEXP_SPLIT_TO_TABLE(LOWER(topic),'') AS c
+  FROM freebasetopics
+) t
+;
+
+
+
+
+
+
+case insensitive search
+postgres
+SELECT topics 
+FROM videos 
+WHERE topics ~* '.*(a|e|i).*' 
+LIMIT 4
+;
+
+
+
+
+
+
+number of characters in a string
+postgres
+select char_length(field_name)
+
+
+
+
+
+RAID
+Data Storage
+RAID (originally redundant array of inexpensive disks; now commonly redundant array of independent disks) is a data storage virtualization technology that combines multiple disk drive components into a single logical unit for the purposes of data redundancy or performance improvement.
+Data is distributed across the drives in one of several ways, referred to as RAID levels, depending on the specific level of redundancy and performance required. The different schemes or architectures are named by the word RAID followed by a number (e.g. RAID 0, RAID 1). Each scheme provides a different balance between the key goals: reliability, availability, performance, and capacity. RAID levels greater than RAID 0 provide protection against unrecoverable (sector) read errors, as well as whole disk failure.
+
+
+
+
+
+
+
+Start Small
+Data Science Practices
+Many projects are far too grand in scope to accomplish in one go.  Start with a very small subset of data and confirm that you can accomplish what you've set out to do.
+This will keep you from wasting time waiting for data to come in and working on engineering tasks for something that may turn out to be unuseful.
+
+
+
+
+
+
+
+
+
+<b>plot line</b>
+<i>matplotlib.pyplot</i>
+
+import matplotlib.pyplot as plt
+
+plt.plot(x, myResults[50], color=myColor, linewidth=2.0, label=myLabel)
+
+
+# set plot axes
+<i>matplotlib.pyplot</i>
+import matplotlib.pyplot as plt
+plt.axis([1, 10, -30000, 30000])
+
+# add horizontal line for comparison
+<i>matplotlib.pyplot</i>
+import matplotlib.pyplot as plt
+plt.axhline(linewidth=3, color='y')
+
+# add title
+<i>matplotlib.pyplot</i>
+import matplotlib.pyplot as plt
+plt.title('Random Forest v. Naive Bayes v. Support Vectors')
+
+# add legend
+<i>matplotlib.pyplot</i>
+import matplotlib.pyplot as plt
+plt.legend()
+
+# save figure
+<i>matplotlib.pyplot</i>
+import matplotlib.pyplot as plt
+plt.savefig('test.png')
+
+<b>Show Plot</b> <br> <i>matplotlib.pyplot</i> <br>
+<br> import matplotlib.pyplot as plt
+<br> plt.show()
+
+
+
+
+Add Footnote
+LaTeX
+\footnote{title, link}
+
+
+
+
+Create Table
+MySQL
+CREATE TABLE `books` (
+  `id` INT UNSIGNED NOT NULL,
+  `authors_id` INT UNSIGNED NOT NULL,
+  `title` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `author_lookup` (`authors_id` ASC, `title` ASC)
+);
+
+
+
+
+Keyword Order
+SQL
+SELECT
+    author,
+    COUNT(DISTINCT books.id) AS num_books,
+    SUM(quantities.stock) AS 'quantity_in_stock'
+FROM authors
+    LEFT JOIN books
+        ON authors.id = books.authors_id
+    LEFT JOIN quantities
+        ON books.id = quantities.books_id
+GROUP BY authors.author
+HAVING SUM(quantities.stock)>=10
+ORDER BY authors.author
+LIMIT 10
+;
+
+
+
+
+<b>Write to CSV</b> <br> <i>python</i> <br>
+import csv
+RESULT = ['apple','cherry','orange','pineapple','strawberry']
+resultFile = open("output.csv",'wb')
+wr = csv.writer(resultFile, dialect='excel')
+wr.writerow(RESULT)
+
+
+
+translate commas to new lines
+unix
+tr , '\n' < input.csv > output.txt
+
+
+
+
+
+
+
+
+
+Mac
+
+    Keys
+        ^ = Control
+        can't describe = option/alt
+    
+    Turn off the displays but leave the computer active.
+        Ctrl + Shift + Eject
+    Flip Between Windows in Current Application
+        Command + `
+    Hide All Other Apps Windows
+        Command + Option + H
+    Page Up/Down
+        fn + UpArrow/DownArrow
+    Delete from Right (Windows Delete)
+        fn + delete
+    Shut Down
+        Control + Option + Command + (Eject)
+    Go to Top
+        Command + UpArrow
+    Go to Bottom 
+        Command + DownArrow
+    Go to End of Line
+        Command + RightArrow
+    Home
+        fn + LeftArrow
+    End 
+        fn + RightArrow
+Sublime 
+    Select All occurrences of string
+        Control + Command + G
+    Select Current Selection and Next Occurrence of String
+        Command + D
+    Make Current Selection Uppercase
+        Command + K then Command + U
+    Make Current Selection lowercase
+        Command + K then Command + U
+    Move Selection (up and down)
+        Control + Command + UpArrow/DownArrow
+    Move Page without moving cursor
+        Control + Option + UpArrow/DownArrow
+    Multiple Cursors
+        Control + Shift + UpArrow/DownArrow
+
+
+Linux
+    which ___
+        which ls
+    whereis ___
+        whereis ls
+    .bash_profile
+    wc # word count
+        lines, words characters
+    cat # look in file
+    > # pipe output
+        > foo # write to foo
+        >> foo # append to foo
+    CTRL + D # end of file
+        cat > foo
+        "hello"
+        CTRL+D
+    < # use standard input from right
+        wc < foo
+    od -c foo # look at characters
+    cat foo | head -3 # first three lines
+    cut -d ' ' -f 1 coffee # SQL Like SELECT # cut field one from coffee with delimiter ' '
+    paste # combines files as if they were columns
+    join # SQL Like JOIN
+    CTRL+R # search backwards
+    grep -l Rule *.java # list of all java files with "Rule"
+    `____` # execute first
+    sort # sort
+    sort -n # sort numerically
+    uniq # return unique
+    uniq -c # return unique with count
+    &> # all output to file, stdout and stderr
+    sed
+    cat
+        cat part-* | sort > output.txt 
+            # output all files starting with "part-"
+            # sort them and save them as output.txt
+    cut
+
+
+
+
+If Else
+R
+ifelse(1==1, TRUE, FALSE)
+
+
+
+
+write to csv
+postgres
+\copy (SELECT * FROM foo) To '/tmp/test.csv' With CSV
+notice: no semi-colon
+
+
+
+
+
+
+# delete the DataFrame
+pandas
+del football
+
+# read from Excel
+pandas
+football = pd.read_excel('football.xlsx', 'sheet1')
+
+
+
+
+
+Cluster Analysis Assumptions
+    clusters are the same Size
+    identical variance among clusters
+
+
+standardize before clustering
+
+hierarcihcal clustering first to give you an idea of number of clusters
+
+
+
+
+./presto-cli --server presto.marathon.mesos:1234 --catalog cassandra --schema cmyoutube
+
+server is the the server name of presto
+catalog is the name of the connector
+schema is the keyspace (like a db in postgres)
+
+This will drop you in the cli. You can run queries from there.
+
+
+
+
+
+
+
+Show Tables
+presto
+SHOW TABLES;
+
+Show Tables
+postgres
+\dt
+
+Describe Table
+DESCRIBE table_name;
+DESCRIBE is an alias for SHOW COLUMNS.
+
+Describe Table
+postgres
+\d+
+
+
+
+
+
+WITH Clause
+presto
+Defines named relations for use within a query. It allows flattening nested queries or simplifying subqueries. 
+
+For example, the following two queries are equivalent:
+SELECT a, b
+FROM (
+  SELECT a, MAX(b) AS b
+  FROM t 
+  GROUP BY a
+) AS x
+;
+WITH x AS (
+    SELECT a, MAX(b) AS b
+    FROM t 
+    GROUP BY a
+)
+SELECT a, b 
+FROM x
+;
+
+
+
+Chaining WITH
+Presto
+WITH
+  x AS (SELECT a FROM t),
+  y AS (SELECT a AS b FROM x),
+  z AS (SELECT b AS c FROM y)
+SELECT c FROM z;
+
+
+Dates in WHERE Clause
+Presto
+SELECT * 
+FROM profile_daily 
+WHERE my_date_col >= DATE '2015-06-02'
+;
+
+
+
+
+
+Say
+unix
+say -v kyoko ぼくのなまえわすゔぇんです。
+
+
+HTML
+CSS
+
+
+
+Get my ip address
+Unix
+ifconfig | grep -i inet | tail -1 | cut -c7-20
+
+
+
+
+
+math
+bash
+bc <<< 2*41
+
+
+
+fixed budget
+unknown time
+ads to certain people 
+how long should campaign run?
+
+
+
+traceroute
+unix
+<code>traceroute www.amazon.com</code>
+<br>trace route of information
+
+
+
+
+
+
+
+
+<b>Trace Cell References</b> <br> <i>Excel</i> <br>
+<br>Highlight cells referencing current cell
+<br>Command + ']'
+<br>Highlight cells current cell is referencing
+<br>Command + '['
+
+
+
+
+
+Breadth before depth
+AB Testing
+Explore your feature space before refining with incremental changes
+
+
+Ideas
+AB Testing
+lower the perceived commitment
+    'learn more' rather than 'buy now'
+add social 'proof'
+    how many people are using it, how many ___ have been sent
+add authoritative proof
+    e.g., case study
+simplify
+
+
+
+AB Testing
+
+RPV - Revenue per Visitor
+ASP - Average Sales Price
+AOV - Average Order Value
+CTR - Click Through Rate
+CTA - Call to Action
+LOB - Line of Business
+PPV - Pages per Visitor
+TPV - Time per Visitor
+CR - Conversion Rate
+
+Terminology
+A/B Testing
+
+Control / Challenger : A / B
+Recipe = treatment, variant, etc.
+
+
+
+Hidden Variables
+A/B Testing
+Clicking on educational links negatively correlated with conversion rate
+    hidden variable: new customers
+
+
+
+
+
+
+Discrete distributions
+    With finite support
+        The Bernoulli distribution, which takes value 1 with probability p and value 0 with probability q = 1 − p.
+        The Rademacher distribution, which takes value 1 with probability 1/2 and value −1 with probability 1/2.
+        The binomial distribution, which describes the number of successes in a series of independent Yes/No experiments all with the same probability of success.
+        The beta-binomial distribution, which describes the number of successes in a series of independent Yes/No experiments with heterogeneity in the success probability.
+        The degenerate distribution at x0, where X is certain to take the value x0. This does not look random, but it satisfies the definition of random variable. This is useful because it puts deterministic variables and random variables in the same formalism.
+        The discrete uniform distribution, where all elements of a finite set are equally likely. This is the theoretical distribution model for a balanced coin, an unbiased die, a casino roulette, or the first card of a well-shuffled deck.
+        The hypergeometric distribution, which describes the number of successes in the first m of a series of n consecutive Yes/No experiments, if the total number of successes is known. This distribution arises when there is no replacement.
+        The Poisson binomial distribution, which describes the number of successes in a series of independent Yes/No experiments with different success probabilities.
+        Fisher's noncentral hypergeometric distribution
+        Wallenius' noncentral hypergeometric distribution
+        Benford's law, which describes the frequency of the first digit of many naturally occurring data.
+    With infinite support
+        The beta negative binomial distribution
+        The Boltzmann distribution, a discrete distribution important in statistical physics which describes the probabilities of the various discrete energy levels of a system in thermal equilibrium. It has a continuous analogue. Special cases include:
+        The Gibbs distribution
+        The Maxwell–Boltzmann distribution
+        The Borel distribution
+        The extended negative binomial distribution
+        The extended hypergeometric distribution
+        The generalized log-series distribution
+        The geometric distribution, a discrete distribution which describes the number of attempts needed to get the first success in a series of independent Yes/No experiments, or alternatively only the number of losses before the first success (i.e. one less).
+        The logarithmic (series) distribution
+        The negative binomial distribution or Pascal distribution a generalization of the geometric distribution to the nth success.
+        The parabolic fractal distribution
+        The Poisson distribution, which describes a very large number of individually unlikely events that happen in a certain time interval. Related to this distributions are a number of other distributions: the displaced Poisson, the hyper-Poisson, the general Poisson binomial and the Poisson type distributions.
+        The Conway–Maxwell–Poisson distribution, a two-parameter extension of the Poisson distribution with an adjustable rate of decay.
+        The Zero-truncated Poisson distribution, for processes in which zero counts are not observed
+        The Polya–Eggenberger distribution
+        The Skellam distribution, the distribution of the difference between two independent Poisson-distributed random variables.
+        The skew elliptical distribution
+        The Yule–Simon distribution
+        The zeta distribution has uses in applied statistics and statistical mechanics, and perhaps may be of interest to number theorists. It is the Zipf distribution for an infinite number of elements.
+        Zipf's law or the Zipf distribution. A discrete power-law distribution, the most famous example of which is the description of the frequency of words in the English language.
+        The Zipf–Mandelbrot law is a discrete power law distribution which is a generalization of the Zipf distribution.
+Continuous distributions
+    Supported on a bounded interval
+        The Arcsine distribution on [a,b], which is a special case of the Beta distribution if a=0 and b=1.
+        The Beta distribution on [0,1], a family of two-parameter distributions with one mode, of which the uniform distribution is a special case, and which is useful in estimating success probabilities.
+        The Logitnormal distribution on (0,1).
+        The Dirac delta function although not strictly a function, is a limiting form of many continuous probability functions. It represents a discrete probability distribution concentrated at 0 — a degenerate distribution — but the notation treats it as if it were a continuous distribution.
+        The continuous uniform distribution on [a,b], where all points in a finite interval are equally likely.
+        The rectangular distribution is a uniform distribution on [−1/2,1/2].
+        The Irwin–Hall distribution is the distribution of the sum of n i.i.d. U(0,1) random variables.
+        The Bates distribution is the distribution of the mean of n i.i.d. U(0,1) random variables.
+        The Kent distribution on the three-dimensional sphere.
+        The Kumaraswamy distribution is as versatile as the Beta distribution but has simple closed forms for both the cdf and the pdf.
+        The logarithmic distribution (continuous)
+        The Marchenko–Pastur distribution is important in the theory of random matrices.
+        The PERT distribution is a special case of the beta distribution
+        The raised cosine distribution on [\mu-s,\mu+s]
+        The reciprocal distribution
+        The triangular distribution on [a, b], a special case of which is the distribution of the sum of two independent uniformly distributed random variables (the convolution of two uniform distributions).
+        The trapezoidal distribution
+        The truncated normal distribution on [a, b].
+        The U-quadratic distribution on [a, b].
+        The von Mises distribution on the circle.
+        The von Mises-Fisher distribution on the N-dimensional sphere has the von Mises distribution as a special case.
+        The Wigner semicircle distribution is important in the theory of random matrices.
+    Supported on semi-infinite intervals, usually [0,∞)
+        The Beta prime distribution
+        The Birnbaum–Saunders distribution, also known as the fatigue life distribution, is a probability distribution used extensively in reliability applications to model failure times.
+        The chi distribution
+        The noncentral chi distribution
+        The chi-squared distribution, which is the sum of the squares of n independent Gaussian random variables. It is a special case of the Gamma distribution, and it is used in goodness-of-fit tests in statistics.
+        The inverse-chi-squared distribution
+        The noncentral chi-squared distribution
+        The Scaled-inverse-chi-squared distribution
+        The Dagum distribution
+        The exponential distribution, which describes the time between consecutive rare random events in a process with no memory.
+        The F-distribution, which is the distribution of the ratio of two (normalized) chi-squared-distributed random variables, used in the analysis of variance. It is referred to as the beta prime distribution when it is the ratio of two chi-squared variates which are not normalized by dividing them by their numbers of degrees of freedom.
+        The noncentral F-distribution
+        Fisher's z-distribution
+        The folded normal distribution
+        The Fréchet distribution
+        The Gamma distribution, which describes the time until n consecutive rare random events occur in a process with no memory.
+        The Erlang distribution, which is a special case of the gamma distribution with integral shape parameter, developed to predict waiting times in queuing systems
+        The inverse-gamma distribution
+        The Generalized gamma distribution
+        The generalized Pareto distribution
+        The Gamma/Gompertz distribution
+        The Gompertz distribution
+        The half-normal distribution
+        Hotelling's T-squared distribution
+        The inverse Gaussian distribution, also known as the Wald distribution
+        The Lévy distribution
+        The log-Cauchy distribution
+        The log-gamma distribution
+        The log-Laplace distribution
+        The log-logistic distribution
+        The log-normal distribution, describing variables which can be modelled as the product of many small independent positive variables.
+        The Mittag–Leffler distribution
+        The Nakagami distribution
+        The Pareto distribution, or "power law" distribution, used in the analysis of financial data and critical behavior.
+        The Pearson Type III distribution
+        The phased bi-exponential distribution is commonly used in pharmokinetics
+        The phased bi-Weibull distribution
+        The Rayleigh distribution
+        The Rayleigh mixture distribution
+        The Rice distribution
+        The shifted Gompertz distribution
+        The type-2 Gumbel distribution
+        The Weibull distribution or Rosin Rammler distribution, of which the exponential distribution is a special case, is used to model the lifetime of technical devices and is used to describe the particle size distribution of particles generated by grinding, milling and crushing operations.
+    Supported on the whole real line
+        The Behrens–Fisher distribution, which arises in the Behrens–Fisher problem.
+        The Cauchy distribution, an example of a distribution which does not have an expected value or a variance. In physics it is usually called a Lorentzian profile, and is associated with many processes, including resonance energy distribution, impact and natural spectral line broadening and quadratic stark line broadening.
+        Chernoff's distribution
+        The Exponentially modified Gaussian distribution, a convolution of a normal distribution with an exponential distribution.
+        The Fisher–Tippett, extreme value, or log-Weibull distribution
+        The Gumbel distribution, a special case of the Fisher–Tippett distribution
+        Fisher's z-distribution
+        The generalized logistic distribution
+        The generalized normal distribution
+        The geometric stable distribution
+        The Holtsmark distribution, an example of a distribution that has a finite expected value but infinite variance.
+        The hyperbolic distribution
+        The hyperbolic secant distribution
+        The Johnson SU distribution
+        The Landau distribution
+        The Laplace distribution
+        The Lévy skew alpha-stable distribution or stable distribution is a family of distributions often used to characterize financial data and critical behavior; the Cauchy distribution, Holtsmark distribution, Landau distribution, Lévy distribution and normal distribution are special cases.
+        The Linnik distribution
+        The logistic distribution
+        The map-Airy distribution
+        The normal distribution, also called the Gaussian or the bell curve. It is ubiquitous in nature and statistics due to the central limit theorem: every variable that can be modelled as a sum of many small independent, identically distributed variables with finite mean and variance is approximately normal.
+        The Normal-exponential-gamma distribution
+        The Normal-inverse Gaussian distribution
+        The Pearson Type IV distribution (see Pearson distributions)
+        The skew normal distribution
+        Student's t-distribution, useful for estimating unknown means of Gaussian populations.
+        The noncentral t-distribution
+        The skew t distribution
+        The type-1 Gumbel distribution
+        The Tracy–Widom distribution
+        The Voigt distribution, or Voigt profile, is the convolution of a normal distribution and a Cauchy distribution. It is found in spectroscopy when spectral line profiles are broadened by a mixture of Lorentzian and Doppler broadening mechanisms.
+        The Gaussian minus exponential distribution is a convolution of a normal distribution with (minus) an exponential distribution.
+        With variable support
+        The generalized extreme value distribution has a finite upper bound or a finite lower bound depending on what range the value of one of the parameters of the distribution is in (or is supported on the whole real line for one special value of the parameter
+        The generalized Pareto distribution has a support which is either bounded below only, or bounded both above and below
+        The Tukey lambda distribution is either supported on the whole real line, or on a bounded interval, depending on what range the value of one of the parameters of the distribution is in.
+        The Wakeby distribution
+        Mixed discrete/continuous distributions
+        The rectified Gaussian distribution replaces negative values from a normal distribution with a discrete component at zero.
+        The compound poisson-gamma or Tweedie distribution is continuous over the strictly positive real numbers, with a mass at zero.
+        Joint
+
+
+
+
+
+Two Tail Critical Values
+Statistics
+\alpha = tail area
+central area = 1 – 2\alpha
+Critical Value
+0.20
+0.80
+z.10 = 1.28
+
+0.10
+0.90
+z.05 = 1.645
+
+0.05
+0.95
+z.025 = 1.96
+
+0.02
+0.98
+z.01 = 2.33
+
+0.01
+0.99
+z.005 = 2.58
+
+
+One Tail Critical Values
+Statistics
+\alpha = tail area
+central area = 1 – \alpha
+Critical Value
+0.10
+0.90
+z.10 = 1.28
+
+0.05
+0.95
+z.05 = 1.645
+
+0.025
+0.975
+z.025 = 1.96
+
+0.01
+0.99
+z.01 = 2.33
+
+0.005
+0.995
+z.005 = 2.58
+
+
+
+
+Binomial Distribution T Test Example
+Statistics
+n=1000, p=0.5, and measured successes of 300, I would like to test whether there is a significant difference between success and failure.
+<code>
+n1 <- 300
+n2 <- 700
+p <- 0.5
+binom.test(n1, n1+n2, p, alternative='two.sided')
+</code>
+
+
+
+
+l1 = sparse
+l2 = anything
+
+
+
+
+
+<b>URL Components</b> <br> <i>Internet</i> <br>
+<br> Protocol — always present
+<br> Hostname — always present
+<br> Path or Stem — always present but sometimes is null
+<br> Parameters — optional
+
+
+
+Strip out non-printable characters from file1.
+unix
+tr -cd "[:print:]" < file1
+
+
+
+<b>\alpha</b> <br> <i>Statistics</i> <br>
+    <br>Type One Error Rate (usually 0.05)
+    <br>Significance Level
+
+<b>\beta</b> <br> <i>Statistics</i>
+    <br>Type Two Error Rate
+    <br>\beta - acceptable type 2 error (usually 0.20)
+
+<b>power</b> <br> <i>Statistics</i>
+    =(1-\beta)
+    The likelihood your test would find a significant result if the treatment does in fact have an impact given your actual sample size and hypothesized treatment effect
+
+<b>Type I Error</b> <br> <i>Statistics</i>
+    Likelihood that the sampling error caused you to reject the null hypothesis when you should not have
+    occurs when the null hypothesis (H0) is true, but is rejected
+    Incorrectly rejecting the null hypothesis
+
+<b>Type II Error</b> <br> <i>Statistics</i>
+    Likelihood that the sampling error caused you to not reject the null hypothesis when you should have
+    null hypothesis is false, but erroneously fails to be rejected
+    Incorrectly failing to reject the null hypothesis
+
+
+
+    ttest call in R
+
+        # independent 2-group t-test
+        t.test(y~x) # where y is numeric and x is a binary factor
+
+        # independent 2-group t-test
+        t.test(y1,y2) # where y1 and y2 are numeric
+
+        # paired t-test
+        t.test(y1,y2,paired=TRUE) # where y1 & y2 are numeric
+
+        # one sample t-test
+        t.test(y,mu=3) # Ho: mu=3
+
+
+
+    t test (very specific)
+        Assumptions
+            random sample
+            same variance, else use Welch's t-test
+                testable using F-test, Levene's test, Bartlett's test, or the Brown–Forsythe test; or assessable graphically using a Q–Q plot
 
