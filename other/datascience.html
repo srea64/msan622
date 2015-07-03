@@ -101,7 +101,7 @@ hard = Array(
         "<b>Latency Numbers</b> <br> <i>Computer Science</i> <br><br> Latency numbers every programmer should know <code><br> &nbsp;&nbsp;&nbsp;&nbsp;L1 cache reference ......................... 0.5 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Branch mispredict ............................ 5 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;L2 cache reference ........................... 7 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Mutex lock/unlock ........................... 25 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Main memory reference ...................... 100 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Compress 1K bytes with Zippy ............. 3,000 ns  =   3 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Send 2K bytes over 1 Gbps network ....... 20,000 ns  =  20 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;SSD random read ........................ 150,000 ns  = 150 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from memory ..... 250,000 ns  = 250 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Round trip within same datacenter ...... 500,000 ns  = 0.5 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from SSD* ..... 1,000,000 ns  =   1 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Disk seek ........................... 10,000,000 ns  =  10 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from disk .... 20,000,000 ns  =  20 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Send packet CA->Netherlands->CA .... 150,000,000 ns  = 150 ms</code>",
     "<b>Testing</b> <br> <i>python</i> <br><br> <code>def test(actual, expected): <br> &nbsp;&nbsp;&nbsp;&nbsp;   if (actual != expected): <br>       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print '[FAILED] actual: {}, expected: {}'.format(actual, expected) <br> <br>if __name__ == '__main__': <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([]), -1) <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([2, -2, 3, 0, 4, -7]), 4) <br> <br>    &nbsp;&nbsp;&nbsp;&nbsp; print 'Successful Run (if you can see this)' </code>",
     "<b>Create .JSON file from Data Frame</b> <br> <i>R</i> <br> <code> <br>library(jsonlite) <br>json <- toJSON(<br> &nbsp;&nbsp;&nbsp;&nbsp; df, <br> &nbsp;&nbsp;&nbsp;&nbsp; dataframe = \"rows\", <br> &nbsp;&nbsp;&nbsp;&nbsp; factor = \"string\", <br> &nbsp;&nbsp;&nbsp;&nbsp; pretty = TRUE <br>) <br>cat(json, file = \"seatbelts.json\") </code> ",
-    "<b>Random Forest in __package__</b> <br> <i>Machine Learning in R</i> <br><br> <code> rf0 <- randomForest(<br> &nbsp;&nbsp;&nbsp;&nbsp; count ~ <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   atemp      + day    + holiday + hour    + humidity <br> &nbsp;&nbsp;&nbsp;&nbsp; + month      + season + temp    + weather + windspeed <br> &nbsp;&nbsp;&nbsp;&nbsp; + workingday + year, <br> &nbsp;&nbsp;&nbsp;&nbsp; data=df.all, <br> &nbsp;&nbsp;&nbsp;&nbsp; na.action=na.omit <br>) <br><br> plot(rf0) <br> plot(rf0$importance) <br> mean(rf0$mse) # Mean Squared Error <br> mean(rf0$rsq) # Pseudo R Squared </code>",
+    "<b>Random Forest in randomForest Library</b> <br> <i>Machine Learning in R</i> <br><br> <code> rf0 <- randomForest(<br> &nbsp;&nbsp;&nbsp;&nbsp; count ~ <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   atemp      + day    + holiday + hour    + humidity <br> &nbsp;&nbsp;&nbsp;&nbsp; + month      + season + temp    + weather + windspeed <br> &nbsp;&nbsp;&nbsp;&nbsp; + workingday + year, <br> &nbsp;&nbsp;&nbsp;&nbsp; data=df.all, <br> &nbsp;&nbsp;&nbsp;&nbsp; na.action=na.omit <br>) <br><br> plot(rf0) <br> plot(rf0$importance) <br> mean(rf0$mse) # Mean Squared Error <br> mean(rf0$rsq) # Pseudo R Squared </code>",
     "<b>requests</b> <br> <i>python</i> <br><br> <code> import requests <br> <br> # base url for api call <br> baseURL = 'http://api.com/'<br> <br> # dictionary of parameters for call <br> params = {<br>     &nbsp;&nbsp;&nbsp;&nbsp; 'group': 'day', <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'metric': 'views', <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'start': startDate, <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'end': endDate <br> } <br> <br> # send request to API <br> r = requests.get(baseURL,param=params) <br> <br> # data in json <br> r.json() </code>",
     "<b>Object Dimensions</b> <br> <i>R</i> <br> <code><br>dim(object) # number of rows and columns <br>nrow(object) # number of rows <br>ncol(object) # number of columns <br>length(object) # number of items</code>",
     "<b>Create Silhouette Objects</b> <br> <i>R</i> <br><br> <code> for (i in 2:9){<br> &nbsp;&nbsp;&nbsp;&nbsp; assign(paste(\"vids.c\", i,\".s\", sep=\"\"), <br> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; silhouette(pam(x=vids.df, k=i, diss=FALSE, metric='manhattan'))) <br>} </code>",
@@ -189,7 +189,8 @@ hard = Array(
     "<b>Subtract Month from Date</b> <br> <i>postgres</i> <br><br> <code>view_date - '1 month'::interval</code>",
     "<b>What to do with Outliers</b> <br> <i>Statistics</i> <br> <br>check for incorrect measurements or assumptions <br>try transformations <br>try more robust methods <br>Throw them out",
     "<b>Inter Quartile Range</b> <br> <i>Statistics</i> <br> <br>= 3rd Quartile - 1st Quartile <br>aka midspread or middle fifty",
-    "<b>Detecting Outliers</b> <br> <i>Statistics</i> <br> <br>(Q1 - 1.5*IQR, Q3 + 1.5*IQR) <br>Extreme Outliers: use 3*IQR <br>(aka Tukey rules?)"
+    "<b>Detecting Outliers</b> <br> <i>Statistics</i> <br> <br>(Q1 - 1.5*IQR, Q3 + 1.5*IQR) <br>Extreme Outliers: use 3*IQR <br>(aka Tukey rules?)",
+    "<b>For Loop</b> <br> <i>bash</i> <br><br> <code> for i in 1 2 3 <br>do <br>&nbsp;&nbsp;&nbsp;&nbsp; time python ts.py 15 <br>done</code>"
 );
 
 
@@ -201,7 +202,7 @@ if (Math.random()<.99) {document.write(hard[Math.floor(Math.random()*hard.length
 // zzzzzzzzzzzzzzzzz # unique string to search
 
 testing = Array(
-
+    "<b>Print Variable in For Loop</b> <br> <i>bash</i> <br><br> <code> for i in 1 2 3; do echo $i; done </code>"
 )
 document.write("<br><br><br>",testing)
 
@@ -1370,6 +1371,9 @@ LIMIT 10
 ;
 
 
+Write to CSV
+pandas
+df.to_csv('name.csv')
 
 
 <b>Write to CSV</b> <br> <i>python</i> <br>
@@ -1981,4 +1985,125 @@ tr -cd "[:print:]" < file1
             random sample
             same variance, else use Welch's t-test
                 testable using F-test, Levene's test, Bartlett's test, or the Brown–Forsythe test; or assessable graphically using a Q–Q plot
+
+
+
+
+Check data types of columns
+pandas
+df.dtypes
+
+
+
+
+
+
+SQL Pros
+    Simplicity of relational model.
+    Solid theoretical basis and normalization rules.
+    Simple and very powerful SQL language which was resembling human language.
+    Easy data manipulation.
+    ACID properties.
+    High level of standardization.
+    Standardized APIs.
+
+
+
+NoSQL pros (not ordered by importance):
+    Mostly open source.
+    Horizontal scalability. There’s no need for complex joins and data can be easily sharded and processed in parallel.
+    Support for Map/Reduce. This is a simple paradigm that allows for scaling computation on cluster of computing nodes.
+    No need to develop fine-grained data model – it saves development time.
+    Easy to use.
+    Very fast for adding new data and for simple operations/queries.
+    No need to make significant changes in code when data structure is modified.
+    Ability to store complex data types (for document based solutions) in a single item of storage.
+Cons:
+    Immaturity. Still lots of rough edges.
+    Possible database administration issues. NoSQL often sacrifices features that are present in SQL solutions “by default” for the sake of performance. For example, one needs to check different data durability modes and journaling in order not to be caught by surprise after a cold restart of the system. Memory consumption is one more important chapter to read up on in the database manual because memory is usually heavily used.
+    No indexing support (Some solutions like MongoDB have indexing but it’s not as powerful as in SQL solutions).
+    No ACID (Some solutions have just atomicity support on single object level).
+    Bad reporting performance.
+    Complex consistency models (like eventual consistency). CAP theorem states that it’s not possible to achieve consistency, availability and partitioning tolerance at the same time. NoSQL vendors are trying to make their solutions as fast as possible and consistency is most typical trade-off.
+    Absence of standardization. No standard APIs or query language. It means that migration to a solution from different vendor is more costly. Also there are no standard tools (e.g. for reporting)
+
+
+
+
+
+
+nielsen segmentation
+
+
+
+
+t distribution
+?pt
+?qt
+
+
+qnorm
+pnorm
+
+
+
+Regression
+
+Check for normally distributed dependent variable
+
+
+
+
+
+
+argparse
+python
+parser = argparse.ArgumentParser()
+parser.add_argument("a")
+args = parser.parse_args()
+
+
+
+duplicate list
+python
+b=list(a)
+
+
+
+
+first line
+bash
+#!/bin/bash
+
+
+for loop
+bash
+for i in 1 2 3
+do
+    time python ts.py 15
+done
+
+
+
+
+
+show contents of all txt files
+bash
+for i in *.txt; do cat $i; done
+
+
+
+
+boxplots by factor
+R
+boxplot(subscribers_maximum_stats~cluster, data=df.cluster)
+
+
+
+What do you bring to the company?
+Interview Questions
+    tech
+    business
+
+
 
