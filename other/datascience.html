@@ -14,6 +14,8 @@
 easy = Array(
     "<b>P-Value</b> <br> <i>Statistics</i> <br><br> The probability of finding a more extreme example given that the null hypothesis is correct.",
     "<b>pi (up to 50)</b> <br> math <br> 3. 141 59 26 535 8979 323 846264 3383 279 502 884 1971 69399 37 510",
+    "<b>Lagrange Multiplier</b> <br> <i>optimization</i> <br><br> Strategy for finding the local maxima and minima of a function subject to equality constraints.",
+    "<b>list comprehension if else</b> <i>python</i> <br> <br> <code> # add 1 to dataframe if topic[1] is found, else add 0 <br> df[topic[0]] = [ 1 if re.search(topic[1],i) is not None else 0 for i in vidDF.topics] </code>",
     "<b>Euler's Number</b> (up to 9) <br> <i>Math</i> <br><br> 2. 7 1828 1828",
     "<b>Hello World</b> <br> <i>Java</i> <br><br> <code> <br>public class HelloWorld {<br> <br>&nbsp;&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(\"Hello, World\"); <br>&nbsp;&nbsp;&nbsp;&nbsp; } <br> <br>} </code>",
     "<b>Hello World</b> <br> <i>VBA</i> <br><br> <code> ' A \"Hello, World!\" program in Visual Basic. <br>Module Hello <br>&nbsp;&nbsp;&nbsp;&nbsp; Sub Main() <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MsgBox(\"Hello, World!\") ' Display message on computer screen. <br>&nbsp;&nbsp;&nbsp;&nbsp; End Sub <br>End Module </code>",
@@ -47,31 +49,74 @@ easy = Array(
     "<b>Resize the Border Between the Master and Secondary Panes </b> <br> <i>xmonad</i> <br><br> <code>Alt+H</code> &nbsp; & &nbsp; <code>Alt+L</code>",
     "<b>Log Out</b> <br> <i>xmonad</i> <br><br> <code>Alt + Shift + Q</code>",
     "<b>Range Navigation</b> <br> <i>Excel</i> <br><br> Go To Right-Most column in current range -- Ctrl + RightArrow <br>Go to left-most column in current range -- Ctrl + LeftArrow <br>Go to bottom-most row in current range -- Ctrl + DownArrow <br>Go to top-most row in current range -- Ctrl + UpArrow ",
-    "<b>Workbook Navigation</b> <br> <i>Excel</i> <br><br> Go to next open WorkBook -- Ctrl + Tab <br>Go to previous open Workbook -- Ctrl + Shift + Tab"
+    "<b>Workbook Navigation</b> <br> <i>Excel</i> <br><br> Go to next open WorkBook -- Ctrl + Tab <br>Go to previous open Workbook -- Ctrl + Shift + Tab",
+    "<b>Count If</b> <br> <i>Excel</i> <br><br> <code>=COUNTIF(Range, Criterion)</code> <br>Counts cells if they meet a certain criterion.  (Use COUNTIFS for multiple criteria.)",
+
+    "<b>End of Month</b> <br> <i>Excel</i> <br><br> <code>=EOMONTH(Start Date, Months)</code> <br>Returns the last day of the month, and since Excel handles days as integers, you can add or subtract days fairly easily <br><br>Example: <br> &nbsp; <code>=EOMONTH(NOW(), -1)+1</code> <br> &nbsp; This returns the first day of the current month.",
+
+    "<b>Get Pivot Data</b> <br> <i>Excel</i> <br><br> Just hit '<code>=</code>' and then click on the cell you want; it's much faster than creating it yourself.  Once it's created, it's easy to make it dependent on cells of your choosing.",
+
+    "<b>If Error</b> <br> <i>Excel</i> <br><br> <code>=IFERROR( Formula or Cell, [If Error return whatever you put here] )</code> <br> Returns the Formula or Cell if there's no error, otherwise returns whatever you put after the comma (usually \"\" to give a blank cell).",
+
+    "<b>Index</b> <br> <i>Excel</i> <br><br> <code>=INDEX(Array, Row Number, [Column Number] )</code> <br>Returns a value or reference of a cell from a given matrix",
+
+    "<b>Left</b> <br> <i>Excel</i> <br><br> <code>=LEFT(Cell, Number of Characters)</code> <br>Grabs the left-most number of characters from a cell",
+
+    "<b>Match</b> <br> <i>Excel</i> <br><br> <code>=MATCH(Value, Column, Match Type)</code> <br>Looks for a value in a column and returns the row number of the value.",
+
+    "<b>Mid</b> <br> <i>Excel</i> <br><br> <code>=MID(Cell, Starting Number, [Number of Characters])</code> <br>Gives a certain number of characters from a starting point within a cell",
+
+    "<b>Now</b> <br> <i>Excel</i> <br><br> <code>=NOW()</code> <br> Returns current date and time.",
+
+    "<b>Right</b> <br> <i>Excel</i> <br><br> <code>=RIGHT(Cell, Number of Characters)</code> <br> Grabs the right-most number of characters from a cell",
+
+    "<b>Search</b> <br> <i>Excel</i> <br><br> <code>=SEARCH(Search Characters, Cell, [Start Number])</code> <br>Finds certain character(s) within a string.",
+
+    "<b>Vertical Lookup</b> <br> <i>Excel</i> <br><br> <code>=VLOOKUP(Value to Search For, Table to Look In, Column Number of Value in Table, Match Type)</code> <br>Looks for the row of a value in a table, then gives a value from a column to the right in the same row <br><br> &nbsp;&nbsp; Match Type Parameter: <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE ==> Allows for a close match to be found, instead of an exact match <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FALSE ==> Only an exact match will be returned, else an error will be given",
+
+    "<b>Left VLookup</b> <br> <i>Excel</i> <br><br> A mixture of Index and Match Functions, where Match becomes the Row Number parameter within Index <br><code>=INDEX(Matrix, MATCH(Value, Column, Match Type), Matrix Column Number)</code>",
+
+    "<b>Number of Unique Values in a Column</b> <br> <i>Excel</i> <br><br> This shows the number of times A1 appears in the column A1:A100. <br><code>=COUNTIF(A1:$A$100, A1)</code>",
+
+    "<b>Extract Text</b> <br> <i>Excel</i> <br><br> Get a certain part of a cell (Such as 'OneScreen.com' from 'htttp://www.OneScreen.com/ExcelRocks!!.php/') <br> Cell A1 = htttp://www.OneScreen.com/ExcelRocks!!.php/ <br> Cell B1 = <code>=MID(A1,SEARCH(\".\",A1,1)+1,SEARCH(\"/\",A1,SEARCH(\".\",A1,1))-SEARCH(\".\", A1, 1)-1)</code> <br> <br>This grabs a certain number of characters &nbsp;&nbsp; <code>SEARCH(\"/\", A1, SEARCH(\".\", A1, 1))-SEARCH(\".\", A1, 1)-1 </code> <br>from a starting point &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code> SEARCH(\".\", A1, 1)+1 </code> <br>in a cell &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>A1</code>",
+    "<b>Particular Cell Navigation</b> <br> <i>Excel</i> <br><br> <br> Go To Cell \"A1\" -- Ctrl + Home <br> Go To Bottom-Right-Most Used Cell -- Ctrl + End <br> Go To Cell -- F5  (Allows you to choose which cell to go to.)",
+    "<b>Worksheet Navigation</b> <br> <i>Excel</i> <br><br> Go down one worksheet -- Ctrl + PageDown <br>Go up one worksheet -- Ctrl + PageUp",
+    "<b>Select</b> <br> <i>Excel</i> <br><br> Select Column -- Ctrl + SpaceBar <br>Select Row -- Shift + SpaceBar",
+    "<b>Misc</b> <br> <i>Excel</i> <br><br> Enter current date -- Ctrl + ';'<br>Enter current time -- Ctrl + Shift + ';'<br>Sum -- Alt + '='   (Excel will guess which row or column to sum, and it's usually accurate.) <br>Cell Formula -- F2 <br>VBA -- Alt + F11",
+    "<b>Pasting</b> <br> <i>Excel</i> <br><br> Paste Values -- Ctrl + V -> Ctrl -> V <br>Paste Formulas -- Ctrl + V -> Ctrl -> F <br>Transpose Paste -- Ctrl + V -> Ctrl -> T",
+    "<b>Sheet Administration</b> <br> <i>Excel</i> <br><br> Rename Sheet -- Alt -> H -> O -> R <br>Delete Sheet -- Alt -> E -> L <br>Move Sheet -- Alt -> H -> O -> M",
+    "<b>Row and Column Sizes</b> <br> <i>Excel</i> <br><br> Resize All Columns -- Alt -> H -> O -> I <br>Column Width -- Alt -> H -> O -> W <br><br>Resize All Rows -- ALT -> H -> O -> A <br>Row Height -- Alt -> H -> O -> H",
+    "<b>Insert, Delete</b> <br> <i>Excel</i> <br><br> Insert -- Ctrl + Shift + '='<br> Delete -- Ctrl + '-'",
+    " <b>Beautiful Soup Example</b> <br> <i>python</i> <br><br> <code> import requests <br>from bs4 import BeautifulSoup <br><br>userID = thisID <br>baseURL = 'https://www.youtube.com/user/'<br>userURL = baseURL + str(userID) <br>r = requests.get(userURL) <br>soup = BeautifulSoup(r.text) </code>",
+    " <b>First Line in Script</b> <br> <i>python</i> <br><br> <code> #!/usr/bin/env python </code>",
+    " <b>Proper Python Function</b> <br> <i>python</i> <br><br> <code> <DL> <DT> def myFunction(myParameter1,myParameter2=0): <DD>'''<br>This is an explanation of the function. <br> <br>:param myParameter1: explanation <br>:type myParameter1: type <br>:param myParameter2: explanation <br>:type myParameter2: type <br>:return: explanation <br>:rtype: return type <br>'''</DL> </code>",
+    "<b>conditionals in python</b> <br> <i>python</i> <br><br> <code> if a==b:<br>&nbsp;&nbsp;&nbsp;&nbsp;pass </code>",
+    "<b>PySpark</b> <br> <i>python</i> <br><br> PySpark is the Python API for Spark.",
+    "<b>Testing</b> <br> <i>python</i> <br><br> <code>def test(actual, expected): <br> &nbsp;&nbsp;&nbsp;&nbsp;   if (actual != expected): <br>       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print '[FAILED] actual: {}, expected: {}'.format(actual, expected) <br> <br>if __name__ == '__main__': <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([]), -1) <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([2, -2, 3, 0, 4, -7]), 4) <br> <br>    &nbsp;&nbsp;&nbsp;&nbsp; print 'Successful Run (if you can see this)' </code>",
+    "<b>requests</b> <br> <i>python</i> <br><br> <code> import requests <br> <br> # base url for api call <br> baseURL = 'http://api.com/'<br> <br> # dictionary of parameters for call <br> params = {<br>     &nbsp;&nbsp;&nbsp;&nbsp; 'group': 'day', <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'metric': 'views', <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'start': startDate, <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'end': endDate <br> } <br> <br> # send request to API <br> r = requests.get(baseURL,param=params) <br> <br> # data in json <br> r.json() </code>",
+
+    "<b>Formatting</b> <br> <i>Excel</i> <br><br> Money -- Alt -> H -> A -> N -> Enter <br>Integer -- Alt -> H -> O -> K ->Alt -> H -> 9 -> Alt -> H -> 9"
+
 );
 
 
 hard = Array(
     " <b>Communality</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of the variance of the ith variable contributed by the m common factors is called the ith communality. <br> Var(X_i) = Communality + Specific Variance ",
     " <b>Uniqueness, Specific Variance</b> <br> <i>Multivariate Statistics</i> <br><br> That portion of Var(X_i) = sigma_ii due to the specific factor. <br> Var(X_i) = Communality + Specific Variance ",
-    " <b>Beautiful Soup Example</b> <br> <i>python</i> <br><br> <code> import requests <br>from bs4 import BeautifulSoup <br><br>userID = thisID <br>baseURL = 'https://www.youtube.com/user/'<br>userURL = baseURL + str(userID) <br>r = requests.get(userURL) <br>soup = BeautifulSoup(r.text) </code>",
-    " <b>First Line in Script</b> <br> <i>python</i> <br><br> <code> #!/usr/bin/env python </code>",
     "<b>Correlation between Numeric Columns in Data Frame</b> <br> <i>R</i> <br><br> <code> cor(df[sapply(df, is.numeric)]) </code>",
-    "<b>aggregate() (SQL Group By in R)</b> <br> <i>R</i> <br><br> <code>aggregate(df['count'], by=c(df['day'], df['month'],df['year']), FUN=sum)</code>",
-    " <b>Proper Python Function</b> <br> <i>python</i> <br><br> <code> <DL> <DT> def myFunction(myParameter1,myParameter2=0): <DD>'''<br>This is an explanation of the function. <br> <br>:param myParameter1: explanation <br>:type myParameter1: type <br>:param myParameter2: explanation <br>:type myParameter2: type <br>:return: explanation <br>:rtype: return type <br>'''</DL> </code>",
+    "<b>aggregate() (SQL Group By in R)</b> <br> <i>R</i> <br><br> <code>aggregate(df['count'], by=c(df['day'], df['month'], df['year']), FUN=sum)</code>",
     "<b>Linear Regression in R</b> <br> <i>Statistics</i> <br><br> <code> # Multiple Linear Regression Example <br> fit <- lm(y ~ x1 + x2 + x3, data=mydata) <br><br> # Other useful functions <br> summary(fit) # show results <br> coefficients(fit) # model coefficients <br> confint(fit, level=0.95) # CIs for model parameters <br> fitted(fit) # predicted values <br> residuals(fit) # residuals <br> anova(fit) # anova table <br> vcov(fit) # covariance matrix for model parameters <br> influence(fit) # regression diagnostics </code>",
-    "<b>conditionals in python</b> <br> <i>python</i> <br><br> <code> if a==b:<br>&nbsp;&nbsp;&nbsp;&nbsp;pass </code>",
     "<b>Space in HTML</b> <br> <i> Computer Science </i> <br><br> <code> & nbsp;</code><br>(without a space)",
-    "<b>PCA in R</b> <br> <i>Statistics</i> <br><br> <code> library(stats) <br><br> # Create Principal Componenets <br> track.c <- prcomp(track, scale=TRUE) <br><br># check standard deviations of the PCs <br>track.c$sdev <br><br># check PCs (matrix of variable loadings) <br>track.c$rotation <br><br># create a scree plot <br>plot(track.c$sdev**2) <br><br># check eigenvalues <br>track.c$sdev**2 <br><br># calculate value of first principal component across all countries <br>as.matrix(track)%*%track.c$rotation[,1] </code>",
+    "<b>Principal Component Analysis</b> <br> <i>R</i> <br><br> <code> library(stats) <br><br> # Create Principal Componenets <br> track.c <- prcomp(track, scale=TRUE) <br><br># check standard deviations of the PCs <br>track.c$sdev <br><br># check PCs (matrix of variable loadings) <br>track.c$rotation <br><br># create a scree plot <br>plot(track.c$sdev**2) <br><br># check eigenvalues <br>track.c$sdev**2 <br><br># calculate value of first principal component across all countries <br>as.matrix(track)%*%track.c$rotation[,1] </code>",
     "<b>Create Factors</b> <br> <i>R</i> <br><br> <code> daylight$char.year <- factor(daylight$year) </code>",
-    "<b>Change Column Names</b> <br> <i> R </i> <br><br> <code> new.names <- c('sunrise','sunset','month','day','year') <br> names(daylight) <- new.names </code>",
-    "<b>Merge Data Frames</b> <br> <i> R </i> <br><br> <code> # add daylight data <br> df <- merge(x=df1,y=df2,by=c('year','month','day'),x.all=TRUE) </code>",
+    "<b>Change Column Names</b> <br> <i> R </i> <br><br> <code> names(daylight) <- c('sunrise','sunset','month','day','year') </code>",
+    "<b>Merge Data Frames</b> <br> <i> R </i> <br><br> <code> # add daylight data <br> df <- merge(x=df1, y=df2, by=c('year','month','day'), x.all=TRUE) </code>",
     "<b>Add Boolean Column to Data Frame</b> <br> <i> R </i> <br><br> <code> # Add is.working.hour <br> df$is.working.hour <- 0 <br> df[df$working.day==1 & df$hour>=9 & df$hour<17,]$is.working.hour <- 1 </code>",
     "<b>Drop Columns from Data Frame</b> <br> <i>R</i> <br><br> <code> df <- df[-c(6,7,9,10)] </code>",
     "<b>Create Lagged Features</b> <br> <i>R</i> <br><br> <code> # create lagged features (to include 1,2,3, and 24 hour lags) <br> df$lag.1  <- c(rep(NA, 1), head(df$count, -1)) <br> df$lag.2  <- c(rep(NA, 2), head(df$count, -2)) <br> df$lag.3  <- c(rep(NA, 3), head(df$count, -3)) <br> df$lag.24 <- c(rep(NA,24), head(df$count,-24)) </code>",
-    "<b>Days of Week</b> <br> <i>R</i> <br><br> <code> # add days of week <br> df$weekday <- as.factor(weekdays(as.Date(paste(df$year,df$month,df$day,sep='-')))) </code>",
+    "<b>Days of Week</b> <br> <i>R</i> <br><br> <code> # add days of week <br> df$weekday <- as.factor(weekdays(as.Date(paste(df$year, df$month, df$day, sep='-')))) </code>",
     "<b>Create Date</b> <br> <i>R</i> <br><br> <code> as.Date(paste(df$year,df$month,df$day,sep='-')) </code>",
-    "<b>Scatterplot Matrix</b> <br> <i>R</i> <br><br> <code> pairs(~temp+atemp+count,data=df) </code>",
+    "<b>Scatterplot Matrix</b> <br> <i>R</i> <br><br> <code> pairs(~temp+atemp+count, data=df) </code>",
     "<b>Count of Field</b> <br> <i>unix</i> <br><br> <code> time tail +2 ~/Downloads/file.csv | cut -d, -f6  | sort | uniq -c | sort -rn </code>",
     "<b>Start HTTP Server</b> <br> <i>Unix/Python</i> <br><br> <code> python2.7 -m SimpleHTTPServer </code> <br>(Available at localhost:8000)",
     "<b>Check for SSH keys on your computer</b> <br> <i>Unix</i> <br><br> <code> # Lists the files in your .ssh directory, if they exist <br>ls -al ~/.ssh </code>",
@@ -88,8 +133,7 @@ hard = Array(
     "<b>Write to CSV File</b> <br> <i>R</i> <br><br> <code> # write df to csv file <br>write.table(df, file=\"testFinal.csv\", sep=\",\", row.names=FALSE) </code>",
     "<b>Public Classes</b> <br> <i>Spark</i> <br><br> SparkContext: Main entry point for Spark functionality. <br> RDD: A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. <br> Broadcast: A broadcast variable that gets reused across tasks. <br> Accumulator: An \"add-only\" shared variable that tasks can only add values to. <br> SparkConf: For configuring Spark. <br> SparkFiles: Access files shipped with jobs. <br> StorageLevel: Finer-grained cache persistence levels.",
     "<b>Plot Two Functions</b> <br> <i>R</i> <br><br> <code> plot(fn1, col='black') <br>plot(fn2, col='red', add=TRUE) </code>",
-    "<b>PySpark</b> <br> <i>python</i> <br><br> PySpark is the Python API for Spark.",
-    "<b>Histogram</b> <br> <i>R</i> <br><br> <code> hist(df$count,breaks=20) </code>",
+    "<b>Histogram</b> <br> <i>R</i> <br><br> <code> hist(df$count, breaks=20) </code>",
     "<b>Random Forest in sklearn</b> <br> <i>Machine Learning</i> <br><br> <code> from sklearn.ensemble import RandomForestClassifier <br> <br> # create random forest object <br>rf = RandomForestClassifier(<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  n_estimators=32, <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  oob_score=True, <br> &nbsp;&nbsp;&nbsp;&nbsp;   ) <br> <br> # train random forest <br> rf.fit(X_sample,y_sample) <br> <br># out of bag score <br>print 'out of bag score'<br>print rf.oob_score_ <br> <br># Compute ROC curve and area the curve <br>fpr, tpr, thresholds = roc_curve(y_test, probas_[:, 1]) <br>roc_auc = auc(fpr, tpr) <br>print \"Area under the ROC curve : %f\" % roc_auc <br> <br># save the classifier <br>with open('rf_clf2.pkl', 'wb') as fid: <br>    &nbsp;&nbsp;&nbsp;&nbsp; cPickle.dump(rf, fid) </code>",
     "<b>Dummitize a Field</b> <br> <i>R</i> <br><br> <code> # season <br>dfx$is.spring <- 0 <br>dfx[dfx$season==\"1\",]$is.spring <- 1 <br>dfx$is.summer <- 0 <br>dfx[dfx$season==\"2\",]$is.summer <- 1 <br>dfx$is.fall <- 0 <br>dfx[dfx$season==\"3\",]$is.fall <- 1 <br>dfx$is.winter <- 0 <br>dfx[dfx$season==\"4\",]$is.winter <- 1 </code>",
     "<b>Investigating an object</b> <br> <i>R</i> <br><br> <code> mode(object) <br>class(object) </code>",
@@ -99,12 +143,10 @@ hard = Array(
     "<b>Concatenating Text</b> <br> <i>R</i> <br><br> <code> paste('category:', '1900', ', measure:', nrow(movies[movies$year<1920 & movies$year>=1900,]), '},' ) </code>",
     "<b>Diagnostics</b> <br> <i>Machine Learning</i> <br><br> Suppose you are working on a model and you get a high error: <br>&nbsp;&nbsp;&nbsp;&nbsp; if you have high variance: <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; get more training examples <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try smaller set of features <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try decreasing lambda (penalty term) <br>&nbsp;&nbsp;&nbsp;&nbsp; if you have high bias: <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try getting additional features <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try getting polynomial features <br>&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp; try increasing lambda (penalty term)",
         "<b>Latency Numbers</b> <br> <i>Computer Science</i> <br><br> Latency numbers every programmer should know <code><br> &nbsp;&nbsp;&nbsp;&nbsp;L1 cache reference ......................... 0.5 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Branch mispredict ............................ 5 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;L2 cache reference ........................... 7 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Mutex lock/unlock ........................... 25 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Main memory reference ...................... 100 ns <br> &nbsp;&nbsp;&nbsp;&nbsp;Compress 1K bytes with Zippy ............. 3,000 ns  =   3 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Send 2K bytes over 1 Gbps network ....... 20,000 ns  =  20 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;SSD random read ........................ 150,000 ns  = 150 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from memory ..... 250,000 ns  = 250 µs <br> &nbsp;&nbsp;&nbsp;&nbsp;Round trip within same datacenter ...... 500,000 ns  = 0.5 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from SSD* ..... 1,000,000 ns  =   1 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Disk seek ........................... 10,000,000 ns  =  10 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Read 1 MB sequentially from disk .... 20,000,000 ns  =  20 ms <br> &nbsp;&nbsp;&nbsp;&nbsp;Send packet CA->Netherlands->CA .... 150,000,000 ns  = 150 ms</code>",
-    "<b>Testing</b> <br> <i>python</i> <br><br> <code>def test(actual, expected): <br> &nbsp;&nbsp;&nbsp;&nbsp;   if (actual != expected): <br>       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print '[FAILED] actual: {}, expected: {}'.format(actual, expected) <br> <br>if __name__ == '__main__': <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([]), -1) <br>    &nbsp;&nbsp;&nbsp;&nbsp; test(solution([2, -2, 3, 0, 4, -7]), 4) <br> <br>    &nbsp;&nbsp;&nbsp;&nbsp; print 'Successful Run (if you can see this)' </code>",
     "<b>Create .JSON file from Data Frame</b> <br> <i>R</i> <br> <code> <br>library(jsonlite) <br>json <- toJSON(<br> &nbsp;&nbsp;&nbsp;&nbsp; df, <br> &nbsp;&nbsp;&nbsp;&nbsp; dataframe = \"rows\", <br> &nbsp;&nbsp;&nbsp;&nbsp; factor = \"string\", <br> &nbsp;&nbsp;&nbsp;&nbsp; pretty = TRUE <br>) <br>cat(json, file = \"seatbelts.json\") </code> ",
     "<b>Random Forest in randomForest Library</b> <br> <i>Machine Learning in R</i> <br><br> <code> rf0 <- randomForest(<br> &nbsp;&nbsp;&nbsp;&nbsp; count ~ <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   atemp      + day    + holiday + hour    + humidity <br> &nbsp;&nbsp;&nbsp;&nbsp; + month      + season + temp    + weather + windspeed <br> &nbsp;&nbsp;&nbsp;&nbsp; + workingday + year, <br> &nbsp;&nbsp;&nbsp;&nbsp; data=df.all, <br> &nbsp;&nbsp;&nbsp;&nbsp; na.action=na.omit <br>) <br><br> plot(rf0) <br> plot(rf0$importance) <br> mean(rf0$mse) # Mean Squared Error <br> mean(rf0$rsq) # Pseudo R Squared </code>",
-    "<b>requests</b> <br> <i>python</i> <br><br> <code> import requests <br> <br> # base url for api call <br> baseURL = 'http://api.com/'<br> <br> # dictionary of parameters for call <br> params = {<br>     &nbsp;&nbsp;&nbsp;&nbsp; 'group': 'day', <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'metric': 'views', <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'start': startDate, <br>     &nbsp;&nbsp;&nbsp;&nbsp; 'end': endDate <br> } <br> <br> # send request to API <br> r = requests.get(baseURL,param=params) <br> <br> # data in json <br> r.json() </code>",
     "<b>Object Dimensions</b> <br> <i>R</i> <br> <code><br>dim(object) # number of rows and columns <br>nrow(object) # number of rows <br>ncol(object) # number of columns <br>length(object) # number of items</code>",
-    "<b>Create Silhouette Objects</b> <br> <i>R</i> <br><br> <code> for (i in 2:9){<br> &nbsp;&nbsp;&nbsp;&nbsp; assign(paste(\"vids.c\", i,\".s\", sep=\"\"), <br> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; silhouette(pam(x=vids.df, k=i, diss=FALSE, metric='manhattan'))) <br>} </code>",
+    "<b>Create Silhouette Objects</b> <br> <i>R</i> <br><br> <code> for (i in 2:9){<br> &nbsp;&nbsp;&nbsp;&nbsp; assign(paste(\"vids.c\", i, \".s\", sep=\"\"), <br> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; silhouette(pam(x=vids.df, k=i, diss=FALSE, metric='manhattan'))) <br>} </code>",
     "<b>Three Axioms of Probability</b> <br> <i>Probability</i> <br> TODO: add math <br><br> <ol> <li>The probability of an event is a non-negative real number <li>the probability that some elementary event in the entire sample space will occur is 1. More specifically, there are no elementary events outside the sample space. <li>Any countable sequence of disjoint (synonymous with mutually exclusive) events E_{1}, E_{2}, ... satisfies P(union_all(events)) = sum(probability of all events)</ol> ",
     "<b>Logistic Regression in R</b> <br> <i>Statistics</i> <br> <code> <br> # create model <br> sub.logit <- glm(Subscribe~Age+Income, data=sub, family = \"binomial\") <br> <br> # summary of model <br> summary(sub.logit) </code>",
     "<b>Scientific Notation</b> <br> <i>LaTeX</i> <br><br> <code> \\num{0.00001} </code>",
@@ -126,10 +168,9 @@ hard = Array(
     "<b>Function</b> <br> <i>Fortran</i> <br><br> <code> subroutine func_fort(n, d) <br>&nbsp;&nbsp;&nbsp;&nbsp; integer, intent(in) :: n <br>&nbsp;&nbsp;&nbsp;&nbsp; double precision, intent(out) :: d <br>&nbsp;&nbsp;&nbsp;&nbsp; integer :: i <br>&nbsp;&nbsp;&nbsp;&nbsp; d = 0 <br>&nbsp;&nbsp;&nbsp;&nbsp; do i = 0, n - 1 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d = d + (mod(i, 3) - 1) * i <br>&nbsp;&nbsp;&nbsp;&nbsp; end do <br>end subroutine func_fort </code>",
     "<b>Cost Minimization in lpSolve</b> <br> <i>R</i> <br> <code> <br># import library <br>library('lpSolve') <br> <br># read in cost matrix <br>costs <- read.csv(dir, header=FALSE) <br> <br># solve <br>lp.assign(as.matrix(costs)) </code>",
     "<b>Bounce Rate</b> <br> <i>Web Analytics</i> <br><br> Click on website from search results, then bounce back to search page",
-    "<b>Lagrange Multiplier</b> <br> <i>optimization</i> <br><br> Strategy for finding the local maxima and minima of a function subject to equality constraints.",
     "<b>Get rid of Non-Numeric Values throughout a DataFrame</b> <br> <i>pandas</i> <br><br> <code> for col in df.columns.values: <br>&nbsp;&nbsp;&nbsp;&nbsp;df[col] = df[col].replace('[^0-9]+.-', '', regex=True) </code>",
     "<b>Change Column Data Type</b> <br> <i>pandas</i> <br><br> <code> df.column_name = df.column_name.astype(np.int64) </code>",
-    "<b>Proportion Test Steps</b> <br> <i>Statistics</i> <br><br> <u>Pooled sample proportion.</u> Since the null hypothesis states that P1=P2, we use a pooled sample proportion (p) to compute the standard error of the sampling distribution. <br> <code> &nbsp;&nbsp; p = (p1 * n1 + p2 * n2) / (n1 + n2) </code> <br> where p1 is the sample proportion from population 1, p2 is the sample proportion from population 2, n1 is the size of sample 1, and n2 is the size of sample 2. <br> <br> <u>Standard error.</u> Compute the standard error (SE) of the sampling distribution difference between two proportions. <br> <code> &nbsp;&nbsp; SE = sqrt{ p * ( 1 - p ) * [ (1/n1) + (1/n2) ] } </code> <br> where p is the pooled sample proportion, n1 is the size of sample 1, and n2 is the size of sample 2. <br> <br> <u>Test statistic.</u> The test statistic is a z-score (z) defined by the following equation. <br> <code> &nbsp;&nbsp; z = (p1 - p2) / SE </code>",
+    "<b>Proportion Test Steps</b> <br> <i>Statistics</i> <br><br> <u>Pooled sample proportion.</u> Since the null hypothesis states that p1=p2, we use a pooled sample proportion (p) to compute the standard error of the sampling distribution. <br> <code> &nbsp;&nbsp; p = (p1 * n1 + p2 * n2) / (n1 + n2) </code> <br> where p1 is the sample proportion from population 1, p2 is the sample proportion from population 2, n1 is the size of sample 1, and n2 is the size of sample 2. <br> <br> <u>Standard error.</u> Compute the standard error (SE) of the sampling distribution difference between two proportions. <br> <code> &nbsp;&nbsp; SE = sqrt{ p * ( 1 - p ) * [ (1/n1) + (1/n2) ] } </code> <br> where p is the pooled sample proportion, n1 is the size of sample 1, and n2 is the size of sample 2. <br> <br> <u>Test statistic.</u> The test statistic is a z-score (z) defined by the following equation. <br> <code> &nbsp;&nbsp; z = (p1 - p2) / SE </code>",
     "<b>Cook's Distance</b> <br> <i>Statistics</i> <br><br> Estimate of the influence of a data point when performing least squares regression analysis.",
     "<b>DF Betas</b> <br> <i>Statistics</i> <br><br> For each observation, dfBetas estimate the standardized differences in the parameter coefficients if the observation is deleted.",
     "<b>Common Hypotheses</b> <br> <i>Statistics</i> <br> <br> <code> Set &nbsp; Null Hypothesis &nbsp; Alternative hypothesis &nbsp; Number of tails <br> &nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 = 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 &ne; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 <br> &nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 > 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 &le; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 <br> &nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 < 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &pi;1 - &pi;2 &ge; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 </code>",
@@ -146,30 +187,8 @@ hard = Array(
     "<b>Assignment Checking</b> <br> <i>A/B Testing</i> <br><br> <u>In an A/B test, how can you check if assignment to the various buckets was truly random?</u> <br> &nbsp;&nbsp;&nbsp;&nbsp; Look at metrics that should not be changed by the experiments and test that the distributions are similar in the two buckets (example: demographic data, number of visitors, browser version, time of assignment). The best way to test is to run A/A experiments. An A/A test is simply a test where both pages/ad copy/creatives/etc. are exactly the same. You split your traffic randomly and showing both groups the same page. A/A will help you check your split testing tool and help you understand the expected variation in your metrics.",
     "<b>Testing Process</b> <br> <i>A/B Testing</i> <br> <br> Define Success (by quantifiable core metrics). <br> Identify bottleknecks. <br> Construct a hypothesis. (If I change X, we may see an improvement in...) <br> Prioritize. <br> Test.",
     "<b>ANOVA Table</b> <br> <i>Statistics</i> <br><br> <code>Source of Variation &nbsp; Degrees of Freedom &nbsp;&nbsp; Sum of Squares &nbsp; Mean of Squares &nbsp; F Ratio <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Regression &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; k &nbsp; &Sigma;(y_hat-y_bar)&sup2; &nbsp;&nbsp;&nbsp;&nbsp; MSR = SSR/df &nbsp; MSR/MSE <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Residuals &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N-(k+1) &nbsp;&nbsp;&nbsp; &Sigma;(y_i-y_hat)&sup2; &nbsp;&nbsp;&nbsp;&nbsp; MSE = SSE/df <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N-1 &nbsp;&nbsp;&nbsp; &Sigma;(y_i-y_bar)&sup2; </code>",
-    "<b>Count If</b> <br> <i>Excel</i> <br><br> <code>=COUNTIF(Range, Criterion)</code> <br>Counts cells if they meet a certain criterion.  (Use COUNTIFS for multiple criteria.)",
-    "<b>End of Month</b> <br> <i>Excel</i> <br><br> <code>=EOMONTH(Start Date, Months)</code> <br>Returns the last day of the month, and since Excel handles days as integers, you can add or subtract days fairly easily <br><br>Example: <br> &nbsp; <code>=EOMONTH(NOW(), -1)+1</code> <br> &nbsp; This returns the first day of the current month.",
-    "<b>Get Pivot Data</b> <br> <i>Excel</i> <br><br> Just hit '<code>=</code>' and then click on the cell you want; it's much faster than creating it yourself.  Once it's created, it's easy to make it dependent on cells of your choosing.",
-    "<b>If Error</b> <br> <i>Excel</i> <br><br> <code>=IFERROR( Formula or Cell, [If Error return whatever you put here] )</code> <br> Returns the Formula or Cell if there's no error, otherwise returns whatever you put after the comma (usually \"\" to give a blank cell).",
-    "<b>Index</b> <br> <i>Excel</i> <br><br> <code>=INDEX(Array, Row Number, [Column Number] )</code> <br>Returns a value or reference of a cell from a given matrix",
-    "<b>Left</b> <br> <i>Excel</i> <br><br> <code>=LEFT(Cell, Number of Characters)</code> <br>Grabs the left-most number of characters from a cell",
-    "<b>Match</b> <br> <i>Excel</i> <br><br> <code>=MATCH(Value, Column, Match Type)</code> <br>Looks for a value in a column and returns the row number of the value.",
-    "<b>Mid</b> <br> <i>Excel</i> <br><br> <code>=MID(Cell, Starting Number, [Number of Characters])</code> <br>Gives a certain number of characters from a starting point within a cell",
-    "<b>Now</b> <br> <i>Excel</i> <br><br> <code>=NOW()</code> <br> Returns current date and time.",
-    "<b>Right</b> <br> <i>Excel</i> <br><br> <code>=RIGHT(Cell, Number of Characters)</code> <br> Grabs the right-most number of characters from a cell",
-    "<b>Search</b> <br> <i>Excel</i> <br><br> <code>=SEARCH(Search Characters, Cell, [Start Number])</code> <br>Finds certain character(s) within a string.",
-    "<b>Vertical Lookup</b> <br> <i>Excel</i> <br><br> <code>=VLOOKUP(Value to Search For, Table to Look In, Column Number of Value in Table, Match Type)</code> <br>Looks for the row of a value in a table, then gives a value from a column to the right in the same row <br><br> &nbsp;&nbsp; Match Type Parameter: <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE ==> Allows for a close match to be found, instead of an exact match <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FALSE ==> Only an exact match will be returned, else an error will be given",
-    "<b>Left VLookup</b> <br> <i>Excel</i> <br><br> A mixture of Index and Match Functions, where Match becomes the Row Number parameter within Index <br><code>=INDEX(Matrix, MATCH(Value, Column, Match Type), Matrix Column Number)</code>",
-    "<b>Number of Unique Values in a Column</b> <br> <i>Excel</i> <br><br> This shows the number of times A1 appears in the column A1:A100. <br><code>=COUNTIF(A1:$A$100, A1)</code>",
-    "<b>Extract Text</b> <br> <i>Excel</i> <br><br> Get a certain part of a cell (Such as 'OneScreen.com' from 'htttp://www.OneScreen.com/ExcelRocks!!.php/') <br> Cell A1 = htttp://www.OneScreen.com/ExcelRocks!!.php/ <br> Cell B1 = <code>=MID(A1,SEARCH(\".\",A1,1)+1,SEARCH(\"/\",A1,SEARCH(\".\",A1,1))-SEARCH(\".\", A1, 1)-1)</code> <br> <br>This grabs a certain number of characters &nbsp;&nbsp; <code>SEARCH(\"/\", A1, SEARCH(\".\", A1, 1))-SEARCH(\".\", A1, 1)-1 </code> <br>from a starting point &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code> SEARCH(\".\", A1, 1)+1 </code> <br>in a cell &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>A1</code>",
-    "<b>Particular Cell Navigation</b> <br> <i>Excel</i> <br><br> <br> Go To Cell \"A1\" -- Ctrl + Home <br> Go To Bottom-Right-Most Used Cell -- Ctrl + End <br> Go To Cell -- F5  (Allows you to choose which cell to go to.)",
     "<b>Covariance</b> <br> <i>Statistics</i> <br><br> Cov(X,Y) = &Sigma;(X-&mu;_x)(Y-&mu;_y)/(n-1)",
     "<b>Variance</b> <br> <i>Statistics</i> <br><br> Var(X) = Cov(X,X) = &Sigma;(X-&mu;_x)&sup2;/(n-1)",
-    "<b>Worksheet Navigation</b> <br> <i>Excel</i> <br><br> Go down one worksheet -- Ctrl + PageDown <br>Go up one worksheet -- Ctrl + PageUp",
-    "<b>Select</b> <br> <i>Excel</i> <br><br> Select Column -- Ctrl + SpaceBar <br>Select Row -- Shift + SpaceBar",
-    "<b>Misc</b> <br> <i>Excel</i> <br><br> Enter current date -- Ctrl + ';'<br>Enter current time -- Ctrl + Shift + ';'<br>Sum -- Alt + '='   (Excel will guess which row or column to sum, and it's usually accurate.) <br>Cell Formula -- F2 <br>VBA -- Alt + F11",
-    "<b>Pasting</b> <br> <i>Excel</i> <br><br> Paste Values -- Ctrl + V -> Ctrl -> V <br>Paste Formulas -- Ctrl + V -> Ctrl -> F <br>Transpose Paste -- Ctrl + V -> Ctrl -> T",
-    "<b>Sheet Administration</b> <br> <i>Excel</i> <br><br> Rename Sheet -- Alt -> H -> O -> R <br>Delete Sheet -- Alt -> E -> L <br>Move Sheet -- Alt -> H -> O -> M",
-    "<b>Row and Column Sizes</b> <br> <i>Excel</i> <br><br> Resize All Columns -- Alt -> H -> O -> I <br>Column Width -- Alt -> H -> O -> W <br><br>Resize All Rows -- ALT -> H -> O -> A <br>Row Height -- Alt -> H -> O -> H",
     "<b>Binomial PDF</b> <br> <i>Statistics</i> <br><br> (n choose k)*(p**k)*((1-p)**(n-k))",
     "<b>Binomial Distribution Heuristics</b> <br> <i>Statistics</i> <br><br> For large n: <br> &nbsp;&nbsp;&nbsp;&nbsp; &mu; = np <br> &nbsp;&nbsp;&nbsp;&nbsp; &sigma;&sup2; = np(1-p)",
     "<b>Combinations</b> <br> <i>Math</i> <br><br> (n choose k) = n! / (k!(n-k)!)",
@@ -179,8 +198,6 @@ hard = Array(
     "<b>Geometric Mean</b> <br> <i>Math</i> <br><br> The nth root of the product of n numbers.",
     "<b>Survival Bias</b> <br> <i>Statistics</i> <br><br> The logical error of concentrating on the people or things that \"survived\" some process and inadvertently overlooking those that did not because of their lack of visibility. ",
     "<b>Chi-squared Test</b> <br> <i>Statistics</i> <br><br> Used to determine whether there is a significant difference between the expected frequencies and the observed frequencies in one or more categories. <br> e.g., Does the number of individuals or objects that fall in each category differ significantly from the number you would expect?",
-    "<b>Insert, Delete</b> <br> <i>Excel</i> <br><br> Insert -- Ctrl + Shift + '='<br> Delete -- Ctrl + '-'",
-    "<b>Formatting</b> <br> <i>Excel</i> <br><br> Money -- Alt -> H -> A -> N -> Enter <br>Integer -- Alt -> H -> O -> K ->Alt -> H -> 9 -> Alt -> H -> 9",
     "<b>Harmonic Mean</b> <br> <i>Math</i> <br><br> inverse of the sum of inverses for a group of numbers, multiplied by the number of numbers",
     "<b>Assumptions of Linear Regression</b> <br> <i>Statistics</i> <br> <br>Linear Relationship between the independent and dependent variables <br>Multivariate normality <br>No or little multicollinearity <br>No auto-correlation <br>Homoscedasticity",
     "<b>While Loop</b> <br> <i>bash</i> <br><br> <code>while true; do say 'hello, world'; done</code>",
@@ -190,7 +207,26 @@ hard = Array(
     "<b>What to do with Outliers</b> <br> <i>Statistics</i> <br> <br>check for incorrect measurements or assumptions <br>try transformations <br>try more robust methods <br>Throw them out",
     "<b>Inter Quartile Range</b> <br> <i>Statistics</i> <br> <br>= 3rd Quartile - 1st Quartile <br>aka midspread or middle fifty",
     "<b>Detecting Outliers</b> <br> <i>Statistics</i> <br> <br>(Q1 - 1.5*IQR, Q3 + 1.5*IQR) <br>Extreme Outliers: use 3*IQR <br>(aka Tukey rules?)",
-    "<b>For Loop</b> <br> <i>bash</i> <br><br> <code> for i in 1 2 3 <br>do <br>&nbsp;&nbsp;&nbsp;&nbsp; time python ts.py 15 <br>done</code>"
+    "<b>For Loop</b> <br> <i>bash</i> <br><br> <code> for i in 1 2 3 <br>do <br>&nbsp;&nbsp;&nbsp;&nbsp;time python ts.py 15 <br>done</code>",
+    "<b>Print Variable in For Loop</b> <br> <i>bash</i> <br><br> <code> for i in 1 2 3; do echo $i; done </code>",
+    "<b>Model Considerations</b> <br> <i>Machine Learning</i> <br> <br> Bias v. Variance (Overfitting) <br> &nbsp;&nbsp;&nbsp;&nbsp; Training MSE v. Test MSE <br> Accuracy v. Interpretability <br> Supervised v. Unsupervised <br> Regression v. Classification",
+    "<b>'Unique' Quirk</b> <br> <i>R</i> <br> <br> <code> > unique(c(.3, .4 - .1, .5 - .2, .6 - .3, .7 - .4)) <br> [1] 0.3 0.3 0.3 </code>",
+    "<b> alpha </b> <br> <i>Statistics</i> <br> <br>Type One Error Rate (usually 0.05) <br>Significance Level",
+    "<b>beta</b> <br> <i>Statistics</i> <br> <br>Type Two Error Rate <br>acceptable type 2 error (usually 0.20)",
+    "<b>Power</b> <br> <i>Statistics</i> <br> <br> =(1-beta) <br> The likelihood your test would find a significant result if the treatment does in fact have an impact given your actual sample size and hypothesized treatment effect.",
+    "<b>Type I Error</b> <br> <i>Statistics</i> <br> <br> Likelihood that the sampling error caused you to reject the null hypothesis when you should not have <br> occurs when the null hypothesis (H0) is true, but is rejected <br> Incorrectly rejecting the null hypothesis",
+    "<b>Type II Error</b> <br> <i>Statistics</i> <br> <br> Likelihood that the sampling error caused you to not reject the null hypothesis when you should have. <br> The null hypothesis is false, but erroneously fails to be rejected. <br> Incorrectly failing to reject the null hypothesis.",
+    "<b>traceroute</b> <br> <i>unix</i> <br><br> <code>traceroute www.amazon.com</code> <br>trace route of packets",
+    "<b>CAP Theorem</b> <br> <i>Databases</i> <br><br> The CAP theorem, also known as Brewer's theorem, states that it is impossible for a distributed computer system to simultaneously provide all three of the following guarantees: <br> &nbsp;&nbsp;&nbsp;&nbsp; Consistency: all nodes see the same data at the same time <br> &nbsp;&nbsp;&nbsp;&nbsp; Availability: a guarantee that every request receives a response about whether it succeeded or failed <br> &nbsp;&nbsp;&nbsp;&nbsp; Partition Tolerance: the system continues to operate despite arbitrary message loss or failure of part of the system",
+    "<b>If-Else Function</b> <br> <i>R</i> <br><br> <code>ifelse(1==1, TRUE, FALSE)</code>",
+    "<b>Request Methods</b> <br> <i>HTTP</i> <br><br> OPTIONS &nbsp; GET &nbsp; HEAD &nbsp; POST &nbsp; PUT &nbsp; DELETE &nbsp; TRACE &nbsp; CONNECT &nbsp; PATCH",
+    "<b>Spoof User Agent String</b> <br> <i>unix</i> <br><br> <code>curl -v http://www.usatoday.com/ -A \"a new user agent string\"</code>",
+    "<b>ETL</b> <br> <i>Data Storage</i> <br><br> In computing, Extract, Transform and Load (ETL) refers to a process in database usage and especially in data warehousing that: <br> &nbsp;&nbsp;&nbsp;&nbsp;Extracts data from homogeneous or heterogeneous data sources <br> &nbsp;&nbsp;&nbsp;&nbsp;Transforms the data for storing it in proper format or structure for querying and analysis purpose <br> &nbsp;&nbsp;&nbsp;&nbsp;Loads it into the final target (database, more specifically, operational data store, data mart, or data warehouse)",
+    "<b>Screen</b> <br> <i>Unix</i> <br> <code> <br> # create screen <br> screen -t puller <br> <br> # leave screen <br> Ctrl + 'A', 'D'<br> <br> # resume screen <br> screen -r puller</code>",
+    "<b>Sequence Generation</b> <br> <i>R</i> <br><br> <code>seq(from=0, to=1, by=0.1)</code>",
+    "<b>Independent 2-Group t-Test</b> <br> <i>R</i> <br><br> <code> t.test(y1, y2) # where y1 and y2 are numeric <br> t.test(y~x) # where y is numeric and x is a binary factor </code>",
+    "<b>Paired t-Test</b> <br> <i>R</i> <br><br> <code> t.test(y1, y2, paired=TRUE) # where y1 and y2 are numeric </code>",
+    "<b>One Sample t-Test</b> <br> <i>R</i> <br><br> <code> t.test(y, mu=3) # H0: mu=3 </code>"
 );
 
 
@@ -202,7 +238,6 @@ if (Math.random()<.99) {document.write(hard[Math.floor(Math.random()*hard.length
 // zzzzzzzzzzzzzzzzz # unique string to search
 
 testing = Array(
-    "<b>Print Variable in For Loop</b> <br> <i>bash</i> <br><br> <code> for i in 1 2 3; do echo $i; done </code>"
 )
 document.write("<br><br><br>",testing)
 
@@ -212,6 +247,7 @@ document.write("<br><br><br>",testing)
 
 <!-- Notes
 
+    ttest call in R
 
 
     "<b>Variance Sums Derivation</b> <br> <i>Statistics</i> <br><br> Var(X_1 + X_2) <br> = E[(X_1 + X_2 - E[X_1 + X_2])&sup2;] <br> = E[(X_1 + X_2 - E[X_1] - E[X_2])&sup2;] <br> = E[(X_1 - E[X_1] + X_2 - E[X_2])&sup2;] <br> = E[((X_1 - E[X_1]) + (X_2 - E[X_2]))&sup2;] <br> = E[(X_1 - E[X_1])&sup2; + (X_2 - E[X_2])&sup2; + 2(X_1-E[X_1])(X_2-E[X_2])] <br> = E[(X_1 - E[X_1])&sup2;] + E[(X_2 - E[X_2])&sup2;] + 2E[(X_1-E[X_1])(X_2-E[X_2])] <br> = Var[X_1] + Var[X_2] + 2Cov[X_1,X_2]"
@@ -230,16 +266,6 @@ document.write("<br><br><br>",testing)
     <br>Maximize Window -- Start + UpArrow
     <br>Put current window on left half of screen -- Start + LeftArrow
     <br>Put current window on right half of screen -- Start + RightArrow
-
-
-
-    <b>Model Considerations</b> <br> <i>Machine Learning</i> <br>
-        Bias v. Variance (Overfitting)
-            Training MSE v. Test MSE
-        Accuracy v. Interpretability
-        Supervised v. Unsupervised
-        Regression v. Classification
-
 
 
 "Naive Bayes in sklearn
@@ -367,13 +393,10 @@ Examples
         remove rows
         replace with most common value / average
     What do you do when you have two classes and one is underrepresented?
+        Bootstrap
     What would you do with a multi-class/label problem?
         one v. all
         one v. one
-
-
-
-
 
 
 Given two strings, write a method to decide if one is a permutation of the other
@@ -401,20 +424,6 @@ You have a stream of data coming in of size n, but you don't know what n is ahea
     Start with k=2.  Solve.
     ...
     Generalize.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -458,11 +467,6 @@ For errors, just log them and move on
 Also count the number of errors
      if count exceeds some threshold, do something
         maybe exit job or generate error message
-
-
-
-
-
 
 
 
@@ -612,24 +616,11 @@ Matches only at the end of the string.
 
 
 
-list comprehension if else
-python
-
-# add 1 to dataframe if topic[1] is found, else add 0
-df[topic[0]] = [ 1 if re.search(topic[1],i) is not None else 0 for i in vidDF.topics]
-
-
 
 
 drop column in pandas dataframe by index
 python
 df.drop(df.columns[[1, 69]], axis=1, inplace=True)
-
-
-
-
-
-
 
 
 
@@ -645,11 +636,6 @@ df.shape
 
 
 
-
-
-
-
-
 Set Operations
 Operation   Equivalent  Result
 len(s)      cardinality of set s
@@ -662,9 +648,6 @@ s.intersection(t)   s & t   new set with elements common to s and t
 s.difference(t) s - t   new set with elements in s but not in t
 s.symmetric_difference(t)   s ^ t   new set with elements in either s or t but not both
 s.copy()        new set with a shallow copy of s
-
-
-
 
 
 
@@ -688,10 +671,6 @@ plt.show()
 
 
 
-
-
-
-
 403 Error
 HTTP
 A web server may return a 403 Forbidden HTTP status code in response to a request from a client for a web page or resource to indicate that the server can be reached and understood the request, but refuses to take any further action. Status code 403 responses are the result of the web server being configured to deny access, for some reason, to the requested resource by the client.
@@ -699,28 +678,16 @@ A web server may return a 403 Forbidden HTTP status code in response to a reques
 
 
 
-Request methods
-HTTP
-OPTIONS GET HEAD POST PUT DELETE TRACE CONNECT PATCH
-
-
-ETL
-Data Storage
-In computing, Extract, Transform and Load (ETL) refers to a process in database usage and especially in data warehousing that:
-Extracts data from homogeneous or heterogeneous data sources
-Transforms the data for storing it in proper format or structure for querying and analysis purpose
-Loads it into the final target (database, more specifically, operational data store, data mart, or data warehouse)
 
 
 
 
 
-CAP theorem
-Databases
-The CAP theorem, also known as Brewer's theorem, states that it is impossible for a distributed computer system to simultaneously provide all three of the following guarantees:
-Consistency (all nodes see the same data at the same time)
-Availability (a guarantee that every request receives a response about whether it succeeded or failed)
-Partition tolerance (the system continues to operate despite arbitrary message loss or failure of part of the system)
+
+
+
+
+
 
 
 
@@ -898,17 +865,7 @@ time python pull.py > >(tee out.txt) 2> >(tee err.txt >&2)
 
 
 
-Screen
-Unix
 
-# create screen
-screen -t puller
-
-# leave screen
-Ctrl + 'A', 'D'
-
-# resume screen
-screen -r
 
 
 
@@ -1199,9 +1156,6 @@ github changes
 
 
 
-spoof user agent string
-curl
-<code>curl -v http://www.usatoday.com/ -A "a new user agent string"</code>
 
 
 
@@ -1209,10 +1163,6 @@ curl
 start server
 google apps
 dev_appserver.py rootFolder
-
-
-
-
 
 
 Hat matrix
@@ -1228,9 +1178,6 @@ FROM videos
 WHERE topics ~ '.*(11|22|44).*' 
 LIMIT 4
 ;
-
-
-
 
 
 
@@ -1483,9 +1430,6 @@ Linux
 
 
 
-If Else
-R
-ifelse(1==1, TRUE, FALSE)
 
 
 
@@ -1632,10 +1576,7 @@ how long should campaign run?
 
 
 
-traceroute
-unix
-<code>traceroute www.amazon.com</code>
-<br>trace route of information
+
 
 
 
@@ -1940,45 +1881,6 @@ tr -cd "[:print:]" < file1
 
 
 
-<b>\alpha</b> <br> <i>Statistics</i> <br>
-    <br>Type One Error Rate (usually 0.05)
-    <br>Significance Level
-
-<b>\beta</b> <br> <i>Statistics</i>
-    <br>Type Two Error Rate
-    <br>\beta - acceptable type 2 error (usually 0.20)
-
-<b>power</b> <br> <i>Statistics</i>
-    =(1-\beta)
-    The likelihood your test would find a significant result if the treatment does in fact have an impact given your actual sample size and hypothesized treatment effect
-
-<b>Type I Error</b> <br> <i>Statistics</i>
-    Likelihood that the sampling error caused you to reject the null hypothesis when you should not have
-    occurs when the null hypothesis (H0) is true, but is rejected
-    Incorrectly rejecting the null hypothesis
-
-<b>Type II Error</b> <br> <i>Statistics</i>
-    Likelihood that the sampling error caused you to not reject the null hypothesis when you should have
-    null hypothesis is false, but erroneously fails to be rejected
-    Incorrectly failing to reject the null hypothesis
-
-
-
-    ttest call in R
-
-        # independent 2-group t-test
-        t.test(y~x) # where y is numeric and x is a binary factor
-
-        # independent 2-group t-test
-        t.test(y1,y2) # where y1 and y2 are numeric
-
-        # paired t-test
-        t.test(y1,y2,paired=TRUE) # where y1 & y2 are numeric
-
-        # one sample t-test
-        t.test(y,mu=3) # Ho: mu=3
-
-
 
     t test (very specific)
         Assumptions
@@ -2001,7 +1903,7 @@ df.dtypes
 SQL Pros
     Simplicity of relational model.
     Solid theoretical basis and normalization rules.
-    Simple and very powerful SQL language which was resembling human language.
+    Simple and powerful language (SQL) which resembles human language.
     Easy data manipulation.
     ACID properties.
     High level of standardization.
@@ -2029,12 +1931,7 @@ Cons:
 
 
 
-
-
-
 nielsen segmentation
-
-
 
 
 t distribution
@@ -2071,18 +1968,9 @@ b=list(a)
 
 
 
-first line
+first line in script
 bash
 #!/bin/bash
-
-
-for loop
-bash
-for i in 1 2 3
-do
-    time python ts.py 15
-done
-
 
 
 
@@ -2105,5 +1993,55 @@ Interview Questions
     tech
     business
 
+
+
+
+
+
+
+
+
+Not the full picture
+R
+R is good enough at hiding numerical error that it is easy to forget that it is there
+
+
+
+
+
+
+
+
+methodology
+Data Science
+Form Statistical Hypothesis
+Collect Data
+Extract Features
+Train Model
+Evaluate Result
+If good results
+    Usable Model
+Else
+    understand
+    adjust
+    Start Over
+
+
+
+
+
+
+
+degrees F = degrees C
+70 
+60
+50
+
+
+r spark
+
+
+
+trig identities
 
 
